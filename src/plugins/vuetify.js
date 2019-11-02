@@ -8,12 +8,12 @@ export default new Vuetify({
   icons: {
     iconfont: 'mdi',
     values: {
-      dashboard: 'mdi-dashboard',
-      morning: 'mdi-wb-sunny',
-      evening: 'mdi-nights_stay',
+      dashboard: 'mdi-home',
+      morning: 'mdi-white-balance-sunny',
+      evening: 'mdi-weather-night',
       history: 'mdi-history',
-      stats: 'mdi-show_chart',
-      info: 'mdi-info',
+      stats: 'mdi-chart-line',
+      info: 'mdi-information',
     },
   },
 });
