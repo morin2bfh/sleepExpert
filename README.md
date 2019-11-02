@@ -28,7 +28,7 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-## Material Design
+##Material Design
 
 Use the icon from https://materialdesignicons.com/. Icon have to be added in the src/plugins/vuetify.js file. Before adding nex icon check for existing.
 ```
