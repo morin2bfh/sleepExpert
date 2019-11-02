@@ -3,9 +3,9 @@
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-bottom-navigation v-model="activeNav" grow horizontal>
-      <v-btn :value=route.name v-for="route in routes" :key="route.name" router :to="route.route" >
-        <span class="title">{{route.name}}</span>
+    <v-bottom-navigation v-model="activeNav" grow>
+      <v-btn class="pt-5" :value=route.name v-for="route in routes" :key="route.name" router :to="route.route" >
+        <span class="overline">{{route.name}}</span>
         <v-icon>{{route.icon}}</v-icon>
       </v-btn>
     </v-bottom-navigation>
