@@ -1,37 +1,46 @@
 <template>
-    <v-app>
-    <v-content>
-        <h1>Dashboard</h1>
-      <router-view></router-view>
-      <Card> </Card>
-    </v-content>
-    </v-app>
+  <v-container>
+    <card
+      v-for="card in cards"
+      :key="card.title"
+      @click="goTo(card.route)"
+      :title="card.title"
+      :subtitle="card.subtitle"
+      :imgSrc="(card.imgSrc)"
+      :route="card.route"
+    ></card>
+  </v-container>
 </template>
 <script>
+import Card from "@/components/Card.vue";
 export default {
-     data() {
+  components: {
+    Card
+  },
+  data() {
     return {
-      routes: [
+      cards: [
         {
-          name: "Dashboard",
-          icon: "$vuetify.icons.dashboard",
-          route: "/dashboard"
-        },
-        {
-          name: "Morgeneintrag",
-          icon: "$vuetify.icons.morning",
+          title: "Morgeneintrag",
+          subtitle:
+            "Erfasse einen neuen Eintrag, um deine Schlafdauer und -Qualität zu dokumentieren.",
+          imgSrc: require("../assets/sun.png"),
           route: "/entryMorning"
         },
         {
-          name: "Abendeintrag",
-          icon: "$vuetify.icons.evening",
+          title: "Abendeintrag",
+          subtitle:
+            "Erfasse einen neuen Eintrag, um dein Befinden tagüber zu dokumentieren.",
+          imgSrc: require("../assets/moon.png"),
           route: "/entryEvening"
-        },
-        { name: "Verlauf", icon: "$vuetify.icons.history", route: "/history" },
-        { name: "Statistik", icon: "$vuetify.icons.stats", route: "/stats" },
-        { name: "Info", icon: "$vuetify.icons.info", route: "/info" }
-      ],
+        }
+      ]
+    };
+  },
+  methods: {
+    goTo(route) {
+      this.$router.push(route);
     }
-    }
+  }
 };
 </script>

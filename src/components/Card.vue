@@ -1,37 +1,19 @@
 <template>
-  <v-card
-    class="mx-auto"
-    max-width="344"
-  >
-    <v-card-text>
-      <div>Word of the Day</div>
-      <p class="display-1 text--primary">
-        be•nev•o•lent
-      </p>
-      <p>adjective</p>
-      <div class="text--primary">
-        well meaning and kindly.<br>
-        "a benevolent smile"
-      </div>
-    </v-card-text>
-    <v-card-actions>
-      <v-btn
-        text
-        color="deep-purple accent-4"
-      >
-        Learn More
-      </v-btn>
-    </v-card-actions>
+  <v-card class="mx-auto mt-2" max-width="400" dark>
+    <v-img class="white--text align-end" height="200px" :src="imgSrc">
+      <v-card-title>{{title}}</v-card-title>
+    </v-img>
+    <v-card-subtitle class="pb-0">{{subtitle}}</v-card-subtitle>
   </v-card>
-  </template>
+</template>
 <script>
-
 export default {
-  name: 'Card',
- /* props: {
-    name: String,
-    image: Symbol,
-    route: String,
-  }*/
-}
+  name: "card",
+  props: {
+    title: String,
+    subtitle: String,
+    text: String,
+    imgSrc: String
+  }
+};
 </script>
