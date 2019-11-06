@@ -41,7 +41,8 @@ export default {
         },
         { name: "Verlauf", icon: "$vuetify.icons.history", route: "/history" },
         { name: "Statistik", icon: "$vuetify.icons.stats", route: "/stats" },
-        { name: "Info", icon: "$vuetify.icons.info", route: "/info" }
+        { name: "Info", icon: "$vuetify.icons.info", route: "/info" },
+        { name: "Besipiele", icon: "", route: "/ex" }
       ],
       activeNav: ""
     };
