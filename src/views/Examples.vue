@@ -1,22 +1,25 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
-    <v-text-field v-model="name" :rules="nameRules" label="Name" required></v-text-field>
-    <v-slider v-model="age" min="1" max="100" label="Age" required></v-slider>
-    <v-menu transition="scale-transition" offset-y max-width="290px" min-width="290px">
-      <template v-slot:activator="{on}">
-        <v-text-field
-          v-model="dateFormatted"
-          slot="activator"
-          label="Datum auswählen"
-          prepend-icon="$vuetify.icons.date"
-          readonly
-          v-on="on"
-        ></v-text-field>
-      </template>
-      <v-date-picker v-model="date" no-title></v-date-picker>
-    </v-menu>
-    <v-btn @click="submit">Add to Database</v-btn>
-  </v-form>
+  <v-container class="d-flex flex-column mt-4">
+    <v-form ref="form" v-model="valid" lazy-validation>
+      <v-text-field v-model="name" :rules="nameRules" label="Name" required dark></v-text-field>
+      <v-slider v-model="age" min="1" max="100" label="Age" required dark></v-slider>
+      <v-menu transition="scale-transition" offset-y max-width="290px" min-width="290px">
+        <template v-slot:activator="{on}">
+          <v-text-field
+            v-model="dateFormatted"
+            slot="activator"
+            label="Datum auswählen"
+            prepend-icon="$vuetify.icons.date"
+            readonly
+            v-on="on"
+            dark
+          ></v-text-field>
+        </template>
+        <v-date-picker v-model="date" no-title dark></v-date-picker>
+      </v-menu>
+      <v-btn @click="submit" dark>Add to Database</v-btn>
+    </v-form>
+  </v-container>
 </template>
 <script>
 import db from "@/fb";
@@ -64,3 +67,9 @@ export default {
   }
 };
 </script>
+<style scoped>
+.container {
+  max-width: 50vw;
+  background-color: #424242;
+}
+</style>
