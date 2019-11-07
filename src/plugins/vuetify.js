@@ -14,6 +14,7 @@ export default new Vuetify({
       history: 'mdi-history',
       stats: 'mdi-chart-line',
       info: 'mdi-information',
+      date: 'mdi-calendar',
     },
   },
 });
