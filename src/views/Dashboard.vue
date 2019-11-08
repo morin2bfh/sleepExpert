@@ -3,7 +3,6 @@
     <card
       v-for="card in cards"
       :key="card.title"
-      @click="goTo(card.route)"
       :title="card.title"
       :subtitle="card.subtitle"
       :imgSrc="(card.imgSrc)"
@@ -23,7 +22,7 @@ export default {
         {
           title: "Morgeneintrag",
           subtitle:
-            "Erfasse einen neuen Eintrag, um deine Schlafdauer und -Qualität zu dokumentieren.",
+            "Erfasse einen neuen Eintrag, um deine Schlafdauer zu dokumentieren.",
           imgSrc: require("../assets/sun.png"),
           route: "/entryMorning"
         },
@@ -33,14 +32,16 @@ export default {
             "Erfasse einen neuen Eintrag, um dein Befinden tagüber zu dokumentieren.",
           imgSrc: require("../assets/moon.png"),
           route: "/entryEvening"
+        },
+        {
+          title: "Schlaffenster",
+          subtitle:
+            "Sieh dir an, welches Schlaffenster für dich vorgesehen ist.",
+          imgSrc: require("../assets/Schlaffenster_t.png"),
+          route: "/"
         }
       ]
     };
-  },
-  methods: {
-    goTo(route) {
-      this.$router.push(route);
-    }
   }
 };
 </script>
