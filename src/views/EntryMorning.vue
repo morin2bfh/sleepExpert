@@ -61,12 +61,6 @@ export default {
         { option: "buttons" }
       ]
     };
-  },
-
-  methods: {
-    save(time) {
-      this.$refs.dialog.save(time);
-    }
   }
 };
 </script>

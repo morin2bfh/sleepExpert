@@ -119,6 +119,11 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    save(time) {
+      this.$refs.dialog.save(time);
+    }
   }
 };
 </script>
