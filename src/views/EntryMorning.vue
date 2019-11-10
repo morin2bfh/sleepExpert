@@ -9,7 +9,8 @@
       :title="card.title"
       :option="card.option"
       :label="card.label"
-    ></card-entry>
+    >
+  </card-entry>
   </v-container>
 </template>
 
@@ -24,41 +25,53 @@ export default {
     return {
       cards: [
         {
-          option: "slider",
+          option: "sliderOption",
           title: "Schlafqualität:",
           label: "Gut"
         },
         {
-          option: "slider",
+          option: "sliderOption",
           title: "Gefühl des Erholtseins:",
           label: "Gut"
         },
         {
-          option: "slider",
+          option: "sliderOption",
           title: "Müdigkeit beim Zubettgehen:",
           label: "Keine"
         },
-        { option: "clock", title: "Zu Bett gegangen um:", label: "Uhrzeit" },
-        { option: "clock", title: "Licht gelöscht um:", label: "Uhrzeit" },
-        { option: "hhmm", title: "Geschätzte Einschlafdauer:", label: "hh:mm" },
-        { option: "numbers", title: "Wie oft aufgewacht:", label: "Anzahl" },
+        { option: "clockOption", 
+        title: "Zu Bett gegangen um:", 
+        label: "Uhrzeit" },
+
+        { option: "clockOption", 
+        title: "Licht gelöscht um:", 
+        label: "Uhrzeit" },
+
+        { option: "hhmmOption", 
+        title: "Geschätzte Einschlafdauer:", 
+        label: "hh:mm" },
+
+        { option: "numbersOption", 
+        title: "Wie oft aufgewacht:", 
+        label: "Anzahl" },
         {
-          option: "hhmm",
+          option: "hhmmOption",
           title: "Wie lange wach in der Nacht:",
           label: "hh:mm"
         },
         {
-          option: "clock",
+          option: "clockOption",
           title: "Endgültig aufgewacht um:",
           label: "Uhrzeit"
         },
         {
-          option: "clock",
+          option: "clockOption",
           title: "Morgens aufgestanden um:",
           label: "Uhrzeit"
         },
-        { option: "checkbox", title: "Schlafmittel genommen:" },
-        { option: "buttons" }
+        { option: "checkboxOption", 
+        title: "Schlafmittel genommen:" },
+        { option: "buttonsOption" }
       ]
     };
   }

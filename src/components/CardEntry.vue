@@ -2,7 +2,7 @@
   <v-card class="mx-auto mt-2" max-width="400" dark>
     <v-card-title>{{title}}</v-card-title>
     <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
-    <div v-if="option == 'slider'">
+    <div v-if="option == 'sliderOption'">
       <v-slider
         v-model="numbers"
         :tick-labels="numbersLabel"
@@ -17,38 +17,16 @@
     </div>
 
     <!-- Insert a slider if the option of the card(card.option) says 'checkbox' -->
-    <div v-else-if="option == 'checkbox'">
+    <div v-else-if="option == 'checkboxOption'">
       <v-container fluid>
         <v-checkbox v-model="checkbox1" :label="'Vor dem zu Bett gehen'"></v-checkbox>
         <v-checkbox v-model="checkbox2" :label="'In der Nacht'"></v-checkbox>
       </v-container>
     </div>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'clock' -->
-    <div v-else-if="option == 'clock'">
-      <v-col cols="12" sm="4">
-        <v-dialog ref="dialog" v-model="time" :return-value.sync="time" persistent width="290px">
-          <template v-slot:activator="{ on }">
-            <v-text-field v-model="time" :label="label" readonly v-on="on"></v-text-field>
-          </template>
-          <v-time-picker
-            v-if="clock"
-            v-model="clock"
-            full-width
-            format="24hr"
-            color="yellow darken-3"
-          >
-            <v-spacer></v-spacer>
-            <v-btn text color="yellow darken-3" @click="clock = false">Cancel</v-btn>
-            <v-btn text color="yellow darken-3" @click="$refs.dialog.save(time)">OK_V1</v-btn>
-            <v-btn text color="yellow darken-3" @click="save(time)">OK_V2</v-btn>
-          </v-time-picker>
-        </v-dialog>
-      </v-col>
-    </div>
-
+    
     <!-- Insert a slider if the option of the card(card.option) says 'numbers' -->
-    <div v-else-if="option == 'numbers'">
+    <div v-else-if="option == 'numbersOption'">
       <v-col cols="12" sm="4">
         <v-text-field
           v-model="numbers"
@@ -63,7 +41,8 @@
 
     <!-- Insert a slider if the option of the card(card.option) says 'hhmm'.
     These are the inputs for a format like hh:mm-->
-    <div v-else-if="option == 'hhmm'">
+    <div v-else-if="option == 'hhmmOption'">
+      <v-subheader> Format: hh:mm</v-subheader>
       <v-col cols="12" sm="4">
         <v-text-field
           v-model="hhmmValue"
@@ -76,12 +55,48 @@
     </div>
 
     <!-- Insert a slider if the option of the card(card.option) says 'buttons' -->
-    <div v-else-if="option == 'buttons'">
+    <div v-else-if="option == 'buttonsOption'">
       <v-container horizontal>
         <v-btn color="#6D4C41">Abbrechen</v-btn>
-        <v-btn color="#FBC02D">Speichern</v-btn>
+        <v-btn color="#FBC02D" >Speichern</v-btn>
       </v-container>
     </div>
+
+    <!-- Insert a slider if the option of the card(card.option) says 'clock' -->
+    <div v-else-if="option == 'clockOption'">
+      <v-col cols="12" sm="4">
+        <v-dialog 
+        ref="dialog" 
+        v-model="clockTime" 
+        :return-value.sync="time" 
+        persistent 
+        width="290px">
+          
+          <template v-slot:activator="{ on }">
+            <v-text-field 
+            v-model="time" 
+            :label="label" 
+            readonly 
+            v-on="on">
+          </v-text-field>
+          </template>
+          <v-time-picker
+            v-if="clock"
+            v-model="clockTime"
+            full-width
+            format="24hr"
+            color="yellow darken-3"
+          >
+            <v-spacer></v-spacer>
+            
+            <v-btn text color="yellow darken-3" @click="clockTime = false">Cancel</v-btn>
+            <v-btn text color="yellow darken-3" @click="$refs.dialog.save(time)">OK_V1</v-btn>
+            <v-btn text color="yellow darken-3" @click="save(time)">OK_V2</v-btn>
+          </v-time-picker>
+        </v-dialog>
+      </v-col>
+    </div>
+
   </v-card>
 </template>
 
@@ -101,8 +116,11 @@ export default {
       checkbox1: null,
       numbers: null,
       numberValue: null,
+
       time: null,
+      clockTime: false,
       clock: false,
+      
       ruleHHMM: [
         value => (value || "").length <= 5 || "Max 5 characters",
         value => {
