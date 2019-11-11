@@ -2,23 +2,23 @@
   <v-container>
     <h1 align="center">Abendeintrag erfassen</h1>
 
-    <card-entry
+    <card-entry-evening
       dark
       v-for="card in cards"
       :key="card.title"
       :title="card.title"
       :option="card.option"
       :label="card.label"
-    >
-  </card-entry>
+    > 
+  </card-entry-evening>
   </v-container>
 </template>
 
 <script>
-import CardEntry from "@/components/CardEntry.vue";
+import CardEntryEvening from "@/components/CardEntryEvening.vue";
 export default {
   components: {
-    CardEntry
+    CardEntryEvening
   },
   data() {
     return {
@@ -26,21 +26,26 @@ export default {
         {
           option: "sliderOption",
           title: "Tagesmüdigkeit:",
-          label: "Keine"
+          label: "Keine",
+          id: "tagesmüdigkeit",
+          
         },
         {
           option: "sliderOption",
           title: "Konzentration:",
-          label: "Konzentriert"
+          label: "Konzentriert",
+          id: "tagesmüdigkeit",
         },{
           option: "sliderOption",
           title: "Stimmung:",
-          label: "Gut"
+          label: "Gut",
+          id: "tagesmüdigkeit",
         },
         {
           option: "sliderOption",
           title: "Körperliche Entspanntheit:",
-          label: "Entspannt"
+          label: "Entspannt",
+          id: "tagesmüdigkeit",
         },
         { 
         option: "checkboxOptionSchlaf", 
