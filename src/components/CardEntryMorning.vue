@@ -10,6 +10,7 @@
         :max="numbersLabel.length"
         :color="'#F9A825'"
         :label="label"
+        :id="id"
         step="1"
         ticks="always"
         tick-size="4"
@@ -19,8 +20,8 @@
     <!-- Insert a slider if the option of the card(card.option) says 'checkbox' -->
     <div v-else-if="option == 'checkboxOption'">
       <v-container fluid>
-        <v-checkbox v-model="checkbox1" :label="'Vor dem zu Bett gehen'"></v-checkbox>
-        <v-checkbox v-model="checkbox2" :label="'In der Nacht'"></v-checkbox>
+        <v-checkbox v-model="checkbox1" :id="id" :label="'Vor dem zu Bett gehen'"></v-checkbox>
+        <v-checkbox v-model="checkbox2" :id="id" :label="'In der Nacht'"></v-checkbox>
       </v-container>
     </div>
 
@@ -32,7 +33,7 @@
           v-model="numbers"
           :label="label"
           :rules="ruleNumbers"
-          hide-details
+          :id="id"
           single-line
           type="number"
         />
@@ -48,18 +49,23 @@
           v-model="hhmmValue"
           :label="label"
           :rules="ruleHHMM"
+          :id="id"
           single-line
           width="290px"
         />
       </v-col>
     </div>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'buttons' -->
+   <!-- Insert a slider if the option of the card(card.option) says 'buttons' -->
     <div v-else-if="option == 'buttonsOption'">
-      <v-container horizontal>
-        <v-btn color="#6D4C41">Abbrechen</v-btn>
-        <v-btn color="#FBC02D" >Speichern</v-btn>
-      </v-container>
+      <v-container horizontal align="alignment" :justify="center" >
+       <v-layout row child-flex justify-center align-center wrap >
+        <space></space><v-btn color="#6D4C41" @click=cancel() 
+        >Abbrechen</v-btn> <space></space>
+        <v-btn color="#FBC02D" @click=submit() 
+          >Speichern</v-btn><space></space>
+       </v-layout>
+    </v-container>
     </div>
 
     <!-- Insert a slider if the option of the card(card.option) says 'clock' -->
@@ -76,12 +82,14 @@
             <v-text-field 
             v-model="time" 
             :label="label" 
+             prepend-inner-icon="$vuetify.icons.clock"
             readonly 
             v-on="on">
           </v-text-field>
           </template>
           <v-time-picker
             v-if="clock"
+            :id="id"
             v-model="clockTime"
             full-width
             format="24hr"
@@ -102,7 +110,7 @@
 
 <script>
 export default {
-  name: "cardEntry",
+  name: "cardEntryMorning",
   props: {
     title: String,
     option: String,
@@ -125,15 +133,15 @@ export default {
         value => (value || "").length <= 5 || "Max 5 characters",
         value => {
           const pattern = /[0-1?][0-9?]:[0-5?][0-9?]/;
-          return pattern.test(value) || "hh:mm Bsp: 01:12";
+          return pattern.test(value) || "Ungültiges Format, Bsp: 01:12";
         }
       ],
 
       ruleNumbers: [
-        value => (value || "").length <= 2 || "Max 2 characters",
+        value => (value || "").length <= 2 || "Max 2 Zahlen",
         value => {
           const pattern = /[0-2?]?[0-9?]?/;
-          return pattern.test(value) || "hh:mm Bsp: 01:12";
+          return pattern.test(value);
         }
       ]
     };
@@ -141,7 +149,15 @@ export default {
   methods: {
     save(time) {
       this.$refs.dialog.save(time);
-    }
-  }
+    },
+    submit() {     
+      // Hier Daten in DB speichern
+      this.$router.push('/dashboard');
+  },
+  cancel() {     
+      this.$router.push('/dashboard');
+  },
+}, 
+
 };
 </script>
