@@ -41,7 +41,8 @@ export default {
         },
         { name: "Verlauf", icon: "$vuetify.icons.history", route: "/history" },
         { name: "Statistik", icon: "$vuetify.icons.stats", route: "/stats" },
-        { name: "Info", icon: "$vuetify.icons.info", route: "/info" }
+        { name: "Info", icon: "$vuetify.icons.info", route: "/info" },
+        { name: "Besipiele", icon: "$vuetify.icon.book", route: "/ex" }
       ],
       activeNav: ""
     };
@@ -53,3 +54,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.v-content {
+  background-color: #424242;
+}
+</style>
