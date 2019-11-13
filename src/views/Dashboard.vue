@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="d-flex flex-column justify-space-around" id="container">
     <card
       v-for="card in cards"
       :key="card.title"
@@ -42,3 +42,8 @@ export default {
   })
 };
 </script>
+<style scoped>
+#container {
+  height: calc(100% - 50px);
+}
+</style>
