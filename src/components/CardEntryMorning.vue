@@ -68,7 +68,7 @@
     </v-container>
     </div>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'clock' -->
+<!-- Insert a slider if the option of the card(card.option) says 'clock' -->
     <div v-else-if="option == 'clockOption'">
       <v-col cols="12" sm="4">
         <v-dialog 
@@ -88,18 +88,17 @@
           </v-text-field>
           </template>
           <v-time-picker
-            v-if="clock"
+            v-if="clockTime"
             :id="id"
-            v-model="clockTime"
+            v-model="time"
             full-width
             format="24hr"
             color="yellow darken-3"
           >
             <v-spacer></v-spacer>
             
-            <v-btn text color="yellow darken-3" @click="clockTime = false">Cancel</v-btn>
-            <v-btn text color="yellow darken-3" @click="$refs.dialog.save(time)">OK_V1</v-btn>
-            <v-btn text color="yellow darken-3" @click="save(time)">OK_V2</v-btn>
+            <v-btn text color="yellow darken-3" @click="clockTime = false">Abbrechen</v-btn>
+            <v-btn text color="yellow darken-3" @click="save(time)">Übernehmen</v-btn>
           </v-time-picker>
         </v-dialog>
       </v-col>
