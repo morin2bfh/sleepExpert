@@ -15,6 +15,8 @@ export default new Vuetify({
       stats: 'mdi-chart-line',
       info: 'mdi-information',
       clock: 'mdi-clock-outline',
+      date: 'mdi-calendar',
+      book: 'mdi-book',
     },
   },
 });
