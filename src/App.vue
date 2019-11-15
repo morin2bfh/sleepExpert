@@ -3,7 +3,7 @@
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-bottom-navigation v-model="activeNav" grow horizontal dark>
+    <v-bottom-navigation v-model="activeNav" fixed height="50px" class="pa-2" grow dark>
       <v-btn
         :value="route.name"
         v-for="route in routes"
@@ -25,11 +25,11 @@ export default {
     return {
       routes: [
         {
-          name: "Dashboard",
+          name: "Start",
           icon: "$vuetify.icons.dashboard",
           route: "/dashboard"
         },
-        {
+        /* {
           name: "Morgeneintrag",
           icon: "$vuetify.icons.morning",
           route: "/entryMorning"
@@ -38,7 +38,7 @@ export default {
           name: "Abendeintrag",
           icon: "$vuetify.icons.evening",
           route: "/entryEvening"
-        },
+        },*/
         { name: "Verlauf", icon: "$vuetify.icons.history", route: "/history" },
         { name: "Statistik", icon: "$vuetify.icons.stats", route: "/stats" },
         { name: "Info", icon: "$vuetify.icons.info", route: "/info" },
