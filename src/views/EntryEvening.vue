@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    <h1 align="center">Abendeintrag erfassen</h1>
+ <v-container id="containerEveningEntry">
+   <h1  align="center" >Abendeintrag erfassen</h1>
 
     <card-entry-evening
       dark
@@ -60,3 +60,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+  #containerEveningEntry{
+    padding-bottom: 50px;
+  }
+</style>
