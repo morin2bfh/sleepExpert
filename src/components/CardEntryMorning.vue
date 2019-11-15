@@ -1,6 +1,7 @@
 <template>
   <v-card class="mx-auto mt-2" max-width="400" dark>
     <v-card-title>{{title}}</v-card-title>
+    
     <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
     <div v-if="option == 'sliderOption'">
       <v-slider
@@ -58,12 +59,13 @@
 
    <!-- Insert a slider if the option of the card(card.option) says 'buttons' -->
     <div v-else-if="option == 'buttonsOption'">
-      <v-container horizontal align="alignment" :justify="center" >
+      <v-container horizontal align="alignment"  >
        <v-layout row child-flex justify-center align-center wrap >
-        <space></space><v-btn color="#6D4C41" @click=cancel() 
-        >Abbrechen</v-btn> <space></space>
+        <v-spacer></v-spacer>
+        <v-btn color="#6D4C41" @click=cancel() 
+        >Abbrechen</v-btn> <v-spacer></v-spacer>
         <v-btn color="#FBC02D" @click=submit() 
-          >Speichern</v-btn><space></space>
+          >Speichern</v-btn><v-spacer></v-spacer>
        </v-layout>
     </v-container>
     </div>
@@ -123,7 +125,7 @@ export default {
       checkbox1: null,
       numbers: null,
       numberValue: null,
-
+      id: null,
       time: null,
       clockTime: false,
       clock: false,
