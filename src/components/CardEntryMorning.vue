@@ -44,7 +44,6 @@
     <!-- Insert a slider if the option of the card(card.option) says 'hhmm'.
     These are the inputs for a format like hh:mm-->
     <div v-else-if="option == 'hhmmOption'">
-      <v-subheader> Format: hh:mm</v-subheader>
       <v-col cols="12" sm="4">
         <v-text-field
           v-model="hhmmValue"

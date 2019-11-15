@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container id="containerMorningEntry">
     <h1 prepend-inner-icon="$vuetify.icons.clock"
          align="center" >Morgeneintrag erfassen</h1>
 
@@ -89,3 +89,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+  #containerMorningEntry{
+    padding-bottom: 50px;
+  }
+</style>
