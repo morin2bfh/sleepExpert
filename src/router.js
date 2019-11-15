@@ -6,6 +6,7 @@ import EntryEvening from './views/EntryEvening.vue'
 import History from './views/History.vue'
 import Stats from './views/Stats.vue'
 import Info from './views/Info.vue'
+import Examples from './views/Examples.vue'
 
 Vue.use(Router)
 
@@ -44,6 +45,11 @@ export default new Router({
             path: '/info',
             name: 'info',
             component: Info
+        },
+        {
+            path: '/ex',
+            name: 'infoex',
+            component: Examples
         },
 
     ]
