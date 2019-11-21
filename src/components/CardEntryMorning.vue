@@ -115,7 +115,7 @@ export default {
       time: null,
       clockTime: false,
       clock: false,
-      
+
       ruleHHMM: [
         v => (v || "").length <= 5 || "Maximal 5 Zeichen",
         v => {
