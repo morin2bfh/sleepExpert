@@ -1,5 +1,10 @@
 <template>
   <v-app>
+    <v-toolbar dark fixed height="50px" id="toolbar">
+      <v-toolbar-title  class="headline text-uppercase" >
+        {{activeTitle}} 
+      </v-toolbar-title>
+    </v-toolbar>
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -8,7 +13,7 @@
         :value="route.name"
         v-for="route in routes"
         :key="route.name"
-        @click="goTo(route.route)"
+        @click="goTo(route)"
       >
         <span class="overline">{{route.name}}</span>
         <v-icon>{{route.icon}}</v-icon>
@@ -20,12 +25,13 @@
 <script>
 export default {
   name: "App",
-  components: {},
+  components: {
+  },
   data() {
     return {
       routes: [
         {
-          name: "Start",
+          name: "Start", 
           icon: "$vuetify.icons.dashboard",
           route: "/dashboard"
         },
@@ -44,12 +50,17 @@ export default {
         { name: "Info", icon: "$vuetify.icons.info", route: "/info" },
         { name: "Besipiele", icon: "$vuetify.icon.book", route: "/ex" }
       ],
-      activeNav: ""
+      activeNav: "",
+      activeTitle: "Start", //Get Current Username from Database
     };
   },
   methods: {
     goTo(route) {
-      this.$router.push(route);
+      this.$router.push(route.route);
+      //Get current Username from Database
+       this.activeTitle= route.name;
+      //this.activeTitle= this.$router.currentRoute.name;
+   
     }
   }
 };
@@ -57,5 +68,12 @@ export default {
 <style scoped>
 .v-content {
   background-color: #424242;
+}
+header{
+  max-height: 50px;
+}
+#toolbar{
+  justify-content: center !important;
+  display: flex;
 }
 </style>

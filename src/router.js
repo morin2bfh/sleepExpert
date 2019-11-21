@@ -18,37 +18,37 @@ export default new Router({
         },
         {
             path: '/dashboard',
-            name: 'dashboard',
+            name: 'Start',
             component: Dashboard
         },
         {
             path: '/entryMorning',
-            name: 'entryMorning',
+            name: 'Morgeneintrag erfassen',
             component: EntryMorning
         },
         {
             path: '/entryEvening',
-            name: 'entryEvening',
+            name: 'Abendeintrag erfassen',
             component: EntryEvening
         },
         {
             path: '/history',
-            name: 'history',
+            name: 'Verlauf',
             component: History
         },
         {
             path: '/stats',
-            name: 'stats',
+            name: 'Statistik',
             component: Stats
         },
         {
             path: '/info',
-            name: 'info',
+            name: 'Info',
             component: Info
         },
         {
             path: '/ex',
-            name: 'infoex',
+            name: 'Beispiele',
             component: Examples
         },
 

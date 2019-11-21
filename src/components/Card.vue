@@ -1,6 +1,6 @@
 <template>
-  <v-card dark @click="goTo(route)">
-    <v-img class="white--text align-end" contain height="20vh" :src="imgSrc">
+  <v-card dark @click="goTo(route)" >
+    <v-img class="white--text align-end" contain height="15vh" :src="imgSrc">
       <v-overlay absolute opacity="0.5" z-index="-10"></v-overlay>
       <v-card-title>{{title}}</v-card-title>
     </v-img>

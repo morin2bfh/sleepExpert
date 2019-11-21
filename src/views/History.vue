@@ -1,3 +1,4 @@
 <template>
-    <h1>Verlauf</h1>
+  <div>
+  </div>
 </template>
