@@ -148,24 +148,24 @@ export default {
     },
     onNumberChanged() {
       const changedValue = {
-        value: this.numbers,
+        value: this.numbers * 1,
         id: this.id
       };
       this.$emit('changedValue', changedValue);
     },
     onTimeChanged() {
-      const changedValue = {
+      const changedTime = {
         value: this.hhmmValue,
         id: this.id
       };
-      this.$emit('changedValue', changedValue);
+      this.$emit('changedTime', changedTime);
     },
     onClockChanged() {
-      const changedValue = {
+      const changedClock = {
         value: this.time,
         id: this.id
       };
-      this.$emit('changedValue', changedValue);
+      this.$emit('changedClock', changedClock);
     }
   },
 };

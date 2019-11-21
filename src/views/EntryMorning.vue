@@ -12,7 +12,9 @@
         :option="card.option"
         :label="card.label"
         :id="card.id"
-        @changedValue="onChange($event)"
+        @changedValue="onChangedValue($event)"
+        @changedTime="onChangedTime($event)"
+        @changedClock="onChangedClock($event)"
       >
       </card-entry-morning>
       
@@ -111,11 +113,12 @@ export default {
           durationAwake: null,
           fallAsleepTime: null,
           lightsOut: null,
-          medication: [],
+          medication: [false, false],
           relaxation: null,
           sleepQuality: null,
           timesAwake: null,
-          tiredness: null
+          tiredness: null,
+          timestamp: new Date()
       }
     };
   },
@@ -128,10 +131,28 @@ export default {
       this.$router.push('/dashboard');
     },
     cancel() {     
-        this.$router.push('/dashboard');
+      this.$router.push('/dashboard');
     },
-    onChange(changedValue) {
-      this.morningEntry[changedValue.id] = changedValue.value;
+    onChangedValue(changedValue) {
+      let value = changedValue.value;
+      this.morningEntry[changedValue.id] = value;
+    },
+    onChangedTime(changedTime) {
+      let value = changedTime.value;
+      let minutes = value.split(":")[0] * 60 + value.split(":")[1] * 1;
+      this.morningEntry[changedTime.id] = minutes;
+    },
+    onChangedClock(changedClock) {
+      let value = changedClock.value;
+      let date = new Date();
+      date.setHours(value.split(":")[0]);
+      date.setMinutes(value.split(":")[1]);
+      date.setSeconds("00");
+      if(date.getHours() > "14") {
+        date.setDate(date.getDate() - 1);
+      }
+     
+      this.morningEntry[changedClock.id] = date;
     }
   }
 };
