@@ -14,40 +14,40 @@
         step="1"
         ticks="always"
         tick-size="4"
-        ></v-slider>
+      ></v-slider>
     </div>
 
     <!-- Insert a slider if the option of the card(card.option) says 'checkbox Genuss' -->
     <div v-else-if="option == 'checkboxOptionGenuss'">
       <v-container fluid>
-        <v-checkbox v-model="checkbox1" :label="'Kaffe'" :id="'coffee'" ></v-checkbox>
-        <v-checkbox v-model="checkbox2" :label="'Tee'" :id="'tea'" ></v-checkbox>
-        <v-checkbox v-model="checkbox3" :label="'Cola'" :id="'cola'" ></v-checkbox>
-        <v-checkbox v-model="checkbox4" :label="'Alkohol'" :id="'alcohol'" ></v-checkbox>
-        </v-container>
-        </div>
+        <v-checkbox @click="setCBValue(option, 0)" :label="'Kaffe'"></v-checkbox>
+        <v-checkbox @click="setCBValue(option, 1)" :label="'Tee'"></v-checkbox>
+        <v-checkbox @click="setCBValue(option, 2)" :label="'Cola'"></v-checkbox>
+        <v-checkbox @click="setCBValue(option, 3)" :label="'Alkohol'"></v-checkbox>
+      </v-container>
+    </div>
 
- <!-- Insert a slider if the option of the card(card.option) says 'checkbox Schlaf' -->
-<div v-else-if="option == 'checkboxOptionSchlaf'">
+    <!-- Insert a slider if the option of the card(card.option) says 'checkbox Schlaf' -->
+    <div v-else-if="option == 'checkboxOptionSchlaf'">
       <v-container fluid>
-        <v-checkbox v-model="checkbox1" :label="'Mittagsschlaf'" :id="'afternoon-nap'" ></v-checkbox>
-        <v-checkbox v-model="checkbox2" :label="'Nickerchen vor dem TV'" :id="'tv-nap'" ></v-checkbox>
-        <v-checkbox v-model="checkbox3" :label="'Power-Nap'" :id="'power-nap'" ></v-checkbox>
-        </v-container>
-        </div>
+        <v-checkbox @click="setCBValue(option, 0)" :label="'Mittagsschlaf'"></v-checkbox>
+        <v-checkbox @click="setCBValue(option, 1)" :label="'Nickerchen vor dem TV'"></v-checkbox>
+        <v-checkbox @click="setCBValue(option, 2)" :label="'Power-Nap'"></v-checkbox>
+      </v-container>
+    </div>
 
     <!-- Insert a slider if the option of the card(card.option) says 'buttons' -->
     <div v-else-if="option == 'buttonsOption'">
-      <v-container horizontal align="alignment" >
-       <v-layout row child-flex justify-center align-center wrap >
-        <v-spacer></v-spacer><v-btn color="#6D4C41" @click=cancel() 
-        >Abbrechen</v-btn> <v-spacer></v-spacer>
-        <v-btn color="#FBC02D" @click=submit() 
-          >Speichern</v-btn><v-spacer></v-spacer>
-       </v-layout>
-    </v-container>
+      <v-container horizontal align="alignment">
+        <v-layout row child-flex justify-center align-center wrap>
+          <v-spacer></v-spacer>
+          <v-btn color="#6D4C41" @click="cancel()">Abbrechen</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="#FBC02D" @click="submit()">Speichern</v-btn>
+          <v-spacer></v-spacer>
+        </v-layout>
+      </v-container>
     </div>
-
   </v-card>
 </template>
 
@@ -58,28 +58,32 @@ export default {
     title: String,
     option: String,
     label: String,
-    id: String,
+    id: String
   },
   data() {
     return {
-      alignment: 'center',
+      alignment: "center",
       numbers: null,
       numbersLabel: ["1", "2", "3", "4", "5", "6", "7", "8"],
-    checkbox1: null,
-     checkbox2: null,
-      checkbox3: null,
-       checkbox4: null,
-
-        }
-}, methods: {
-    submit() {     
+      substances: [false, false, false, false],
+      daysleep: [false, false, false]
+    };
+  },
+  methods: {
+    submit() {
       // Hier Daten in DB speichern
-      this.$router.push('/dashboard');
-  },
-  cancel() {     
-      this.$router.push('/dashboard');
-  },
-}, 
-    
+      this.$router.push("/dashboard");
+    },
+    cancel() {
+      this.$router.push("/dashboard");
+    },
+    setCBValue(option, index) {
+      if (option == "checkboxOptionGenuss") {
+        this.substances[index] = !this.substances[index];
+      } else if (option == "checkboxOptionSchlaf") {
+        this.daysleep[index] = !this.daysleep[index];
+      }
+    }
+  }
 };
 </script>
