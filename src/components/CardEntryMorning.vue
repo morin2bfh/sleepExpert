@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-auto mt-2" max-width="400" dark>
-    <v-card-title>{{title}}</v-card-title>
+    <v-card-title>{{ title }}</v-card-title>
     
     <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
     <div v-if="option == 'sliderOption'">
@@ -15,19 +15,19 @@
         step="1"
         ticks="always"
         tick-size="4"
+        @change="onNumberChanged()"
       ></v-slider>
     </div>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'checkbox' -->
+    <!-- Insert a checkbox if the option of the card(card.option) says 'checkbox' -->
     <div v-else-if="option == 'checkboxOption'">
       <v-container fluid>
-        <v-checkbox v-model="checkbox1" :id="id" :label="'Vor dem zu Bett gehen'"></v-checkbox>
-        <v-checkbox v-model="checkbox2" :id="id" :label="'In der Nacht'"></v-checkbox>
+        <v-checkbox @click="onCheckboxClicked(0)" :id="id" :label="'Vor dem zu Bett gehen'"></v-checkbox>
+        <v-checkbox @click="onCheckboxClicked(1)" :id="id" :label="'In der Nacht'"></v-checkbox>
       </v-container>
     </div>
 
-    
-    <!-- Insert a slider if the option of the card(card.option) says 'numbers' -->
+    <!-- Insert a number textfield if the option of the card(card.option) says 'numbers' -->
     <div v-else-if="option == 'numbersOption'">
       <v-col cols="12" sm="4">
         <v-text-field
@@ -37,11 +37,12 @@
           :id="id"
           single-line
           type="number"
+          @change="onNumberChanged()"
         />
       </v-col>
     </div>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'hhmm'.
+    <!-- Insert a time textfield if the option of the card(card.option) says 'hhmm'.
     These are the inputs for a format like hh:mm-->
     <div v-else-if="option == 'hhmmOption'">
       <v-col cols="12" sm="4">
@@ -52,41 +53,29 @@
           :id="id"
           single-line
           width="290px"
+          @change="onTimeChanged()"
         />
       </v-col>
     </div>
 
-   <!-- Insert a slider if the option of the card(card.option) says 'buttons' -->
-    <div v-else-if="option == 'buttonsOption'">
-      <v-container horizontal align="alignment"  >
-       <v-layout row child-flex justify-center align-center wrap >
-        <v-spacer></v-spacer>
-        <v-btn color="#6D4C41" @click=cancel() 
-        >Abbrechen</v-btn> <v-spacer></v-spacer>
-        <v-btn color="#FBC02D" @click=submit() 
-          >Speichern</v-btn><v-spacer></v-spacer>
-       </v-layout>
-    </v-container>
-    </div>
-
-<!-- Insert a slider if the option of the card(card.option) says 'clock' -->
+<!-- Insert a clock if the option of the card(card.option) says 'clock' -->
     <div v-else-if="option == 'clockOption'">
       <v-col cols="12" sm="4">
         <v-dialog 
-        ref="dialog" 
-        v-model="clockTime" 
-        :return-value.sync="time" 
-        persistent 
-        width="290px">
+          ref="dialog" 
+          v-model="clockTime" 
+          :return-value.sync="time" 
+          persistent 
+          width="290px">
           
           <template v-slot:activator="{ on }">
             <v-text-field 
-            v-model="time" 
-            :label="label" 
-             prepend-inner-icon="$vuetify.icons.clock"
-            readonly 
-            v-on="on">
-          </v-text-field>
+              v-model="time" 
+              :label="label" 
+              prepend-inner-icon="$vuetify.icons.clock"
+              readonly 
+              v-on="on">
+            </v-text-field>
           </template>
           <v-time-picker
             v-if="clockTime"
@@ -95,16 +84,15 @@
             full-width
             format="24hr"
             color="yellow darken-3"
+            @change="onClockChanged()"
           >
             <v-spacer></v-spacer>
-            
             <v-btn text color="yellow darken-3" @click="clockTime = false">Abbrechen</v-btn>
             <v-btn text color="yellow darken-3" @click="save(time)">Übernehmen</v-btn>
           </v-time-picker>
         </v-dialog>
       </v-col>
     </div>
-
   </v-card>
 </template>
 
@@ -114,31 +102,30 @@ export default {
   props: {
     title: String,
     option: String,
-    label: String
+    label: String,
+    id: String
   },
   data() {
     return {
       numbersLabel: ["1", "2", "3", "4", "5", "6", "7", "8"],
       hhmmValue: null,
-      checkbox2: null,
-      checkbox1: null,
+      medication: [false, false],
       numbers: null,
-      numberValue: null,
-      id: null,
+      test: null,
       time: null,
       clockTime: false,
       clock: false,
       
       ruleHHMM: [
-        value => (value || "").length <= 5 || "Max 5 characters",
-        value => {
+        v => (v || "").length <= 5 || "Maximal 5 Zeichen",
+        v => {
           const pattern = /[0-1?][0-9?]:[0-5?][0-9?]/;
-          return pattern.test(value) || "Ungültiges Format, Bsp: 01:12";
+          return pattern.test(v) || "Ungültiges Format, Bsp: 01:12";
         }
       ],
 
       ruleNumbers: [
-        value => (value || "").length <= 2 || "Max 2 Zahlen",
+        value => (value || "").length <= 2 || "Maximal 2 Zahlen",
         value => {
           const pattern = /[0-2?]?[0-9?]?/;
           return pattern.test(value);
@@ -150,14 +137,36 @@ export default {
     save(time) {
       this.$refs.dialog.save(time);
     },
-    submit() {     
-      // Hier Daten in DB speichern
-      this.$router.push('/dashboard');
-  },
-  cancel() {     
-      this.$router.push('/dashboard');
-  },
-}, 
+    onCheckboxClicked(number) {
+      this.medication[number] = !this.medication[number];
 
+      const changedValue = {
+        value: this.medication,
+        id: this.id
+      };
+      this.$emit('changedValue', changedValue);
+    },
+    onNumberChanged() {
+      const changedValue = {
+        value: this.numbers,
+        id: this.id
+      };
+      this.$emit('changedValue', changedValue);
+    },
+    onTimeChanged() {
+      const changedValue = {
+        value: this.hhmmValue,
+        id: this.id
+      };
+      this.$emit('changedValue', changedValue);
+    },
+    onClockChanged() {
+      const changedValue = {
+        value: this.time,
+        id: this.id
+      };
+      this.$emit('changedValue', changedValue);
+    }
+  },
 };
 </script>
