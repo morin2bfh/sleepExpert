@@ -49,7 +49,7 @@
         <v-text-field
           v-model="hhmmValue"
           :label="label"
-          :rules="ruleHHMM"
+          :rules="ruleHMM"
           :id="id"
           single-line
           width="290px"
@@ -72,6 +72,7 @@
             <v-text-field 
               v-model="time" 
               :label="label" 
+              :rules="ruleClockTime"
               prepend-inner-icon="$vuetify.icons.clock"
               readonly 
               v-on="on">
@@ -116,19 +117,22 @@ export default {
       clockTime: false,
       clock: false,
 
-      ruleHHMM: [
-        v => (v || "").length <= 5 || "Maximal 5 Zeichen",
+      ruleHMM: [
+         v => !!v || "Zeit ist ein Pflichtfeld",
+        v => (v || "").length <= 5 || "Maximal 4 Zeichen",
         v => {
-          const pattern = /[0-1?][0-9?]:[0-5?][0-9?]/;
-          return pattern.test(v) || "Ungültiges Format, Bsp: 01:12";
+          const pattern = /[0-9?]:[0-5?][0-9?]/;
+          return pattern.test(v) || "Ungültiges Format, Bsp: 1:12";
         }
       ],
-
+      ruleClockTime: [
+         v => !!v || "Uhrzeit ist ein Pflichtfeld",
+      ],
       ruleNumbers: [
-        value => (value || "").length <= 2 || "Maximal 2 Zahlen",
-        value => {
-          const pattern = /[0-2?]?[0-9?]?/;
-          return pattern.test(value);
+        v => (v || "").length <= 1 || "Maximal 1 Zahl",
+        v => {
+          const pattern = /[0-9?]/;
+          return pattern.test(v) || "Unwahrscheinliche Angabe, Max.: 9";
         }
       ]
     };

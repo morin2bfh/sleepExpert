@@ -1,7 +1,7 @@
 <template>
   <v-container id="containerMorningEntry">
    
-    <v-form ref="form" lazy-validation>
+    <v-form ref="form" v-model="valid" lazy-validation>
       <card-entry-morning
         dark
         v-for="card in cards"
@@ -37,6 +37,7 @@ export default {
   },
   data() {
     return {
+      valid: true,
       cards: [
         { 
           option: "clockOption", 
@@ -55,13 +56,13 @@ export default {
         { 
           option: "hhmmOption", 
           title: "Geschätzte Einschlafdauer: *", 
-          label: "hh:mm", 
+          label: "h:mm", 
           id: "fallAsleepTime",
         },
         {
           option: "hhmmOption",
           title: "Wie lange wach in der Nacht: *",
-          label: "hh:mm",
+          label: "h:mm",
           id: "durationAwake",
         },
         {
@@ -124,9 +125,10 @@ export default {
     submit() {
       if (this.$refs.form.validate()) {
         db.collection("EntryMorning").add(this.morningEntry);
+        this.$router.push('/dashboard');
       }
 
-      this.$router.push('/dashboard');
+      
     },
     cancel() {     
       this.$router.push('/dashboard');
