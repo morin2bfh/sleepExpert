@@ -10,6 +10,7 @@
       :title="card.title"
       :option="card.option"
       :label="card.label"
+      :id ="card.id"
     >
   </card-entry-morning>
   </v-container>

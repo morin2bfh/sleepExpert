@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto mt-2" max-width="400" dark>
     <v-card-title>{{title}}</v-card-title>
-    
+
     <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
     <div v-if="option == 'sliderOption'">
       <v-slider
@@ -26,7 +26,6 @@
       </v-container>
     </div>
 
-    
     <!-- Insert a slider if the option of the card(card.option) says 'numbers' -->
     <div v-else-if="option == 'numbersOption'">
       <v-col cols="12" sm="4">
@@ -56,37 +55,37 @@
       </v-col>
     </div>
 
-   <!-- Insert a slider if the option of the card(card.option) says 'buttons' -->
+    <!-- Insert a slider if the option of the card(card.option) says 'buttons' -->
     <div v-else-if="option == 'buttonsOption'">
-      <v-container horizontal align="alignment"  >
-       <v-layout row child-flex justify-center align-center wrap >
-        <v-spacer></v-spacer>
-        <v-btn color="#6D4C41" @click=cancel() 
-        >Abbrechen</v-btn> <v-spacer></v-spacer>
-        <v-btn color="#FBC02D" @click=submit() 
-          >Speichern</v-btn><v-spacer></v-spacer>
-       </v-layout>
-    </v-container>
+      <v-container horizontal align="alignment">
+        <v-layout row child-flex justify-center align-center wrap>
+          <v-spacer></v-spacer>
+          <v-btn color="#6D4C41" @click="cancel()">Abbrechen</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="#FBC02D" @click="submit()">Speichern</v-btn>
+          <v-spacer></v-spacer>
+        </v-layout>
+      </v-container>
     </div>
 
-<!-- Insert a slider if the option of the card(card.option) says 'clock' -->
+    <!-- Insert a slider if the option of the card(card.option) says 'clock' -->
     <div v-else-if="option == 'clockOption'">
       <v-col cols="12" sm="4">
-        <v-dialog 
-        ref="dialog" 
-        v-model="clockTime" 
-        :return-value.sync="time" 
-        persistent 
-        width="290px">
-          
+        <v-dialog
+          ref="dialog"
+          v-model="clockTime"
+          :return-value.sync="time"
+          persistent
+          width="290px"
+        >
           <template v-slot:activator="{ on }">
-            <v-text-field 
-            v-model="time" 
-            :label="label" 
-             prepend-inner-icon="$vuetify.icons.clock"
-            readonly 
-            v-on="on">
-          </v-text-field>
+            <v-text-field
+              v-model="time"
+              :label="label"
+              prepend-inner-icon="$vuetify.icons.clock"
+              readonly
+              v-on="on"
+            ></v-text-field>
           </template>
           <v-time-picker
             v-if="clockTime"
@@ -97,14 +96,13 @@
             color="yellow darken-3"
           >
             <v-spacer></v-spacer>
-            
+
             <v-btn text color="yellow darken-3" @click="clockTime = false">Abbrechen</v-btn>
             <v-btn text color="yellow darken-3" @click="save(time)">Übernehmen</v-btn>
           </v-time-picker>
         </v-dialog>
       </v-col>
     </div>
-
   </v-card>
 </template>
 
@@ -114,7 +112,8 @@ export default {
   props: {
     title: String,
     option: String,
-    label: String
+    label: String,
+    id: String
   },
   data() {
     return {
@@ -124,11 +123,10 @@ export default {
       checkbox1: null,
       numbers: null,
       numberValue: null,
-      id: null,
       time: null,
       clockTime: false,
       clock: false,
-      
+
       ruleHHMM: [
         value => (value || "").length <= 5 || "Max 5 characters",
         value => {
@@ -150,14 +148,13 @@ export default {
     save(time) {
       this.$refs.dialog.save(time);
     },
-    submit() {     
+    submit() {
       // Hier Daten in DB speichern
-      this.$router.push('/dashboard');
-  },
-  cancel() {     
-      this.$router.push('/dashboard');
-  },
-}, 
-
+      this.$router.push("/dashboard");
+    },
+    cancel() {
+      this.$router.push("/dashboard");
+    }
+  }
 };
 </script>
