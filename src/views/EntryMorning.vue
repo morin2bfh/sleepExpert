@@ -1,8 +1,6 @@
 <template>
   <v-container id="containerMorningEntry">
-    <h1 prepend-inner-icon="$vuetify.icons.clock"
-      align="center">Morgeneintrag erfassen</h1>
-
+   
     <v-form ref="form" lazy-validation>
       <card-entry-morning
         dark
@@ -40,71 +38,71 @@ export default {
   data() {
     return {
       cards: [
-        {
-          option: "sliderOption",
-          title: "Schlafqualität:",
-          label: "Gut",
-          id: "sleepQuality"
-        },
-        {
-          option: "sliderOption",
-          title: "Gefühl des Erholtseins:",
-          label: "Gut",
-          id: "relaxation"
-        },
-        {
-          option: "sliderOption",
-          title: "Müdigkeit beim Zubettgehen:",
-          label: "Keine",
-          id: "tiredness",
-        },
-        {
+        { 
           option: "clockOption", 
-          title: "Zu Bett gegangen um:", 
+          title: "Zu Bett gegangen um: *", 
           label: "Uhrzeit",
           id: "bedTime",
         },
-        {
+
+        { 
           option: "clockOption", 
-          title: "Licht gelöscht um:", 
+          title: "Licht gelöscht um: *", 
           label: "Uhrzeit",
           id: "lightsOut",
         },
-        {
+
+        { 
           option: "hhmmOption", 
-          title: "Geschätzte Einschlafdauer:", 
+          title: "Geschätzte Einschlafdauer: *", 
           label: "hh:mm", 
           id: "fallAsleepTime",
         },
         {
-          option: "numbersOption", 
-          title: "Wie oft aufgewacht:", 
-          label: "Anzahl",
-          id: "timesAwake", 
-        },
-        {
           option: "hhmmOption",
-          title: "Wie lange wach in der Nacht:",
+          title: "Wie lange wach in der Nacht: *",
           label: "hh:mm",
           id: "durationAwake",
         },
         {
           option: "clockOption",
-          title: "Endgültig aufgewacht um:",
+          title: "Endgültig aufgewacht um: *",
           label: "Uhrzeit",
           id: "wakeUpTime",
         },
         {
           option: "clockOption",
-          title: "Morgens aufgestanden um:",
+          title: "Morgens aufgestanden um: *",
           label: "Uhrzeit",
           id: "standUpTime",
         },
         {
+          option: "sliderOption",
+          title: "Schlafqualität:",
+          label: "Gut",
+          id: "sleepQuality",
+        },
+        {
+          option: "sliderOption",
+          title: "Gefühl des Erholtseins:",
+          label: "Gut",
+          id: "relaxation",
+        },
+        {
+          option: "sliderOption",
+          title: "Müdigkeit beim Zubettgehen:",
+          label: "Keine",
+          id: "tiredness", },
+        { 
+          option: "numbersOption", 
+          title: "Wie oft aufgewacht:", 
+          label: "Anzahl",
+          id: "timesAwake",  },
+        { 
           option: "checkboxOption", 
           title: "Schlafmittel genommen:",
-          id: "medication"
-        }
+          id: "medication",
+        },
       ],
       morningEntry: {
         standUpTime: null,
