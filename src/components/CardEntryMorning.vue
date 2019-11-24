@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto mt-2" max-width="400" dark>
     <v-card-title>{{ title }}</v-card-title>
-    
+
     <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
     <div v-if="option == 'sliderOption'">
       <v-slider
@@ -58,25 +58,25 @@
       </v-col>
     </div>
 
-<!-- Insert a clock if the option of the card(card.option) says 'clock' -->
+    <!-- Insert a clock if the option of the card(card.option) says 'clock' -->
     <div v-else-if="option == 'clockOption'">
       <v-col cols="12" sm="4">
-        <v-dialog 
-          ref="dialog" 
-          v-model="clockTime" 
-          :return-value.sync="time" 
-          persistent 
-          width="290px">
-          
+        <v-dialog
+          ref="dialog"
+          v-model="clockTime"
+          :return-value.sync="time"
+          persistent
+          width="290px"
+        >
           <template v-slot:activator="{ on }">
-            <v-text-field 
-              v-model="time" 
-              :label="label" 
+            <v-text-field
+              v-model="time"
+              :label="label"
               :rules="ruleClockTime"
               prepend-inner-icon="$vuetify.icons.clock"
-              readonly 
-              v-on="on">
-            </v-text-field>
+              readonly
+              v-on="on"
+            ></v-text-field>
           </template>
           <v-time-picker
             v-if="clockTime"
@@ -118,21 +118,20 @@ export default {
       clock: false,
 
       ruleHMM: [
-         v => !!v || "Zeit ist ein Pflichtfeld",
+        v => !!v || "Dies ist ein Pflichtfeld",
         v => (v || "").length <= 5 || "Maximal 4 Zeichen",
         v => {
-          const pattern = /[0-9?]:[0-5?][0-9?]/;
-          return pattern.test(v) || "Ungültiges Format, Bsp: 1:12";
+          const pattern = /[0-9?]{1,2}:[0-5?][0-9?]/;
+          return pattern.test(v) || "Ungültiges Format, Bsp: 01:12";
         }
       ],
-      ruleClockTime: [
-         v => !!v || "Uhrzeit ist ein Pflichtfeld",
-      ],
+      ruleClockTime: [v => !!v || "Dies ist ein Pflichtfeld"],
       ruleNumbers: [
-        v => (v || "").length <= 1 || "Maximal 1 Zahl",
         v => {
-          const pattern = /[0-9?]/;
-          return pattern.test(v) || "Unwahrscheinliche Angabe, Max.: 9";
+          if (v === null || v < 30) {
+            return true;
+          }
+          return "Unwahrscheinliche Angabe, maximal 29";
         }
       ]
     };
@@ -148,29 +147,29 @@ export default {
         value: this.medication,
         id: this.id
       };
-      this.$emit('changedValue', changedValue);
+      this.$emit("changedValue", changedValue);
     },
     onNumberChanged() {
       const changedValue = {
         value: this.numbers * 1,
         id: this.id
       };
-      this.$emit('changedValue', changedValue);
+      this.$emit("changedValue", changedValue);
     },
     onTimeChanged() {
       const changedTime = {
         value: this.hhmmValue,
         id: this.id
       };
-      this.$emit('changedTime', changedTime);
+      this.$emit("changedTime", changedTime);
     },
     onClockChanged() {
       const changedClock = {
         value: this.time,
         id: this.id
       };
-      this.$emit('changedClock', changedClock);
+      this.$emit("changedClock", changedClock);
     }
-  },
+  }
 };
 </script>

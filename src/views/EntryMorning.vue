@@ -1,6 +1,5 @@
 <template>
   <v-container id="containerMorningEntry">
-   
     <v-form ref="form" v-model="valid" lazy-validation>
       <card-entry-morning
         dark
@@ -13,15 +12,14 @@
         @changedValue="onChangedValue($event)"
         @changedTime="onChangedTime($event)"
         @changedClock="onChangedClock($event)"
-      >
-      </card-entry-morning>
-      
+      ></card-entry-morning>
+
       <v-layout row child-flex justify-center align-center wrap id="layoutButtons">
         <v-spacer></v-spacer>
-        <v-btn color="#6D4C41" @click=cancel() 
-        >Abbrechen</v-btn><v-spacer></v-spacer>
-        <v-btn color="#FBC02D" @click=submit() 
-        >Speichern</v-btn><v-spacer></v-spacer>
+        <v-btn color="#6D4C41" @click="cancel()">Abbrechen</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn color="#FBC02D" @click="submit()">Speichern</v-btn>
+        <v-spacer></v-spacer>
       </v-layout>
     </v-form>
   </v-container>
@@ -39,85 +37,87 @@ export default {
     return {
       valid: true,
       cards: [
-        { 
-          option: "clockOption", 
-          title: "Zu Bett gegangen um: *", 
+        {
+          option: "clockOption",
+          title: "Zu Bett gegangen um: *",
           label: "Uhrzeit",
-          id: "bedTime",
+          id: "bedTime"
         },
 
-        { 
-          option: "clockOption", 
-          title: "Licht gelöscht um: *", 
+        {
+          option: "clockOption",
+          title: "Licht gelöscht um: *",
           label: "Uhrzeit",
-          id: "lightsOut",
+          id: "lightsOut"
         },
 
-        { 
-          option: "hhmmOption", 
-          title: "Geschätzte Einschlafdauer: *", 
-          label: "h:mm", 
-          id: "fallAsleepTime",
+        {
+          option: "hhmmOption",
+          title: "Geschätzte Einschlafdauer: *",
+          label: "hh:mm",
+          id: "fallAsleepTime"
         },
         {
           option: "hhmmOption",
           title: "Wie lange wach in der Nacht: *",
-          label: "h:mm",
-          id: "durationAwake",
+          label: "hh:mm",
+          id: "durationAwake"
         },
         {
           option: "clockOption",
           title: "Endgültig aufgewacht um: *",
           label: "Uhrzeit",
-          id: "wakeUpTime",
+          id: "wakeUpTime"
         },
         {
           option: "clockOption",
           title: "Morgens aufgestanden um: *",
           label: "Uhrzeit",
-          id: "standUpTime",
+          id: "standUpTime"
         },
         {
           option: "sliderOption",
           title: "Schlafqualität:",
           label: "Gut",
-          id: "sleepQuality",
+          id: "sleepQuality"
         },
         {
           option: "sliderOption",
           title: "Gefühl des Erholtseins:",
           label: "Gut",
-          id: "relaxation",
+          id: "relaxation"
         },
         {
           option: "sliderOption",
           title: "Müdigkeit beim Zubettgehen:",
           label: "Keine",
-          id: "tiredness", },
-        { 
-          option: "numbersOption", 
-          title: "Wie oft aufgewacht:", 
-          label: "Anzahl",
-          id: "timesAwake",  },
-        { 
-          option: "checkboxOption", 
-          title: "Schlafmittel genommen:",
-          id: "medication",
+          id: "tiredness"
         },
+        {
+          option: "numbersOption",
+          title: "Wie oft aufgewacht:",
+          label: "Anzahl",
+          id: "timesAwake"
+        },
+        {
+          option: "checkboxOption",
+          title: "Schlafmittel genommen:",
+          id: "medication"
+        }
       ],
       morningEntry: {
         standUpTime: null,
-          wakeUpTime: null,
-          bedTime: null,
-          durationAwake: null,
-          fallAsleepTime: null,
-          lightsOut: null,
-          medication: [false, false],
-          relaxation: null,
-          sleepQuality: null,
-          timesAwake: null,
-          tiredness: null,
-          timestamp: new Date()
+        wakeUpTime: null,
+        bedTime: null,
+        durationAwake: null,
+        fallAsleepTime: null,
+        lightsOut: null,
+        medication: [false, false],
+        relaxation: null,
+        sleepQuality: null,
+        timesAwake: null,
+        tiredness: null,
+        timestamp: new Date()
       }
     };
   },
@@ -125,13 +125,13 @@ export default {
     submit() {
       if (this.$refs.form.validate()) {
         db.collection("EntryMorning").add(this.morningEntry);
-        this.$router.push('/dashboard');
+        this.$router.push("/dashboard");
+      } else {
+        this.$vuetify.goTo(0);
       }
-
-      
     },
-    cancel() {     
-      this.$router.push('/dashboard');
+    cancel() {
+      this.$router.push("/dashboard");
     },
     onChangedValue(changedValue) {
       let value = changedValue.value;
@@ -148,10 +148,10 @@ export default {
       date.setHours(value.split(":")[0]);
       date.setMinutes(value.split(":")[1]);
       date.setSeconds("00");
-      if(date.getHours() > "14") {
+      if (date.getHours() > "14") {
         date.setDate(date.getDate() - 1);
       }
-     
+
       this.morningEntry[changedClock.id] = date;
     }
   }
@@ -159,10 +159,10 @@ export default {
 </script>
 
 <style scoped>
-  #containerMorningEntry {
-    padding-bottom: 50px;
-  }
-  #layoutButtons {
-    padding: 10px;
-  }
+#containerMorningEntry {
+  padding-bottom: 50px;
+}
+#layoutButtons {
+  padding: 10px;
+}
 </style>
