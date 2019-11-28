@@ -18,13 +18,22 @@
         <v-date-picker v-model="date" no-title dark></v-date-picker>
       </v-menu>
       <v-btn @click="submit" dark>Add to Database</v-btn>
+      <v-spacer></v-spacer>
+      <v-btn @click="logout" dark>Logout</v-btn>
     </v-form>
   </v-container>
 </template>
 <script>
-import db from "@/fb";
+import db from "../fb";
+import { auth } from "../fb";
 
 export default {
+  created: function() {
+    var user = auth.currentUser;
+    if (user == null) {
+      this.$router.push("/login");
+    }
+  },
   data() {
     return {
       valid: true,
@@ -63,6 +72,11 @@ export default {
 
         db.collection("DummyDump").add(dummy);
       }
+    },
+    logout() {
+      auth.signOut().then(() => {
+        this.$router.push("/login");
+      });
     }
   }
 };

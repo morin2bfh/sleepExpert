@@ -1,6 +1,6 @@
 <template>
- <v-container id="containerEveningEntry">
-   <h1  align="center" >Abendeintrag erfassen</h1>
+  <v-container id="containerEveningEntry">
+    <h1 align="center">Abendeintrag erfassen</h1>
 
     <card-entry-evening
       dark
@@ -9,16 +9,22 @@
       :title="card.title"
       :option="card.option"
       :label="card.label"
-    > 
-  </card-entry-evening>
+    ></card-entry-evening>
   </v-container>
 </template>
 
 <script>
+import { auth } from "../fb";
 import CardEntryEvening from "@/components/CardEntryEvening.vue";
 export default {
   components: {
     CardEntryEvening
+  },
+  created: function() {
+    var user = auth.currentUser;
+    if (user == null) {
+      this.$router.push("/login");
+    }
   },
   data() {
     return {
@@ -27,33 +33,35 @@ export default {
           option: "sliderOption",
           title: "Tagesmüdigkeit:",
           label: "Keine",
-          id: "tagesmüdigkeit",
-          
+          id: "tagesmüdigkeit"
         },
         {
           option: "sliderOption",
           title: "Konzentration:",
           label: "Konzentriert",
-          id: "tagesmüdigkeit",
-        },{
+          id: "tagesmüdigkeit"
+        },
+        {
           option: "sliderOption",
           title: "Stimmung:",
           label: "Gut",
-          id: "tagesmüdigkeit",
+          id: "tagesmüdigkeit"
         },
         {
           option: "sliderOption",
           title: "Körperliche Entspanntheit:",
           label: "Entspannt",
-          id: "tagesmüdigkeit",
+          id: "tagesmüdigkeit"
         },
-        { 
-        option: "checkboxOptionSchlaf", 
-        title: "Tagesschlaf:" },
-         { 
-            option: "checkboxOptionGenuss", 
-         title: "Genussmitttel:" },
-         
+        {
+          option: "checkboxOptionSchlaf",
+          title: "Tagesschlaf:"
+        },
+        {
+          option: "checkboxOptionGenuss",
+          title: "Genussmitttel:"
+        },
+
         { option: "buttonsOption" }
       ]
     };
@@ -61,7 +69,7 @@ export default {
 };
 </script>
 <style scoped>
-  #containerEveningEntry{
-    padding-bottom: 50px;
-  }
+#containerEveningEntry {
+  padding-bottom: 50px;
+}
 </style>
