@@ -3,7 +3,7 @@
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-bottom-navigation v-model="activeNav" fixed height="50px" max-width="100vh" class="pa-2" grow dark>
+    <v-bottom-navigation v-model="activeNav" fixed height="50px" class="pa-2" grow dark>
       <v-btn
         :value="route.name"
         v-for="route in routes"
