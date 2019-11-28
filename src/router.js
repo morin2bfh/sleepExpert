@@ -6,6 +6,8 @@ import EntryEvening from './views/EntryEvening.vue'
 import History from './views/History.vue'
 import Stats from './views/Stats.vue'
 import Info from './views/Info.vue'
+import Login from './views/Login.vue'
+import Signup from './views/Signup.vue'
 import Examples from './views/Examples.vue'
 
 Vue.use(Router)
@@ -51,6 +53,17 @@ export default new Router({
             name: 'infoex',
             component: Examples
         },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/signup',
+            name: 'signup',
+            component: Signup
+        },
+
 
     ]
 })
