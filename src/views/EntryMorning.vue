@@ -28,17 +28,10 @@
 <script>
 import CardEntryMorning from "@/components/CardEntryMorning.vue";
 import db from "../fb";
-import { auth } from "../fb";
 
 export default {
   components: {
     CardEntryMorning
-  },
-  created: function() {
-    var user = auth.currentUser;
-    if (user == null) {
-      this.$router.push("/login");
-    }
   },
   data() {
     return {

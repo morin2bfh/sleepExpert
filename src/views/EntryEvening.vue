@@ -14,17 +14,10 @@
 </template>
 
 <script>
-import { auth } from "../fb";
 import CardEntryEvening from "@/components/CardEntryEvening.vue";
 export default {
   components: {
     CardEntryEvening
-  },
-  created: function() {
-    var user = auth.currentUser;
-    if (user == null) {
-      this.$router.push("/login");
-    }
   },
   data() {
     return {

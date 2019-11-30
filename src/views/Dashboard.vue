@@ -11,17 +11,10 @@
   </v-container>
 </template>
 <script>
-import { auth } from "../fb";
 import Card from "@/components/Card.vue";
 export default {
   components: {
     Card
-  },
-  created: function() {
-    var user = auth.currentUser;
-    if (user == null) {
-      this.$router.push("/login");
-    }
   },
   data: () => ({
     cards: [

@@ -28,12 +28,6 @@ import db from "../fb";
 import { auth } from "../fb";
 
 export default {
-  created: function() {
-    var user = auth.currentUser;
-    if (user == null) {
-      this.$router.push("/login");
-    }
-  },
   data() {
     return {
       valid: true,
