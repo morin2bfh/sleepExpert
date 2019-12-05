@@ -21,11 +21,14 @@
           ></v-text-field>
         </v-form>
         <v-container d-flex flex-row justify-end id="button-container">
-          <v-btn color="#FBC02D" @click="submit()">Anmelden</v-btn>
+          <v-btn color="yellow darken-2" @click="submit()">Anmelden</v-btn>
         </v-container>
       </v-card-title>
+      <v-banner id="link-banner" single-line dark color="yellow darken-2">
+        Bereits registriert?
+        <v-btn color="yellow darken-2" text @click="goTo('login')">Zurück zum Login</v-btn>
+      </v-banner>
     </v-card>
-    <router-link to="/login">zurück zum Login</router-link>
   </v-container>
 </template>
 <script>
@@ -70,6 +73,9 @@ export default {
             console.log(err);
           }
         });
+    },
+    goTo(route) {
+      this.$router.push(route);
     }
   }
 };
