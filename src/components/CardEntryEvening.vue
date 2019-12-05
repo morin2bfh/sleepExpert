@@ -1,6 +1,7 @@
 <template>
   <v-card class="mx-auto mt-2" max-width="400" dark>
-    <v-card-title>{{title}}</v-card-title>
+    <v-card-title>{{ title }}</v-card-title>
+
     <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
     <div v-if="option == 'sliderOption'">
       <v-slider
@@ -14,38 +15,26 @@
         step="1"
         ticks="always"
         tick-size="4"
+        @change="onNumberChanged()"
       ></v-slider>
     </div>
 
     <!-- Insert a slider if the option of the card(card.option) says 'checkbox Genuss' -->
     <div v-else-if="option == 'checkboxOptionGenuss'">
       <v-container fluid>
-        <v-checkbox @click="setCBValue(option, 0)" :label="'Kaffe'"></v-checkbox>
-        <v-checkbox @click="setCBValue(option, 1)" :label="'Tee'"></v-checkbox>
-        <v-checkbox @click="setCBValue(option, 2)" :label="'Cola'"></v-checkbox>
-        <v-checkbox @click="setCBValue(option, 3)" :label="'Alkohol'"></v-checkbox>
+        <v-checkbox @click="onCheckboxClicked(option, 0)" :id="id" :label="'Kaffe'"></v-checkbox>
+        <v-checkbox @click="onCheckboxClicked(option, 1)" :id="id" :label="'Tee'"></v-checkbox>
+        <v-checkbox @click="onCheckboxClicked(option, 2)" :id="id" :label="'Cola'"></v-checkbox>
+        <v-checkbox @click="onCheckboxClicked(option, 3)" :id="id" :label="'Alkohol'"></v-checkbox>
       </v-container>
     </div>
 
     <!-- Insert a slider if the option of the card(card.option) says 'checkbox Schlaf' -->
     <div v-else-if="option == 'checkboxOptionSchlaf'">
       <v-container fluid>
-        <v-checkbox @click="setCBValue(option, 0)" :label="'Mittagsschlaf'"></v-checkbox>
-        <v-checkbox @click="setCBValue(option, 1)" :label="'Nickerchen vor dem TV'"></v-checkbox>
-        <v-checkbox @click="setCBValue(option, 2)" :label="'Power-Nap'"></v-checkbox>
-      </v-container>
-    </div>
-
-    <!-- Insert a slider if the option of the card(card.option) says 'buttons' -->
-    <div v-else-if="option == 'buttonsOption'">
-      <v-container horizontal align="alignment">
-        <v-layout row child-flex justify-center align-center wrap>
-          <v-spacer></v-spacer>
-          <v-btn color="#6D4C41" @click="cancel()">Abbrechen</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="#FBC02D" @click="submit()">Speichern</v-btn>
-          <v-spacer></v-spacer>
-        </v-layout>
+        <v-checkbox @click="onCheckboxClicked(option, 0)" :id="id" :label="'Mittagsschlaf'"></v-checkbox>
+        <v-checkbox @click="onCheckboxClicked(option, 1)" :id="id" :label="'Nickerchen vor dem TV'"></v-checkbox>
+        <v-checkbox @click="onCheckboxClicked(option, 2)" :id="id" :label="'Power-Nap'"></v-checkbox>
       </v-container>
     </div>
   </v-card>
@@ -53,7 +42,7 @@
 
 <script>
 export default {
-  name: "cardEntry",
+  name: "cardEntryEvening",
   props: {
     title: String,
     option: String,
@@ -62,28 +51,38 @@ export default {
   },
   data() {
     return {
-      alignment: "center",
       numbers: null,
       numbersLabel: ["1", "2", "3", "4", "5", "6", "7", "8"],
-      substances: [false, false, false, false],
-      daysleep: [false, false, false]
+      stimulats: [false, false, false, false],
+      daySleep: [false, false, false]
     };
   },
   methods: {
-    submit() {
-      // Hier Daten in DB speichern
-      this.$router.push("/dashboard");
-    },
-    cancel() {
-      this.$router.push("/dashboard");
-    },
-    setCBValue(option, index) {
+    onCheckboxClicked(option, index) {
+      let changedValue = {};
       if (option == "checkboxOptionGenuss") {
-        this.substances[index] = !this.substances[index];
+        this.stimulats[index] = !this.stimulats[index];
+        changedValue = {
+          value: this.stimulats,
+          id: this.id
+        };
       } else if (option == "checkboxOptionSchlaf") {
-        this.daysleep[index] = !this.daysleep[index];
+        this.daySleep[index] = !this.daySleep[index];
+        changedValue = {
+          value: this.daySleep,
+          id: this.id
+        };
       }
-    }
+      
+      this.$emit("changedValue", changedValue);
+    },
+    onNumberChanged() {
+      const changedValue = {
+        value: this.numbers * 1,
+        id: this.id
+      };
+      this.$emit("changedValue", changedValue);
+    },
   }
 };
 </script>
