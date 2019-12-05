@@ -28,6 +28,7 @@
 <script>
 import CardEntryMorning from "@/components/CardEntryMorning.vue";
 import db from "../fb";
+import { auth } from "../fb";
 
 export default {
   components: {
@@ -117,12 +118,14 @@ export default {
         sleepQuality: null,
         timesAwake: null,
         tiredness: null,
-        timestamp: new Date()
+        timestamp: new Date(),
+        uid: null
       }
     };
   },
   methods: {
     submit() {
+      this.morningEntry.uid = auth.currentUser.uid;
       if (this.$refs.form.validate()) {
         db.collection("EntryMorning").add(this.morningEntry);
         this.$router.push("/dashboard");
