@@ -143,11 +143,11 @@ export default {
       let value = changedValue.value;
       this.morningEntry[changedValue.id] = value;
     },
-    onChangedTime(changedTime) {
+   /*  onChangedTime(changedTime) {
       let value = changedTime.value;
       let minutes = value.split(":")[0] * 60 + value.split(":")[1] * 1;
       this.morningEntry[changedTime.id] = minutes;
-    },
+    }, */
     onChangedClock(changedClock) {
       let value = changedClock.value;
       let date = new Date();

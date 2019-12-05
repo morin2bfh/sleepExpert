@@ -43,17 +43,13 @@
     <!-- Insert a time textfield if the option of the card(card.option) says 'hhmm'.
     These are the inputs for a format like hh:mm-->
     <div v-else-if="option == 'hhmmOption'">
-      <v-col cols="12" sm="4">
-        <v-text-field
-          v-model="hhmmValue"
-          :label="label"
-          :rules="ruleHMM"
-          :id="id"
-          single-line
-          width="290px"
-          @change="onTimeChanged()"
-        />
-      </v-col>
+      <card-time
+        :value="value"
+        :label="label"
+        :id="id"
+        @changedTime="onChangedTime($event)"
+      >
+      </card-time>
     </div>
 
     <!-- Insert a clock if the option of the card(card.option) says 'clock' -->
@@ -99,12 +95,14 @@
 import CardSlider from "./CardSlider.vue";
 import CardCheckbox from "./CardCheckbox.vue";
 import CardNumber from "./CardNumber.vue";
+import CardTime from "./CardTime.vue";
 
 export default {
   components: {
     CardSlider,
     CardCheckbox,
-    CardNumber
+    CardNumber,
+    CardTime
   },
   name: "cardEntryMorning",
   props: {
@@ -128,20 +126,10 @@ export default {
           number: 1
         }
       ],
-      hhmmValue: null,
       test: null,
       time: null,
       clockTime: false,
       clock: false,
-
-      ruleHMM: [
-        v => !!v || "Dies ist ein Pflichtfeld",
-        v => (v || "").length <= 5 || "Maximal 4 Zeichen",
-        v => {
-          const pattern = /[0-9?]{1,2}:[0-5?][0-9?]/;
-          return pattern.test(v) || "Ungültiges Format, Bsp: 01:12";
-        }
-      ],
       ruleClockTime: [v => !!v || "Dies ist ein Pflichtfeld"],
     };
   },
@@ -176,13 +164,18 @@ export default {
       };
       this.$emit("changedValue", changedValue);
     },
-    onTimeChanged() {
-      const changedTime = {
-        value: this.hhmmValue,
-        id: this.id
+    onChangedTime(changedTime) {
+      let value = changedTime.value;
+      let minutes = value.split(":")[0] * 60 + value.split(":")[1] * 1;
+     
+     const changedValue = {
+        value: minutes,
+        id: changedTime.id
       };
-      this.$emit("changedTime", changedTime);
+      this.$emit("changedValue", changedValue);
     },
+
+
     onClockChanged() {
       const changedClock = {
         value: this.time,
