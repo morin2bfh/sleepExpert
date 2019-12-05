@@ -1,3 +1,5 @@
 <template>
-    <h1>Statistik</h1>
+  <h1>Statistik</h1>
 </template>
+<script>
+</script>
