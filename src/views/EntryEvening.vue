@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     submit() {
-      this.uid = auth.currentUser.uid;
+      this.eveningEntry.uid = auth.currentUser.uid;
       if (this.$refs.form.validate()) {
         db.collection("EntryEvening").add(this.eveningEntry);
         this.$router.push("/dashboard");
