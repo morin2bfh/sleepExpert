@@ -1,5 +1,6 @@
 <template>
   <v-container id="containerMorningEntry">
+    <h1 align="center">Morgeneintrag erfassen</h1>
     <v-form ref="form" v-model="valid" lazy-validation>
       <card-entry-morning
         dark
@@ -9,6 +10,7 @@
         :option="card.option"
         :label="card.label"
         :id="card.id"
+        :value="card.value"
         @changedValue="onChangedValue($event)"
         @changedTime="onChangedTime($event)"
         @changedClock="onChangedClock($event)"
@@ -79,19 +81,22 @@ export default {
           option: "sliderOption",
           title: "Schlafqualität:",
           label: "Gut",
-          id: "sleepQuality"
+          id: "sleepQuality",
+          value: "0"
         },
         {
           option: "sliderOption",
           title: "Gefühl des Erholtseins:",
           label: "Gut",
-          id: "relaxation"
+          id: "relaxation",
+          value: "0"
         },
         {
           option: "sliderOption",
           title: "Müdigkeit beim Zubettgehen:",
           label: "Keine",
-          id: "tiredness"
+          id: "tiredness",
+          value: "0"
         },
         {
           option: "numbersOption",
@@ -102,7 +107,8 @@ export default {
         {
           option: "checkboxOption",
           title: "Schlafmittel genommen:",
-          id: "medication"
+          id: "medication",
+          value: "[false, false]"
         }
       ],
       morningEntry: {

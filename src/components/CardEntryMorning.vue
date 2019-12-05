@@ -4,42 +4,40 @@
 
     <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
     <div v-if="option == 'sliderOption'">
-      <v-slider
-        v-model="numbers"
-        :tick-labels="numbersLabel"
-        :min="1"
-        :max="numbersLabel.length"
-        :color="'#F9A825'"
+      <card-slider
+        :value="value"
         :label="label"
         :id="id"
-        step="1"
-        ticks="always"
-        tick-size="4"
-        @change="onNumberChanged()"
-      ></v-slider>
+        @changedNumber="onChangedNumber($event)"
+      >
+      </card-slider>
     </div>
 
     <!-- Insert a checkbox if the option of the card(card.option) says 'checkbox' -->
     <div v-else-if="option == 'checkboxOption'">
       <v-container fluid>
-        <v-checkbox @click="onCheckboxClicked(0)" :id="id" :label="'Vor dem zu Bett gehen'"></v-checkbox>
-        <v-checkbox @click="onCheckboxClicked(1)" :id="id" :label="'In der Nacht'"></v-checkbox>
+        <card-checkbox
+          v-for="checkbox in medicationCheckbox"
+          :label="checkbox.label"
+          :key="checkbox.label"
+          :id="id"
+          :value="checkbox.value"
+          :number="checkbox.number"
+          @changedValue="onChangedCheckbox($event)"
+        >
+        </card-checkbox>
       </v-container>
     </div>
 
     <!-- Insert a number textfield if the option of the card(card.option) says 'numbers' -->
     <div v-else-if="option == 'numbersOption'">
-      <v-col cols="12" sm="4">
-        <v-text-field
-          v-model="numbers"
-          :label="label"
-          :rules="ruleNumbers"
-          :id="id"
-          single-line
-          type="number"
-          @change="onNumberChanged()"
-        />
-      </v-col>
+      <card-number
+        :value="value"
+        :label="label"
+        :id="id"
+        @changedNumber="onChangedNumber($event)"
+      >
+      </card-number>
     </div>
 
     <!-- Insert a time textfield if the option of the card(card.option) says 'hhmm'.
@@ -98,20 +96,39 @@
 </template>
 
 <script>
+import CardSlider from "./CardSlider.vue";
+import CardCheckbox from "./CardCheckbox.vue";
+import CardNumber from "./CardNumber.vue";
+
 export default {
+  components: {
+    CardSlider,
+    CardCheckbox,
+    CardNumber
+  },
   name: "cardEntryMorning",
   props: {
     title: String,
     option: String,
     label: String,
-    id: String
+    id: String,
+    value: String
   },
   data() {
     return {
-      numbersLabel: ["1", "2", "3", "4", "5", "6", "7", "8"],
+      medication: [
+        {
+          label: "Vor dem zu Bett gehen",
+          value: false,
+          number: 0
+        },
+        {
+          label: "In der Nacht",
+          value: false,
+          number: 1
+        }
+      ],
       hhmmValue: null,
-      medication: [false, false],
-      numbers: null,
       test: null,
       time: null,
       clockTime: false,
@@ -126,33 +143,36 @@ export default {
         }
       ],
       ruleClockTime: [v => !!v || "Dies ist ein Pflichtfeld"],
-      ruleNumbers: [
-        v => {
-          if (v === null || v < 30) {
-            return true;
-          }
-          return "Unwahrscheinliche Angabe, maximal 29";
-        }
-      ]
     };
+  },
+  computed: {
+    medicationCheckbox: function () {
+      let values = this.value.replace(/ /g, "");
+      values = values.slice(1,-1).split(",");
+      let medication = this.medication;
+      for(let i = 0; i < values.length; i++) {
+        let boolValue = (values[i] == "true");
+        medication[i].value = boolValue;
+      }
+      return medication;
+    }
   },
   methods: {
     save(time) {
       this.$refs.dialog.save(time);
     },
-    onCheckboxClicked(number) {
-      this.medication[number] = !this.medication[number];
-
-      const changedValue = {
-        value: this.medication,
-        id: this.id
-      };
-      this.$emit("changedValue", changedValue);
+    onChangedNumber(changedNumber) {
+      this.$emit("changedValue", changedNumber);
     },
-    onNumberChanged() {
+    onChangedCheckbox(value) {
+      this.medication[value.number].value = value.value;
+      let output = [];
+      for(let i = 0; i < this.medication.length; i++) {
+        output[i] = this.medication[i].value;
+      }
       const changedValue = {
-        value: this.numbers * 1,
-        id: this.id
+        value: output,
+        id: value.id
       };
       this.$emit("changedValue", changedValue);
     },

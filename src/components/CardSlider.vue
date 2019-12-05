@@ -29,7 +29,7 @@ export default {
       }
   },
   created() {
-      this.numbers = this.value *1;
+      this.numbers = this.value * 1;
   },
   methods: {
     onSliderChanged() {
