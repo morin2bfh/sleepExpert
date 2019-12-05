@@ -41,35 +41,41 @@ export default {
           option: "sliderOption",
           title: "Tagesmüdigkeit:",
           label: "Keine",
-          id: "dayTiredness"
+          id: "dayTiredness",
+          value: "0"
         },
         {
           option: "sliderOption",
           title: "Konzentration:",
           label: "Gut",
-          id: "concentration"
+          id: "concentration",
+          value: "0"
         },
         {
           option: "sliderOption",
           title: "Stimmung:",
           label: "Gut",
-          id: "mood"
+          id: "mood",
+          value: "0"
         },
         {
           option: "sliderOption",
           title: "Körperliche Entspanntheit:",
           label: "Gut",
           id: "relaxation",
+          value: "0"
         },
         { 
           option: "checkboxOptionSchlaf", 
           title: "Tagesschlaf:",
-          id: "daySleep"
+          id: "daySleep",
+          value: "[false, false, false]"
         },
         { 
           option: "checkboxOptionGenuss", 
           title: "Genussmitttel:",
-          id: "stimulats"
+          id: "stimulants",
+          value: "[false, false, false, false]"
         }
       ],
       eveningEntry: {
@@ -78,7 +84,7 @@ export default {
         mood: null,
         relaxation: null,
         daySleep: [false, false, false],
-        stimulats: [false, false, false, false],
+        stimulants: [false, false, false, false],
         timestamp: new Date()
       }
     };
@@ -103,7 +109,10 @@ export default {
 };
 </script>
 <style scoped>
-  #containerEveningEntry{
-    padding-bottom: 50px;
-  }
+#containerEveningEntry {
+  padding-bottom: 50px;
+}
+#layoutButtons {
+  padding: 10px;
+}
 </style>
