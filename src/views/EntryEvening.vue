@@ -69,7 +69,7 @@ export default {
         {
           option: "checkboxOptionGenuss",
           title: "Genussmitttel:",
-          id: "stimulats"
+          id: "stimulants"
         }
       ],
       eveningEntry: {
@@ -78,7 +78,7 @@ export default {
         mood: null,
         relaxation: null,
         daySleep: [false, false, false],
-        stimulats: [false, false, false, false],
+        stimulants: [false, false, false, false],
         timestamp: new Date(),
         uid: null
       }
