@@ -1,5 +1,5 @@
 <template>
- <v-container id="containerEveningEntry">
+  <v-container id="containerEveningEntry">
     <h1 align="center">Abendeintrag erfassen</h1>
     <v-form ref="form" v-model="valid" lazy-validation>
       <card-entry-evening
@@ -12,8 +12,7 @@
         :id="card.id"
         :value="card.value"
         @changedValue="onChangedValue($event)"
-      > 
-      </card-entry-evening>
+      ></card-entry-evening>
       <v-layout row child-flex justify-center align-center wrap id="layoutButtons">
         <v-spacer></v-spacer>
         <v-btn color="#6D4C41" @click="cancel()">Abbrechen</v-btn>
@@ -28,6 +27,7 @@
 <script>
 import CardEntryEvening from "@/components/CardEntryEvening.vue";
 import db from "../fb";
+import { auth } from "../fb";
 
 export default {
   components: {
@@ -59,15 +59,15 @@ export default {
           option: "sliderOption",
           title: "Körperliche Entspanntheit:",
           label: "Gut",
-          id: "relaxation",
+          id: "relaxation"
         },
-        { 
-          option: "checkboxOptionSchlaf", 
+        {
+          option: "checkboxOptionSchlaf",
           title: "Tagesschlaf:",
           id: "daySleep"
         },
-        { 
-          option: "checkboxOptionGenuss", 
+        {
+          option: "checkboxOptionGenuss",
           title: "Genussmitttel:",
           id: "stimulats"
         }
@@ -79,12 +79,14 @@ export default {
         relaxation: null,
         daySleep: [false, false, false],
         stimulats: [false, false, false, false],
-        timestamp: new Date()
+        timestamp: new Date(),
+        uid: null
       }
     };
   },
   methods: {
     submit() {
+      this.uid = auth.currentUser.uid;
       if (this.$refs.form.validate()) {
         db.collection("EntryEvening").add(this.eveningEntry);
         this.$router.push("/dashboard");
@@ -103,7 +105,7 @@ export default {
 };
 </script>
 <style scoped>
-  #containerEveningEntry{
-    padding-bottom: 50px;
-  }
+#containerEveningEntry {
+  padding-bottom: 50px;
+}
 </style>
