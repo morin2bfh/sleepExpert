@@ -1,4 +1,5 @@
 <template>
+  <v-container fluid>
     <v-checkbox
         :id="id"
         :label="label"
@@ -6,6 +7,7 @@
         @click="onCheckboxClicked(number)"
     >
     </v-checkbox>
+  </v-container>
 </template>
 
 <script>

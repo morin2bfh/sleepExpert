@@ -43,16 +43,16 @@ export default {
           option: "clockOption",
           title: "Zu Bett gegangen um: *",
           label: "Uhrzeit",
-          id: "bedTime"
+          id: "bedTime",
+          value: "22:12"
         },
-
         {
           option: "clockOption",
           title: "Licht gelöscht um: *",
           label: "Uhrzeit",
-          id: "lightsOut"
+          id: "lightsOut",
+          value: "22:56"
         },
-
         {
           option: "hhmmOption",
           title: "Geschätzte Einschlafdauer: *",
@@ -143,11 +143,6 @@ export default {
       let value = changedValue.value;
       this.morningEntry[changedValue.id] = value;
     },
-   /*  onChangedTime(changedTime) {
-      let value = changedTime.value;
-      let minutes = value.split(":")[0] * 60 + value.split(":")[1] * 1;
-      this.morningEntry[changedTime.id] = minutes;
-    }, */
     onChangedClock(changedClock) {
       let value = changedClock.value;
       let date = new Date();
