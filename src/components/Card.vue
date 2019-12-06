@@ -8,6 +8,8 @@
   </v-card>
 </template>
 <script>
+import { bus } from "../main";
+
 export default {
   name: "card",
   props: {
@@ -19,7 +21,7 @@ export default {
   },
   methods: {
     goTo(route) {
-      this.$router.push(route);
+     bus.$emit("changedRoute", route);
     }
   }
 };

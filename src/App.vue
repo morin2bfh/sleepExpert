@@ -13,7 +13,7 @@
         :value="route.name"
         v-for="route in routes"
         :key="route.name"
-        @click="goTo(route)"
+        @click="goTo(route.route)"
       >
         <span class="overline">{{route.name}}</span>
         <v-icon>{{route.icon}}</v-icon>
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+
+import { bus } from "./main";
 export default {
   name: "App",
   components: {
@@ -54,13 +56,16 @@ export default {
       activeTitle: "Start", //Get Current Username from Database
     };
   },
+  created() {
+    bus.$on("changedRoute", (data) => {
+      this.goTo(data);
+    });
+  },
   methods: {
     goTo(route) {
-      this.$router.push(route.route);
-      //Get current Username from Database
-       this.activeTitle= route.name;
-      //this.activeTitle= this.$router.currentRoute.name;
-   
+      this.$router.push(route);
+      this.activeTitle = this.$router.currentRoute.name;
+ 
     }
   }
 };
