@@ -1,5 +1,8 @@
 <template>
-  <v-container>
+  <v-container class="d-flex flex-column align-center">
+    <v-avatar min-width="200px" min-height="200px" class="mb-8">
+      <img id="logo-login" src="../assets/sun.png" alt="Sleepexpert Logo" />
+    </v-avatar>
     <v-card dark>
       <v-card-title class="d-flex flex-column">
         <v-form dark class>
@@ -88,5 +91,9 @@ export default {
 }
 #link-banner {
   max-width: 70% !important;
+}
+#logo-login {
+  height: 100%;
+  width: 100%;
 }
 </style>
