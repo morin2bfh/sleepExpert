@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-auto mt-2" max-width="400" dark>
-    <v-card-title>{{title}}</v-card-title>
+    <v-card-title>{{ title }}</v-card-title>
 
     <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
     <div v-if="option == 'sliderOption'">
@@ -15,18 +15,19 @@
         step="1"
         ticks="always"
         tick-size="4"
+        @change="onNumberChanged()"
       ></v-slider>
     </div>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'checkbox' -->
+    <!-- Insert a checkbox if the option of the card(card.option) says 'checkbox' -->
     <div v-else-if="option == 'checkboxOption'">
       <v-container fluid>
-        <v-checkbox v-model="checkbox1" :id="id" :label="'Vor dem zu Bett gehen'"></v-checkbox>
-        <v-checkbox v-model="checkbox2" :id="id" :label="'In der Nacht'"></v-checkbox>
+        <v-checkbox @click="onCheckboxClicked(0)" :id="id" :label="'Vor dem zu Bett gehen'"></v-checkbox>
+        <v-checkbox @click="onCheckboxClicked(1)" :id="id" :label="'In der Nacht'"></v-checkbox>
       </v-container>
     </div>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'numbers' -->
+    <!-- Insert a number textfield if the option of the card(card.option) says 'numbers' -->
     <div v-else-if="option == 'numbersOption'">
       <v-col cols="12" sm="4">
         <v-text-field
@@ -36,39 +37,28 @@
           :id="id"
           single-line
           type="number"
+          @change="onNumberChanged()"
         />
       </v-col>
     </div>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'hhmm'.
+    <!-- Insert a time textfield if the option of the card(card.option) says 'hhmm'.
     These are the inputs for a format like hh:mm-->
     <div v-else-if="option == 'hhmmOption'">
       <v-col cols="12" sm="4">
         <v-text-field
           v-model="hhmmValue"
           :label="label"
-          :rules="ruleHHMM"
+          :rules="ruleHMM"
           :id="id"
           single-line
           width="290px"
+          @change="onTimeChanged()"
         />
       </v-col>
     </div>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'buttons' -->
-    <div v-else-if="option == 'buttonsOption'">
-      <v-container horizontal align="alignment">
-        <v-layout row child-flex justify-center align-center wrap>
-          <v-spacer></v-spacer>
-          <v-btn color="#6D4C41" @click="cancel()">Abbrechen</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="#FBC02D" @click="submit()">Speichern</v-btn>
-          <v-spacer></v-spacer>
-        </v-layout>
-      </v-container>
-    </div>
-
-    <!-- Insert a slider if the option of the card(card.option) says 'clock' -->
+    <!-- Insert a clock if the option of the card(card.option) says 'clock' -->
     <div v-else-if="option == 'clockOption'">
       <v-col cols="12" sm="4">
         <v-dialog
@@ -82,6 +72,7 @@
             <v-text-field
               v-model="time"
               :label="label"
+              :rules="ruleClockTime"
               prepend-inner-icon="$vuetify.icons.clock"
               readonly
               v-on="on"
@@ -94,9 +85,9 @@
             full-width
             format="24hr"
             color="yellow darken-3"
+            @change="onClockChanged()"
           >
             <v-spacer></v-spacer>
-
             <v-btn text color="yellow darken-3" @click="clockTime = false">Abbrechen</v-btn>
             <v-btn text color="yellow darken-3" @click="save(time)">Übernehmen</v-btn>
           </v-time-picker>
@@ -119,27 +110,28 @@ export default {
     return {
       numbersLabel: ["1", "2", "3", "4", "5", "6", "7", "8"],
       hhmmValue: null,
-      checkbox2: null,
-      checkbox1: null,
+      medication: [false, false],
       numbers: null,
-      numberValue: null,
+      test: null,
       time: null,
       clockTime: false,
       clock: false,
 
-      ruleHHMM: [
-        value => (value || "").length <= 5 || "Max 5 characters",
-        value => {
-          const pattern = /[0-1?][0-9?]:[0-5?][0-9?]/;
-          return pattern.test(value) || "Ungültiges Format, Bsp: 01:12";
+      ruleHMM: [
+        v => !!v || "Dies ist ein Pflichtfeld",
+        v => (v || "").length <= 5 || "Maximal 4 Zeichen",
+        v => {
+          const pattern = /[0-9?]{1,2}:[0-5?][0-9?]/;
+          return pattern.test(v) || "Ungültiges Format, Bsp: 01:12";
         }
       ],
-
+      ruleClockTime: [v => !!v || "Dies ist ein Pflichtfeld"],
       ruleNumbers: [
-        value => (value || "").length <= 2 || "Max 2 Zahlen",
-        value => {
-          const pattern = /[0-2?]?[0-9?]?/;
-          return pattern.test(value);
+        v => {
+          if (v === null || v < 30) {
+            return true;
+          }
+          return "Unwahrscheinliche Angabe, maximal 29";
         }
       ]
     };
@@ -148,12 +140,35 @@ export default {
     save(time) {
       this.$refs.dialog.save(time);
     },
-    submit() {
-      // Hier Daten in DB speichern
-      this.$router.push("/dashboard");
+    onCheckboxClicked(number) {
+      this.medication[number] = !this.medication[number];
+
+      const changedValue = {
+        value: this.medication,
+        id: this.id
+      };
+      this.$emit("changedValue", changedValue);
     },
-    cancel() {
-      this.$router.push("/dashboard");
+    onNumberChanged() {
+      const changedValue = {
+        value: this.numbers * 1,
+        id: this.id
+      };
+      this.$emit("changedValue", changedValue);
+    },
+    onTimeChanged() {
+      const changedTime = {
+        value: this.hhmmValue,
+        id: this.id
+      };
+      this.$emit("changedTime", changedTime);
+    },
+    onClockChanged() {
+      const changedClock = {
+        value: this.time,
+        id: this.id
+      };
+      this.$emit("changedClock", changedClock);
     }
   }
 };

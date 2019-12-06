@@ -8,7 +8,15 @@
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-bottom-navigation v-model="activeNav" fixed height="50px" max-width="100vh" class="pa-2" grow dark>
+    <v-bottom-navigation
+      v-if="auth.currentUser"
+      v-model="activeNav"
+      fixed
+      height="50px"
+      class="pa-2"
+      grow
+      dark
+    >
       <v-btn
         :value="route.name"
         v-for="route in routes"
@@ -25,6 +33,8 @@
 <script>
 
 import { bus } from "./main";
+import { auth } from "./fb";
+
 export default {
   name: "App",
   components: {
@@ -37,23 +47,13 @@ export default {
           icon: "$vuetify.icons.dashboard",
           route: "/dashboard"
         },
-        /* {
-          name: "Morgeneintrag",
-          icon: "$vuetify.icons.morning",
-          route: "/entryMorning"
-        },
-        {
-          name: "Abendeintrag",
-          icon: "$vuetify.icons.evening",
-          route: "/entryEvening"
-        },*/
         { name: "Verlauf", icon: "$vuetify.icons.history", route: "/history" },
         { name: "Statistik", icon: "$vuetify.icons.stats", route: "/stats" },
         { name: "Info", icon: "$vuetify.icons.info", route: "/info" },
         { name: "Besipiele", icon: "$vuetify.icon.book", route: "/ex" }
       ],
       activeNav: "",
-      activeTitle: "Start", //Get Current Username from Database
+      activeTitle: "Start",
     };
   },
   created() {
@@ -65,7 +65,11 @@ export default {
     goTo(route) {
       this.$router.push(route);
       this.activeTitle = this.$router.currentRoute.name;
- 
+    }
+  },
+  computed: {
+    auth() {
+      return auth;
     }
   }
 };

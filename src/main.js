@@ -6,7 +6,6 @@ import vuetify from './plugins/vuetify';
 Vue.config.productionTip = false
 Vue.config.devtools = true;
 
-
 export const bus = new Vue();
 
 new Vue({
