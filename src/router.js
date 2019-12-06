@@ -28,49 +28,49 @@ export default new Router({
         },
         {
             path: '/dashboard',
-            name: 'dashboard',
+            name: 'Dashboard',
             component: Dashboard,
             beforeEnter: checkUser
         },
         {
             path: '/entryMorning',
-            name: 'entryMorning',
+            name: 'Morgeneintrag',
             component: EntryMorning,
             beforeEnter: checkUser
         },
         {
             path: '/entryEvening',
-            name: 'entryEvening',
+            name: 'Abendeintrag',
             component: EntryEvening,
             beforeEnter: checkUser
         },
         {
             path: '/history',
-            name: 'history',
+            name: 'Verlauf',
             component: History,
             beforeEnter: checkUser
         },
         {
             path: '/stats',
-            name: 'stats',
+            name: 'Statistik',
             component: Stats,
             beforeEnter: checkUser
         },
         {
             path: '/info',
-            name: 'info',
+            name: 'Informationen',
             component: Info,
             beforeEnter: checkUser
         },
         {
             path: '/ex',
-            name: 'infoex',
+            name: 'Beispiele',
             component: Examples,
             beforeEnter: checkUser
         },
         {
             path: '/login',
-            name: 'login',
+            name: 'Login',
             component: Login
         },
         {

@@ -12,9 +12,11 @@
 </template>
 <script>
 import Card from "@/components/Card.vue";
+//import Router from "../router.js";
+
 export default {
   components: {
-    Card
+    Card,
   },
   data: () => ({
     cards: [

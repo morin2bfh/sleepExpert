@@ -43,7 +43,7 @@ export default {
     return {
       routes: [
         {
-          name: "Start", 
+          name: "Dashboard", 
           icon: "$vuetify.icons.dashboard",
           route: "/dashboard"
         },
@@ -53,7 +53,7 @@ export default {
         { name: "Besipiele", icon: "$vuetify.icon.book", route: "/ex" }
       ],
       activeNav: "",
-      activeTitle: "Start",
+      activeTitle: "Dashboard",
     };
   },
   created() {
