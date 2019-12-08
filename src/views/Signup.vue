@@ -29,7 +29,7 @@
       </v-card-title>
       <v-banner id="link-banner" single-line dark color="yellow darken-2">
         Bereits registriert?
-        <v-btn color="yellow darken-2" text @click="goTo('login')">Zurück zum Login</v-btn>
+        <v-btn color="yellow darken-2" text @click="goTo('login')">Zum Login</v-btn>
       </v-banner>
     </v-card>
   </v-container>
@@ -59,7 +59,7 @@ export default {
         .then(() => {
           this.$router.push("/dashboard");
         }) //if an error occurs
-        .catch(function(err) {
+        .catch(err => {
           //get the error code
           var code = err.code;
           if (code == "auth/weak-password") {
