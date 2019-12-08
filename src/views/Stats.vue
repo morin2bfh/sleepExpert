@@ -1,5 +1,4 @@
 <template>
-  <h1>Statistik</h1>
+    <div>
+  </div>
 </template>
-<script>
-</script>

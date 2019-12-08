@@ -12,9 +12,11 @@
 </template>
 <script>
 import Card from "@/components/Card.vue";
+//import Router from "../router.js";
+
 export default {
   components: {
-    Card
+    Card,
   },
   data: () => ({
     cards: [
@@ -23,7 +25,7 @@ export default {
         subtitle:
           "Erfasse einen neuen Eintrag, um deine Schlafdauer zu dokumentieren.",
         imgSrc: require("../assets/sun.png"),
-        route: "/entryMorning"
+        route: "/entryMorning", 
       },
       {
         title: "Abendeintrag",
@@ -44,6 +46,6 @@ export default {
 </script>
 <style scoped>
 #container {
-  height: calc(100% - 50px);
+  height: calc(100% - 100px);
 }
 </style>

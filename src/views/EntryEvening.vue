@@ -1,6 +1,5 @@
 <template>
   <v-container id="containerEveningEntry">
-    <h1 align="center">Abendeintrag erfassen</h1>
     <v-form ref="form" v-model="valid" lazy-validation>
       <card-entry-evening
         dark
