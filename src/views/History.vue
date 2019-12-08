@@ -1,11 +1,10 @@
 <template>
- <v-container id="containerHistory">
+  <v-container class="flex-column" id="container">
   <card-history
       v-for="card in cards"
       :key="card.title"
       :imgSrc="card.imgSrc"
       :title="card.title"
-      :option="card.option"
       :route="card.route"
     />
  </v-container>
@@ -23,18 +22,27 @@ export default {
       cards: [
         {
           imgSrc: require("../assets/sun.png"),
-          option: "morningEntry",
-          title: "getDateFromDBMorning",
-          route: "/entryMorning"
+          title: "12. Dezember 2019",
+          route: "/entryMorning",
         },
         {
           imgSrc: require("../assets/moon.png"),
-          option: "eveningEntry",
-          title: "getDateFromDBEvening",
-          route: "/entryEvening"
+          title: "12. Dezember 2019",
+          route: "/entryEvening",
+        },{
+          imgSrc: require("../assets/sun.png"),
+          title: "11. Dezember 2019",
+          route: "/entryMorning",
+        },
+        {
+          imgSrc: require("../assets/moon.png"),
+          title: "11.12.2019",
+          route: "/entryEvening",
         },
       ]
     };
    }
 };  
 </script>
+<style scoped>
+</style>

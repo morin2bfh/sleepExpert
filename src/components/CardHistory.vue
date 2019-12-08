@@ -1,14 +1,14 @@
 <template>
-   
-   <v-card dark @click="goTo(route)" class="mx-auto mt-2" max-width="400">
-      <v-img 
-        class="white--text align-end" 
+  <v-card dark @click="goTo(route)" class="mx-auto mt-2" max-width="400">
+    <v-layout row child-flex justify-center align-center wrap>
+      <v-img  
         contain height="15vh" 
-        v-if="option == 'optionEntry'"
+        max-height="70px"
         :src="imgSrc">
+        <v-card-text> {{title}} </v-card-text>
       </v-img>
-    <v-card-title>{{ title }}</v-card-title>
-   </v-card>
+    </v-layout>
+  </v-card>
 </template>
 <script>
 
@@ -17,8 +17,7 @@ export default {
   props: {
     title: String,
     imgSrc: String,
-    option: String,
-    route: String
+    route: String,
   },
   methods: {
     goTo(route) {
