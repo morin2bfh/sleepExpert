@@ -1,9 +1,7 @@
 <template>
   <v-app>
-    <v-toolbar dark fixed height="50px" id="toolbar">
-      <v-toolbar-title  class="headline text-uppercase" >
-        {{activeTitle}} 
-      </v-toolbar-title>
+    <v-toolbar v-if="auth.currentUser" dark fixed height="50px" id="toolbar">
+      <v-toolbar-title class="headline text-uppercase">{{activeTitle}}</v-toolbar-title>
     </v-toolbar>
     <v-content>
       <router-view></router-view>
@@ -31,19 +29,17 @@
 </template>
 
 <script>
-
 import { bus } from "./main";
 import { auth } from "./fb";
 
 export default {
   name: "App",
-  components: {
-  },
+  components: {},
   data() {
     return {
       routes: [
         {
-          name: "Dashboard", 
+          name: "Dashboard",
           icon: "$vuetify.icons.dashboard",
           route: "/dashboard"
         },
@@ -53,11 +49,11 @@ export default {
         { name: "Besipiele", icon: "$vuetify.icon.book", route: "/ex" }
       ],
       activeNav: "",
-      activeTitle: "Dashboard",
+      activeTitle: "Dashboard"
     };
   },
   created() {
-    bus.$on("changedRoute", (data) => {
+    bus.$on("changedRoute", data => {
       this.goTo(data);
     });
   },
@@ -78,10 +74,10 @@ export default {
 .v-content {
   background-color: #424242;
 }
-header{
+header {
   max-height: 50px;
 }
-#toolbar{
+#toolbar {
   justify-content: center !important;
   display: flex;
 }

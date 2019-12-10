@@ -16,7 +16,7 @@
         <v-spacer></v-spacer>
         <v-btn color="#6D4C41" @click="cancel()">Abbrechen</v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="#FBC02D" @click="submit()">Speichern</v-btn>
+        <v-btn color="yellow darken-2" @click="submit()">Speichern</v-btn>
         <v-spacer></v-spacer>
       </v-layout>
     </v-form>
