@@ -4,171 +4,141 @@
 
     <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
     <div v-if="option == 'sliderOption'">
-      <v-slider
-        v-model="numbers"
-        :tick-labels="numbersLabel"
-        :min="1"
-        :max="numbersLabel.length"
-        :color="'#F9A825'"
+      <card-slider
+        :value="value"
         :label="label"
         :id="id"
-        step="1"
-        ticks="always"
-        tick-size="4"
-        @change="onNumberChanged()"
-      ></v-slider>
+        @changedNumber="onChangedNumber($event)"
+      >
+      </card-slider>
     </div>
 
     <!-- Insert a checkbox if the option of the card(card.option) says 'checkbox' -->
     <div v-else-if="option == 'checkboxOption'">
-      <v-container fluid>
-        <v-checkbox @click="onCheckboxClicked(0)" :id="id" :label="'Vor dem zu Bett gehen'"></v-checkbox>
-        <v-checkbox @click="onCheckboxClicked(1)" :id="id" :label="'In der Nacht'"></v-checkbox>
-      </v-container>
+      <card-checkbox
+        v-for="checkbox in medicationCheckbox"
+        :label="checkbox.label"
+        :key="checkbox.label"
+        :id="id"
+        :value="checkbox.value"
+        :number="checkbox.number"
+        @changedValue="onChangedCheckbox($event)"
+      >
+      </card-checkbox>
     </div>
 
     <!-- Insert a number textfield if the option of the card(card.option) says 'numbers' -->
     <div v-else-if="option == 'numbersOption'">
-      <v-col cols="12" sm="4">
-        <v-text-field
-          v-model="numbers"
-          :label="label"
-          :rules="ruleNumbers"
-          :id="id"
-          single-line
-          type="number"
-          @change="onNumberChanged()"
-        />
-      </v-col>
+      <card-number
+        :value="value"
+        :label="label"
+        :id="id"
+        @changedNumber="onChangedNumber($event)"
+      >
+      </card-number>
     </div>
 
     <!-- Insert a time textfield if the option of the card(card.option) says 'hhmm'.
     These are the inputs for a format like hh:mm-->
     <div v-else-if="option == 'hhmmOption'">
-      <v-col cols="12" sm="4">
-        <v-text-field
-          v-model="hhmmValue"
-          :label="label"
-          :rules="ruleHMM"
-          :id="id"
-          single-line
-          width="290px"
-          @change="onTimeChanged()"
-        />
-      </v-col>
+      <card-time
+        :value="value"
+        :label="label"
+        :id="id"
+        @changedTime="onChangedTime($event)"
+      >
+      </card-time>
     </div>
 
     <!-- Insert a clock if the option of the card(card.option) says 'clock' -->
     <div v-else-if="option == 'clockOption'">
-      <v-col cols="12" sm="4">
-        <v-dialog
-          ref="dialog"
-          v-model="clockTime"
-          :return-value.sync="time"
-          persistent
-          width="290px"
-        >
-          <template v-slot:activator="{ on }">
-            <v-text-field
-              v-model="time"
-              :label="label"
-              :rules="ruleClockTime"
-              prepend-inner-icon="$vuetify.icons.clock"
-              readonly
-              v-on="on"
-            ></v-text-field>
-          </template>
-          <v-time-picker
-            v-if="clockTime"
-            :id="id"
-            v-model="time"
-            full-width
-            format="24hr"
-            color="yellow darken-3"
-            @change="onClockChanged()"
-          >
-            <v-spacer></v-spacer>
-            <v-btn text color="yellow darken-3" @click="clockTime = false">Abbrechen</v-btn>
-            <v-btn text color="yellow darken-3" @click="save(time)">Übernehmen</v-btn>
-          </v-time-picker>
-        </v-dialog>
-      </v-col>
+      <card-clock
+        :value="value"
+        :label="label"
+        :id="id"
+        @changedClock="onChangedNumber($event)"
+      >
+      </card-clock>
     </div>
   </v-card>
 </template>
 
 <script>
+import CardSlider from "./CardSlider.vue";
+import CardCheckbox from "./CardCheckbox.vue";
+import CardNumber from "./CardNumber.vue";
+import CardTime from "./CardTime.vue";
+import CardClock from "./CardClock.vue";
+
 export default {
+  components: {
+    CardSlider,
+    CardCheckbox,
+    CardNumber,
+    CardTime,
+    CardClock
+  },
   name: "cardEntryMorning",
   props: {
     title: String,
     option: String,
     label: String,
-    id: String
+    id: String,
+    value: String
   },
   data() {
     return {
-      numbersLabel: ["1", "2", "3", "4", "5", "6", "7", "8"],
-      hhmmValue: null,
-      medication: [false, false],
-      numbers: null,
-      test: null,
-      time: null,
-      clockTime: false,
-      clock: false,
-
-      ruleHMM: [
-        v => !!v || "Dies ist ein Pflichtfeld",
-        v => (v || "").length <= 5 || "Maximal 4 Zeichen",
-        v => {
-          const pattern = /[0-9?]{1,2}:[0-5?][0-9?]/;
-          return pattern.test(v) || "Ungültiges Format, Bsp: 01:12";
-        }
-      ],
-      ruleClockTime: [v => !!v || "Dies ist ein Pflichtfeld"],
-      ruleNumbers: [
-        v => {
-          if (v === null || v < 30) {
-            return true;
-          }
-          return "Unwahrscheinliche Angabe, maximal 29";
+      medication: [
+        {
+          label: "Vor dem zu Bett gehen",
+          value: false,
+          number: 0
+        },
+        {
+          label: "In der Nacht",
+          value: false,
+          number: 1
         }
       ]
     };
   },
+  computed: {
+    medicationCheckbox: function () {
+      let values = this.value.replace(/ /g, "");
+      values = values.slice(1,-1).split(",");
+      let medication = this.medication;
+      for(let i = 0; i < values.length; i++) {
+        let boolValue = (values[i] == "true");
+        medication[i].value = boolValue;
+      }
+      return medication;
+    }
+  },
   methods: {
-    save(time) {
-      this.$refs.dialog.save(time);
+    onChangedNumber(changedNumber) {
+      this.$emit("changedValue", changedNumber);
     },
-    onCheckboxClicked(number) {
-      this.medication[number] = !this.medication[number];
-
+    onChangedCheckbox(value) {
+      this.medication[value.number].value = value.value;
+      let output = [];
+      for(let i = 0; i < this.medication.length; i++) {
+        output[i] = this.medication[i].value;
+      }
       const changedValue = {
-        value: this.medication,
-        id: this.id
+        value: output,
+        id: value.id
       };
       this.$emit("changedValue", changedValue);
     },
-    onNumberChanged() {
-      const changedValue = {
-        value: this.numbers * 1,
-        id: this.id
+    onChangedTime(changedTime) {
+      let value = changedTime.value;
+      let minutes = value.split(":")[0] * 60 + value.split(":")[1] * 1;
+     
+     const changedValue = {
+        value: minutes,
+        id: changedTime.id
       };
       this.$emit("changedValue", changedValue);
-    },
-    onTimeChanged() {
-      const changedTime = {
-        value: this.hhmmValue,
-        id: this.id
-      };
-      this.$emit("changedTime", changedTime);
-    },
-    onClockChanged() {
-      const changedClock = {
-        value: this.time,
-        id: this.id
-      };
-      this.$emit("changedClock", changedClock);
     }
   }
 };

@@ -9,6 +9,7 @@
         :option="card.option"
         :label="card.label"
         :id="card.id"
+        :value="card.value"
         @changedValue="onChangedValue($event)"
         @changedTime="onChangedTime($event)"
         @changedClock="onChangedClock($event)"
@@ -43,15 +44,14 @@ export default {
           title: "Zu Bett gegangen um: *",
           label: "Uhrzeit",
           id: "bedTime"
+        //  value: "22:12"
         },
-
         {
           option: "clockOption",
           title: "Licht gelöscht um: *",
           label: "Uhrzeit",
           id: "lightsOut"
         },
-
         {
           option: "hhmmOption",
           title: "Geschätzte Einschlafdauer: *",
@@ -80,19 +80,22 @@ export default {
           option: "sliderOption",
           title: "Schlafqualität:",
           label: "Gut",
-          id: "sleepQuality"
+          id: "sleepQuality",
+          value: "0"
         },
         {
           option: "sliderOption",
           title: "Gefühl des Erholtseins:",
           label: "Gut",
-          id: "relaxation"
+          id: "relaxation",
+          value: "0"
         },
         {
           option: "sliderOption",
           title: "Müdigkeit beim Zubettgehen:",
           label: "Keine",
-          id: "tiredness"
+          id: "tiredness",
+          value: "0"
         },
         {
           option: "numbersOption",
@@ -103,7 +106,8 @@ export default {
         {
           option: "checkboxOption",
           title: "Schlafmittel genommen:",
-          id: "medication"
+          id: "medication",
+          value: "[false, false]"
         }
       ],
       morningEntry: {
@@ -139,11 +143,6 @@ export default {
     onChangedValue(changedValue) {
       let value = changedValue.value;
       this.morningEntry[changedValue.id] = value;
-    },
-    onChangedTime(changedTime) {
-      let value = changedTime.value;
-      let minutes = value.split(":")[0] * 60 + value.split(":")[1] * 1;
-      this.morningEntry[changedTime.id] = minutes;
     },
     onChangedClock(changedClock) {
       let value = changedClock.value;
