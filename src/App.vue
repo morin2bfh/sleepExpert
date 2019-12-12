@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app dark height="50px" id="appBar">
+    <v-app-bar v-if="auth.currentUser" app dark height="50px" id="appBar">
       <v-toolbar-title class="headline text-uppercase">
         {{activeTitle}} 
       </v-toolbar-title>
@@ -30,19 +30,17 @@
 </template>
 
 <script>
-
 import { bus } from "./main";
 import { auth } from "./fb";
 
 export default {
   name: "App",
-  components: {
-  },
+  components: {},
   data() {
     return {
       routes: [
         {
-          name: "Dashboard", 
+          name: "Dashboard",
           icon: "$vuetify.icons.dashboard",
           route: "/dashboard"
         },
@@ -52,11 +50,11 @@ export default {
         { name: "Besipiele", icon: "$vuetify.icon.book", route: "/ex" }
       ],
       activeNav: "",
-      activeTitle: "Dashboard",
+      activeTitle: "Dashboard"
     };
   },
   created() {
-    bus.$on("changedRoute", (data) => {
+    bus.$on("changedRoute", data => {
       this.goTo(data);
     });
   },
@@ -77,7 +75,7 @@ export default {
 .v-content {
   background-color: #424242;
 }
-header{
+header {
   max-height: 50px;
 }
 #appBar{
