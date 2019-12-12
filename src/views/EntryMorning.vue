@@ -44,15 +44,14 @@ export default {
           option: "clockOption",
           title: "Zu Bett gegangen um: *",
           label: "Uhrzeit",
-          id: "bedTime",
-          value: "22:12"
+          id: "bedTime"
+        //  value: "22:12"
         },
         {
           option: "clockOption",
           title: "Licht gelöscht um: *",
           label: "Uhrzeit",
-          id: "lightsOut",
-          value: "22:56"
+          id: "lightsOut"
         },
         {
           option: "hhmmOption",
