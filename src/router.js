@@ -10,6 +10,7 @@ import Login from './views/Login.vue'
 import Signup from './views/Signup.vue'
 import Examples from './views/Examples.vue'
 import HistoryEveningEntry from './views/HistoryEveningEntry.vue'
+import Tipps from './views/Tipps.vue'
 import { auth } from './fb'
 
 Vue.use(Router)
@@ -84,5 +85,10 @@ export default new Router({
         name: 'Abendeintrag History',
         component: HistoryEveningEntry
         },
+        {   
+            path: '/tipps',
+            name: 'Tipps',
+            component: Tipps,
+            },
     ]
 })

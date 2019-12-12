@@ -36,7 +36,7 @@ export default {
         title: "Tipps",
         subtitle: "Tipps rund ums Thema Schlaf",
         imgSrc: require("../assets/lamp.png"),
-        route: "/"
+        route: "/tipps"
       }
     ]
   })

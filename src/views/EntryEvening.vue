@@ -107,4 +107,7 @@ export default {
 #containerEveningEntry {
   padding-bottom: 50px;
 }
+#layoutButtons {
+  padding: 10px;
+}
 </style>

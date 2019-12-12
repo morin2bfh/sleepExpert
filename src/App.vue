@@ -1,10 +1,10 @@
 <template>
   <v-app>
-    <v-toolbar dark fixed height="50px" id="toolbar">
-      <v-toolbar-title  class="headline text-uppercase" >
+    <v-app-bar app dark height="50px" id="appBar">
+      <v-toolbar-title class="headline text-uppercase">
         {{activeTitle}} 
       </v-toolbar-title>
-    </v-toolbar>
+    </v-app-bar>
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -13,7 +13,6 @@
       v-model="activeNav"
       fixed
       height="50px"
-      class="pa-2"
       grow
       dark
     >
@@ -81,7 +80,7 @@ export default {
 header{
   max-height: 50px;
 }
-#toolbar{
+#appBar{
   justify-content: center !important;
   display: flex;
 }
