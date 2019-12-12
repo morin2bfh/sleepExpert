@@ -28,7 +28,7 @@ export default {
         {
           imgSrc: require("../assets/moon.png"),
           title: "12. Dezember 2019",
-          route: "/entryEvening",
+          route: "/historyEveningEn",
         },{
           imgSrc: require("../assets/sun.png"),
           title: "11. Dezember 2019",

@@ -9,6 +9,7 @@ import Info from './views/Info.vue'
 import Login from './views/Login.vue'
 import Signup from './views/Signup.vue'
 import Examples from './views/Examples.vue'
+import HistoryEveningEntry from './views/HistoryEveningEntry.vue'
 import { auth } from './fb'
 
 Vue.use(Router)
@@ -77,6 +78,11 @@ export default new Router({
             path: '/signup',
             name: 'signup',
             component: Signup
+        },
+        {   
+        path: '/historyEveningEntry',
+        name: 'Abendeintrag History',
+        component: HistoryEveningEntry
         },
     ]
 })
