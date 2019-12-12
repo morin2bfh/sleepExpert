@@ -1,5 +1,5 @@
 <template>
-  <v-container class="d-flex flex-column justify-space-around" id="container">
+  <v-container class="flex-column justify-space-around" id="container">
     <card-tipps
       v-for="card in cards"
       :key="card.title"
@@ -16,6 +16,7 @@ export default {
     CardTipps,
   },
   data: () => ({
+    show: false,
     cards: [
       {
         title: "Keine koffeinhaltigen Getränke am Abend",

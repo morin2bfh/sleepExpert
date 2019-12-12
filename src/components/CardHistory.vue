@@ -1,5 +1,5 @@
 <template>
-  <v-card dark @click="goTo(route)" class="mx-auto mt-2" max-width="400">
+  <v-card dark @click="goTo(route)" class="mx-auto mt-2" >
     <v-layout row child-flex justify-center align-center wrap>
       <v-img  
         contain height="15vh" 

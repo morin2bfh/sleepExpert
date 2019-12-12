@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto mt-2" max-width="400" dark>
+  <v-card class="mx-auto mt-2" dark>
     <v-card-title>{{ title }}</v-card-title>
 
     <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
