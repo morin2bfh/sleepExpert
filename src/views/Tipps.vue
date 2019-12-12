@@ -31,10 +31,6 @@ export default {
         textExpanded: "Der Körper muss ermüden, damit er schlafen kann. Aber Sport kurz vor dem Schlafen aktiviert einige Menschen, daher eher früher planen.",
       },
       {
-        title: "Tagesschlaf versuchen zu reduzieren",
-        textExpanded: "Koffein zählt als 'Wachmacher', was ungeeignet ist, um einzuschlafen.",
-      },
-      {
         title: "Nicht auf die Uhr/Wecker schauen in der Nacht",
         textExpanded: "Kann dazu führen, dass man sich noch mehr unter Druck setzt (z.B.: Jetzt ist es schon 4 Uhr, jetzt hab ich nur noch 2 Stunden…')",
       },

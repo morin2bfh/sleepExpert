@@ -5,6 +5,7 @@
           <v-expand-transition>
             <div v-show="show">
                 <v-card-text id="styleText" bold>{{textExpanded}}</v-card-text>
+                <slot></slot>
             </div>
           </v-expand-transition>
           <v-btn icon>
@@ -14,7 +15,6 @@
     </v-card>
   </template>
    
-  
   <script>
   export default {
   props: {

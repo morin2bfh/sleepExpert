@@ -30,7 +30,7 @@ export default {
         title: "Wissen",
         subtitle:"Wissen rund um das Thema Schlaf",
         imgSrc: require("../assets/questionmark.png"),
-        route: "/"
+        route: "/Wissen"
       },
       {
         title: "Tipps",
