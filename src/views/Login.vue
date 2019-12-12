@@ -1,5 +1,8 @@
 <template>
-  <v-container>
+  <v-container class="d-flex flex-column align-center">
+    <v-avatar min-width="200px" min-height="200px" class="mb-8">
+      <img id="logo-login" src="../assets/sun.png" alt="Sleepexpert Logo" />
+    </v-avatar>
     <v-card dark>
       <v-card-title class="d-flex flex-column">
         <v-form dark class>
@@ -21,11 +24,14 @@
           ></v-text-field>
         </v-form>
         <v-container d-flex flex-row justify-end id="button-container">
-          <v-btn color="#FBC02D" @click="submit()">Anmelden</v-btn>
+          <v-btn color="yellow darken-2" @click="submit()">Anmelden</v-btn>
         </v-container>
       </v-card-title>
+      <v-banner id="link-banner" single-line dark color="yellow darken-2">
+        Noch kein Konto?
+        <v-btn color="yellow darken-2" text @click="goTo('signup')">Zur Registrierung</v-btn>
+      </v-banner>
     </v-card>
-    <router-link to="/signup">Noch kein Konto? Zur Registrierung</router-link>
   </v-container>
 </template>
 <script>
@@ -69,6 +75,9 @@ export default {
             console.log(err);
           }
         });
+    },
+    goTo(route) {
+      this.$router.push(route);
     }
   }
 };
@@ -79,5 +88,12 @@ export default {
 }
 #button-container {
   max-width: 70% !important;
+}
+#link-banner {
+  max-width: 70% !important;
+}
+#logo-login {
+  height: 100%;
+  width: 100%;
 }
 </style>

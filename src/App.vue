@@ -1,5 +1,8 @@
 <template>
   <v-app>
+    <v-toolbar v-if="auth.currentUser" dark fixed height="50px" id="toolbar">
+      <v-toolbar-title class="headline text-uppercase">{{activeTitle}}</v-toolbar-title>
+    </v-toolbar>
     <v-content>
       <router-view></router-view>
     </v-content>
@@ -26,7 +29,9 @@
 </template>
 
 <script>
+import { bus } from "./main";
 import { auth } from "./fb";
+
 export default {
   name: "App",
   components: {},
@@ -34,31 +39,28 @@ export default {
     return {
       routes: [
         {
-          name: "Start",
+          name: "Dashboard",
           icon: "$vuetify.icons.dashboard",
           route: "/dashboard"
         },
-        /* {
-          name: "Morgeneintrag",
-          icon: "$vuetify.icons.morning",
-          route: "/entryMorning"
-        },
-        {
-          name: "Abendeintrag",
-          icon: "$vuetify.icons.evening",
-          route: "/entryEvening"
-        },*/
         { name: "Verlauf", icon: "$vuetify.icons.history", route: "/history" },
         { name: "Statistik", icon: "$vuetify.icons.stats", route: "/stats" },
         { name: "Info", icon: "$vuetify.icons.info", route: "/info" },
         { name: "Besipiele", icon: "$vuetify.icon.book", route: "/ex" }
       ],
-      activeNav: ""
+      activeNav: "",
+      activeTitle: "Dashboard"
     };
+  },
+  created() {
+    bus.$on("changedRoute", data => {
+      this.goTo(data);
+    });
   },
   methods: {
     goTo(route) {
       this.$router.push(route);
+      this.activeTitle = this.$router.currentRoute.name;
     }
   },
   computed: {
@@ -71,5 +73,12 @@ export default {
 <style scoped>
 .v-content {
   background-color: #424242;
+}
+header {
+  max-height: 50px;
+}
+#toolbar {
+  justify-content: center !important;
+  display: flex;
 }
 </style>
