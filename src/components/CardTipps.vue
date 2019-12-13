@@ -9,7 +9,7 @@
         </div>
       </v-expand-transition>
       <v-btn icon>
-        <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        <v-icon>{{show ? 'mdi-chevron-up' : 'mdi-chevron-down'}}</v-icon>
       </v-btn>
     </v-card-actions>
   </v-card>
