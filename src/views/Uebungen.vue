@@ -25,7 +25,7 @@ export default {
       {
         title: "Allgemeine Informationen",
         textExpanded: "Übungen im Tagesablauf fixieren.\nTechnik im Sitzen lernen.\nMöglichst ohne Hilfen lernen.\nWenn etwas während der Übung stört, ändere es (z.B.: Jucken).\nGedanklicher abschweif während der Übung ist normal, einfach zurückkehren.\nErst richtig Üben, dann für das richtige einsetzten.\nÜbungen kürzen oder verlängern, je nach Bedürfnis.\nEntspannungsphase ist ~3x so lang wie Anspannungsphase.\nGesamte Übung dauer 10-15 Minuten",
-        imgSrc: require("../assets/meditation.png"),
+        imgSrc: require("../assets/meditation_uebung.png"),
       },
       {
         title: "Arme",
