@@ -8,6 +8,7 @@
     />
   </v-container>
 </template>
+
 <script>
 import CardTipps from "@/components/CardTipps.vue";
 
@@ -22,7 +23,7 @@ export default {
         title: "Keine koffeinhaltigen Getränke am Abend",
         textExpanded: "Koffein zählt als 'Wachmacher', was ungeeignet ist, um einzuschlafen.",
       },
-       {
+      {
         title: "Alkohol ist kein Schlafmittel",
         textExpanded: "Alkohol hilft zwar beim Einschlafen, stört jedoch die Schlafphasen",
       },
@@ -50,9 +51,9 @@ export default {
   })
 };
 </script>
+
 <style scoped>
-#container {
-  height: calc(100% - 150px);
-  padding-bottom: 80px;
-}
+  #container {
+    padding-bottom: 80px;
+  }
 </style>

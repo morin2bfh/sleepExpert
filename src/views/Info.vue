@@ -10,9 +10,9 @@
     />
   </v-container>
 </template>
+
 <script>
 import Card from "@/components/Card.vue";
-//import Router from "../router.js";
 
 export default {
   components: {
@@ -24,7 +24,7 @@ export default {
         title: "Übungen",
         subtitle: "Übungen rund um das Thema Schlaf",
         imgSrc: require("../assets/meditation.png"),
-        route: "/", 
+        route: "/Uebungen", 
       },
       {
         title: "Wissen",
@@ -42,8 +42,9 @@ export default {
   })
 };
 </script>
+
 <style scoped>
-#container {
-  height: calc(100% - 100px);
-}
+  #container {
+    height: calc(100% - 100px);
+  }
 </style>

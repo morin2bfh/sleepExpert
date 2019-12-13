@@ -6,11 +6,11 @@
       :title="card.title"
       :textExpanded="card.textExpanded"
     >
-        <v-img contain height="30vh" width="300px" :src="card.imgSrc">
-    </v-img>
+      <v-img contain height="30vh" width="300px" :src="card.imgSrc"/>
     </card-tipps>
   </v-container>
 </template>
+
 <script>
 import CardTipps from "@/components/CardTipps.vue";
 
@@ -35,9 +35,9 @@ export default {
   })
 };
 </script>
+
 <style scoped>
-#container {
-  height: calc(100% - 150px);
-  padding-bottom: 80px;
-}
+  #container {
+    padding-bottom: 80px;
+  }
 </style>

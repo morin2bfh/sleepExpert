@@ -12,6 +12,7 @@ import Examples from './views/Examples.vue'
 import HistoryEveningEntry from './views/HistoryEveningEntry.vue'
 import Tipps from './views/Tipps.vue'
 import Wissen from './views/Wissen.vue'
+import Uebungen from './views/Uebungen.vue'
 import { auth } from './fb'
 
 Vue.use(Router)
@@ -95,6 +96,11 @@ export default new Router({
             path: '/wissen',
             name: 'Wissen',
             component: Wissen,
+        },
+        {
+            path: '/Uebungen',
+            name: 'Progressive Muskelrelaxion ',
+            component: Uebungen,
         },
     ]
 })
