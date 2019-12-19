@@ -68,7 +68,7 @@ export default {
         entries.push(doc.data());
       });
       entries.sort((a, b) => {
-        a.timestamp - b.timestamp;
+        return a.timestamp.seconds - b.timestamp.seconds;
       });
       this.entries = entries;
     });
@@ -103,7 +103,10 @@ export default {
       });
     },
     logData() {
-      console.log(this.entries);
+      this.entries.forEach(e => {
+        console.log(e.timestamp.seconds);
+      });
+      //console.log(this.entries);
     }
   }
 };
