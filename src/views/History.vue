@@ -2,10 +2,10 @@
   <v-container class="flex-column" id="container">
     <card-history
       v-for="card in cards"
-      :key="card.timestamp.seconds"
-      :imgSrc="getImgSrc(card)"
-      :title="format(card.timestamp.seconds)"
-      :route="card.route"
+      :key="card.data().timestamp.seconds"
+      :imgSrc="getImgSrc(card.data())"
+      :title="format(card.data().timestamp.seconds)"
+      :route="card.id"
     />
   </v-container>
 </template>
@@ -40,14 +40,14 @@ export default {
     Promise.all([p1, p2]).then(values => {
       var resultMorn = values[0];
       resultMorn.forEach(function(doc) {
-        entries.push(doc.data());
+        entries.push(doc);
       });
       var resultEv = values[1];
       resultEv.forEach(function(doc) {
-        entries.push(doc.data());
+        entries.push(doc);
       });
-      entries.sort(function(a, b) {
-        return -1 * (a.timestamp.seconds - b.timestamp.seconds);
+      entries.sort((a, b) => {
+        return -1 * (a.data().timestamp.seconds - b.data().timestamp.seconds);
       });
       this.cards = entries;
     });
