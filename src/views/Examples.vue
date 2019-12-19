@@ -103,7 +103,7 @@ export default {
       });
     },
     logData() {
-      console.log(this.entries[0].timestamp.seconds);
+      console.log(this.entries);
     }
   }
 };
