@@ -4,6 +4,7 @@ import Dashboard from './views/Dashboard.vue'
 import EntryMorning from './views/EntryMorning.vue'
 import EntryEvening from './views/EntryEvening.vue'
 import History from './views/History.vue'
+import HistoryEntry from './views/HistoryEntry.vue'
 import Stats from './views/Stats.vue'
 import Info from './views/Info.vue'
 import Login from './views/Login.vue'
@@ -48,6 +49,12 @@ export default new Router({
             path: '/history',
             name: 'Verlauf',
             component: History,
+            beforeEnter: checkUser
+        },
+        {
+            path: '/history/:id',
+            name: 'Verlauf',
+            component: HistoryEntry,
             beforeEnter: checkUser
         },
         {
