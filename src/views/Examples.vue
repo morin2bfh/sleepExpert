@@ -20,6 +20,8 @@
       <v-btn @click="submit" dark>Add to Database</v-btn>
       <v-spacer></v-spacer>
       <v-btn @click="logout" dark>Logout</v-btn>
+      <v-spacer></v-spacer>
+      <v-btn @click="logData" dark>Log Data</v-btn>
     </v-form>
   </v-container>
 </template>
@@ -39,10 +41,38 @@ export default {
       age: 0,
       date: new Date().toISOString(),
       dateFormatted: this.formatDate(new Date().toISOString().substr(0, 10)),
-      menu: false
+      menu: false,
+      entries: []
     };
   },
+  created() {
+    var entries = [];
 
+    var p1 = db
+      .collection("EntryMorning")
+      .where("uid", "==", auth.currentUser.uid)
+      .get();
+
+    var p2 = db
+      .collection("EntryEvening")
+      .where("uid", "==", auth.currentUser.uid)
+      .get();
+
+    Promise.all([p1, p2]).then(values => {
+      var resultMorn = values[0];
+      resultMorn.forEach(function(doc) {
+        entries.push(doc.data());
+      });
+      var resultEv = values[1];
+      resultEv.forEach(function(doc) {
+        entries.push(doc.data());
+      });
+      entries.sort((a, b) => {
+        a.timestamp - b.timestamp;
+      });
+      this.entries = entries;
+    });
+  },
   watch: {
     date: function(val) {
       this.dateFormatted = this.formatDate(val);
@@ -71,6 +101,9 @@ export default {
       auth.signOut().then(() => {
         this.$router.push("/login");
       });
+    },
+    logData() {
+      console.log(this.entries[0].timestamp.seconds);
     }
   }
 };
