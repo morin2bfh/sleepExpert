@@ -6,6 +6,7 @@
       :imgSrc="getImgSrc(card.data())"
       :title="format(card.data().timestamp.seconds)"
       :route="card.id"
+      :data="card"
     />
   </v-container>
 </template>

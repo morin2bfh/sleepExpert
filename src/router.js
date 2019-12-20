@@ -53,7 +53,7 @@ export default new Router({
         },
         {
             path: '/history/:id',
-            name: 'Verlauf',
+            name: 'VerlaufEintrag',
             component: HistoryEntry,
             beforeEnter: checkUser
         },

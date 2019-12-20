@@ -13,11 +13,15 @@ export default {
   props: {
     title: String,
     imgSrc: String,
-    route: String
+    route: String,
+    data: Object
   },
   methods: {
     goTo(route) {
-      this.$router.push("history/" + route);
+      this.$router.push({
+        name: "VerlaufEintrag",
+        params: { id: route, data: this.data }
+      });
     }
   }
 };
