@@ -3,7 +3,7 @@
     <v-checkbox
         :id="id"
         :label="label"
-        :value="checkboxValue"
+        v-model="checkboxValue"
         @click="onCheckboxClicked(number)"
     >
     </v-checkbox>
