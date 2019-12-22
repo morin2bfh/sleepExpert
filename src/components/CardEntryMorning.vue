@@ -8,9 +8,9 @@
         :value="value"
         :label="label"
         :id="id"
+        :disabled="disabled"
         @changedNumber="onChangedNumber($event)"
-      >
-      </card-slider>
+      ></card-slider>
     </div>
 
     <!-- Insert a checkbox if the option of the card(card.option) says 'checkbox' -->
@@ -22,9 +22,9 @@
         :id="id"
         :value="checkbox.value"
         :number="checkbox.number"
+        :disabled="disabled"
         @changedValue="onChangedCheckbox($event)"
-      >
-      </card-checkbox>
+      ></card-checkbox>
     </div>
 
     <!-- Insert a number textfield if the option of the card(card.option) says 'numbers' -->
@@ -33,9 +33,9 @@
         :value="value"
         :label="label"
         :id="id"
+        :disabled="disabled"
         @changedNumber="onChangedNumber($event)"
-      >
-      </card-number>
+      ></card-number>
     </div>
 
     <!-- Insert a time textfield if the option of the card(card.option) says 'hhmm'.
@@ -45,9 +45,9 @@
         :value="value"
         :label="label"
         :id="id"
+        :disabled="disabled"
         @changedTime="onChangedTime($event)"
-      >
-      </card-time>
+      ></card-time>
     </div>
 
     <!-- Insert a clock if the option of the card(card.option) says 'clock' -->
@@ -56,9 +56,9 @@
         :value="value"
         :label="label"
         :id="id"
+        :disabled="disabled"
         @changedClock="onChangedNumber($event)"
-      >
-      </card-clock>
+      ></card-clock>
     </div>
   </v-card>
 </template>
@@ -84,7 +84,8 @@ export default {
     option: String,
     label: String,
     id: String,
-    value: String
+    value: String,
+    disabled: Boolean
   },
   data() {
     return {
@@ -103,12 +104,12 @@ export default {
     };
   },
   computed: {
-    medicationCheckbox: function () {
+    medicationCheckbox: function() {
       let values = this.value.replace(/ /g, "");
-      values = values.slice(1,-1).split(",");
+      values = values.slice(1, -1).split(",");
       let medication = this.medication;
-      for(let i = 0; i < values.length; i++) {
-        let boolValue = (values[i] == "true");
+      for (let i = 0; i < values.length; i++) {
+        let boolValue = values[i] == "true";
         medication[i].value = boolValue;
       }
       return medication;
@@ -121,7 +122,7 @@ export default {
     onChangedCheckbox(value) {
       this.medication[value.number].value = value.value;
       let output = [];
-      for(let i = 0; i < this.medication.length; i++) {
+      for (let i = 0; i < this.medication.length; i++) {
         output[i] = this.medication[i].value;
       }
       const changedValue = {
@@ -133,8 +134,8 @@ export default {
     onChangedTime(changedTime) {
       let value = changedTime.value;
       let minutes = value.split(":")[0] * 60 + value.split(":")[1] * 1;
-     
-     const changedValue = {
+
+      const changedValue = {
         value: minutes,
         id: changedTime.id
       };

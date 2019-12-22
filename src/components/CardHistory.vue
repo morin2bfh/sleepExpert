@@ -19,11 +19,7 @@ export default {
   },
   methods: {
     goTo(route) {
-      this.$router.push({
-        name: "VerlaufEintrag",
-        params: { id: route, data: this.data }
-      });
-      /* if (this.morning) {
+      if (this.morning) {
         this.$router.push({
           name: "MorgeneintragHistory",
           params: { id: route, data: this.data }
@@ -33,7 +29,7 @@ export default {
           name: "AbendeintragHistory",
           params: { id: route, data: this.data }
         });
-      }*/
+      }
     }
   }
 };

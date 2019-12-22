@@ -56,16 +56,11 @@ export default {
   },
   methods: {
     format(unix) {
-      return new Date(unix * 1000).toLocaleDateString("de-DE");
+      return new Date(unix * 1000).toLocaleDateString("de-CH");
     },
     getImgSrc(entry) {
-      var src = "";
-      if (entry.bedTime) {
-        src = require("../assets/sun.png");
-      } else if (entry.concentration) {
-        src = require("../assets/moon.png");
-      }
-      return src;
+      const asset = entry.bedTime ? "sun" : "moon";
+      return require(`../assets/${asset}.png`);
     },
     isMorning(entry) {
       return entry.bedTime ? true : false;

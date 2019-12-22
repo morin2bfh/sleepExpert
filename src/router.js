@@ -10,8 +10,8 @@ import Info from './views/Info.vue'
 import Login from './views/Login.vue'
 import Signup from './views/Signup.vue'
 import Examples from './views/Examples.vue'
-//import HistoryEveningEntry from './views/HistoryEveningEntry.vue'
-//import HistoryMorningEntry from './views/HistoryMorningEntry.vue'
+import HistoryEveningEntry from './views/HistoryEveningEntry.vue'
+import HistoryMorningEntry from './views/HistoryMorningEntry.vue'
 import { auth } from './fb'
 
 Vue.use(Router)
@@ -53,7 +53,7 @@ export default new Router({
             component: History,
             beforeEnter: checkUser
         },
-        /*{
+        {
             path: '/history/historyEveningEntry/:id',
             name: 'AbendeintragHistory',
             component: HistoryEveningEntry
@@ -62,7 +62,7 @@ export default new Router({
             path: '/history/historyMorningEntry/:id',
             name: 'MorgeneintragHistory',
             component: HistoryMorningEntry
-        },*/
+        },
         {
             path: '/history/:id',
             name: 'VerlaufEintrag',
