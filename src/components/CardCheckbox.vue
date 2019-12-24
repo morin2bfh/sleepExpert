@@ -4,7 +4,7 @@
       :id="id"
       :label="label"
       :disabled="disabled"
-      :value="checkboxValue"
+      v-model="checkboxValue"
       @click="onCheckboxClicked(number)"
     ></v-checkbox>
   </v-container>
@@ -29,7 +29,6 @@ export default {
   },
   methods: {
     onCheckboxClicked(number) {
-      console.log(this.checkboxValue);
       this.checkboxValue = !this.checkboxValue;
       let changedValue = {
         value: this.checkboxValue,
