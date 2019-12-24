@@ -8,9 +8,9 @@
         :value="value"
         :label="label"
         :id="id"
+        :disabled="disabled"
         @changedNumber="onChangedSlider($event)"
-      >
-      </card-slider>
+      ></card-slider>
     </div>
 
     <!-- Insert a slider if the option of the card(card.option) says 'checkbox Genuss' -->
@@ -23,26 +23,26 @@
           :id="id"
           :value="checkbox.value"
           :number="checkbox.number"
+          :disabled="disabled"
           @changedValue="onChangedCheckbox($event)"
-        >
-        </card-checkbox>
+        ></card-checkbox>
       </v-container>
     </div>
 
     <!-- Insert a slider if the option of the card(card.option) says 'checkbox Schlaf' -->
     <div v-else-if="option == 'checkboxOptionSchlaf'">
-     <v-container fluid>
-       <card-checkbox
+      <v-container fluid>
+        <card-checkbox
           v-for="checkbox in daySleepCheckbox"
           :label="checkbox.label"
           :key="checkbox.label"
           :id="id"
           :value="checkbox.value"
           :number="checkbox.number"
+          :disabled="disabled"
           @changedValue="onChangedCheckbox($event)"
-        >
-        </card-checkbox>
-       </v-container>
+        ></card-checkbox>
+      </v-container>
     </div>
   </v-card>
 </template>
@@ -62,7 +62,8 @@ export default {
     option: String,
     label: String,
     id: String,
-    value: String
+    value: String,
+    disabled: Boolean
   },
   data() {
     return {
@@ -108,22 +109,22 @@ export default {
     };
   },
   computed: {
-    stimulantCheckbox: function () {
+    stimulantCheckbox: function() {
       let values = this.value.replace(/ /g, "");
-      values = values.slice(1,-1).split(",");
+      values = values.slice(1, -1).split(",");
       let stimulants = this.stimulants;
-      for(let i = 0; i < values.length; i++) {
-        let boolValue = (values[i] == "true");
+      for (let i = 0; i < values.length; i++) {
+        let boolValue = values[i] == "true";
         stimulants[i].value = boolValue;
       }
       return stimulants;
     },
     daySleepCheckbox: function() {
       let values = this.value.replace(/ /g, "");
-      values = values.slice(1,-1).split(",");
+      values = values.slice(1, -1).split(",");
       let daySleep = this.daySleep;
-      for(let i = 0; i < values.length; i++) {
-        let boolValue = (values[i] == "true");
+      for (let i = 0; i < values.length; i++) {
+        let boolValue = values[i] == "true";
         daySleep[i].value = boolValue;
       }
       return daySleep;
@@ -135,14 +136,14 @@ export default {
     },
     onChangedCheckbox(value) {
       let checkbox = null;
-      if(value.id == "stimulants") {
-        checkbox = this.stimulants;  
-      } else if(value.id == "daySleep") {
+      if (value.id == "stimulants") {
+        checkbox = this.stimulants;
+      } else if (value.id == "daySleep") {
         checkbox = this.daySleep;
       }
       checkbox[value.number].value = value.value;
       let output = [];
-      for(let i = 0; i < checkbox.length; i++) {
+      for (let i = 0; i < checkbox.length; i++) {
         output[i] = checkbox[i].value;
       }
       const changedValue = {

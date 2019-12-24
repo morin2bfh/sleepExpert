@@ -1,5 +1,5 @@
 <template>
-  <v-container id="containerMorningEntry">
+  <v-container id="containerHistoryMorningEntry">
     <card-entry-morning
       dark
       v-for="card in mappedCards"
@@ -41,4 +41,7 @@ export default {
 };
 </script>
 <style scoped>
+#containerHistoryMorningEntry {
+  padding-bottom: 50px;
+}
 </style>
