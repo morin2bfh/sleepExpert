@@ -10,11 +10,11 @@
         :label="card.label"
         :id="card.id"
         :value="card.value"
-        @changedValue="onChangedValue($event)"
+        :disabled="true"
       ></card-entry-evening>
       <v-layout row child-flex justify-center align-center wrap id="layoutButtons">
         <v-spacer></v-spacer>
-        <v-btn color="#6D4C41"  @click="cancel()">Abbrechen</v-btn>
+        <v-btn color="#6D4C41" @click="cancel()">Abbrechen</v-btn>
         <v-spacer></v-spacer>
         <v-btn color="#FBC02D" @click="submit()">Speichern</v-btn>
         <v-spacer></v-spacer>
@@ -25,6 +25,7 @@
 
 <script>
 import CardEntryEvening from "@/components/CardEntryEvening.vue";
+import entryItems from "@/config/morningEntryConfig.js";
 import db from "../fb";
 import { auth } from "../fb";
 
@@ -32,45 +33,23 @@ export default {
   components: {
     CardEntryEvening
   },
+  created() {
+    var data = this.$route.params.data;
+
+    this.mappedCards = entryItems.map(item => {
+      return {
+        ...item,
+        value:
+          item.option != "checkboxOption"
+            ? String(data[item.id])
+            : "[" + data[item.id].join() + "]"
+      };
+    });
+  },
   data() {
     return {
       valid: true,
-      cards: [
-        {
-          option: "sliderOption",
-          title: "Tagesmüdigkeit:",
-          label: "Keine",
-          id: "dayTiredness"
-        },
-        {
-          option: "sliderOption",
-          title: "Konzentration:",
-          label: "Gut",
-          id: "concentration"
-        },
-        {
-          option: "sliderOption",
-          title: "Stimmung:",
-          label: "Gut",
-          id: "mood"
-        },
-        {
-          option: "sliderOption",
-          title: "Körperliche Entspanntheit:",
-          label: "Gut",
-          id: "relaxation"
-        },
-        {
-          option: "checkboxOptionSchlaf",
-          title: "Tagesschlaf:",
-          id: "daySleep"
-        },
-        {
-          option: "checkboxOptionGenuss",
-          title: "Genussmitttel:",
-          id: "stimulants"
-        }
-      ],
+      mappedCards: [],
       eveningEntry: {
         dayTiredness: null,
         concentration: null,
