@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
 import EntryMorning from './views/EntryMorning.vue'
 import EntryEvening from './views/EntryEvening.vue'
+import SleepingWindow from './views/SleepingWindow.vue'
 import History from './views/History.vue'
 import HistoryEntry from './views/HistoryEntry.vue'
 import Stats from './views/Stats.vue'
@@ -45,6 +46,12 @@ export default new Router({
             path: '/entryEvening',
             name: 'Abendeintrag',
             component: EntryEvening,
+            beforeEnter: checkUser
+        },
+        {
+            path: '/sleepingWindow',
+            name: 'Schlaffenster',
+            component: SleepingWindow,
             beforeEnter: checkUser
         },
         {

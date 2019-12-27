@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar v-if="auth.currentUser" app dark height="50px" id="appBar">
       <v-toolbar-title class="headline text-uppercase">
-        {{activeTitle}} 
+        {{ activeTitle }} 
       </v-toolbar-title>
     </v-app-bar>
     <v-content>
@@ -35,7 +35,6 @@ import { auth } from "./fb";
 
 export default {
   name: "App",
-  components: {},
   data() {
     return {
       routes: [
@@ -44,10 +43,26 @@ export default {
           icon: "$vuetify.icons.dashboard",
           route: "/dashboard"
         },
-        { name: "Verlauf", icon: "$vuetify.icons.history", route: "/history" },
-        { name: "Statistik", icon: "$vuetify.icons.stats", route: "/stats" },
-        { name: "Info", icon: "$vuetify.icons.info", route: "/info" },
-        { name: "Besipiele", icon: "$vuetify.icon.book", route: "/ex" }
+        { 
+          name: "Verlauf",
+          icon: "$vuetify.icons.history",
+          route: "/history"
+        },
+        { 
+          name: "Statistik",
+          icon: "$vuetify.icons.stats",
+          route: "/stats"
+        },
+        {
+          name: "Info",
+          icon: "$vuetify.icons.info",
+          route: "/info"
+        },
+        {
+          name: "Besipiele", 
+          icon: "$vuetify.icon.book",
+          route: "/ex"
+        }
       ],
       activeNav: "",
       activeTitle: "Dashboard"
@@ -71,6 +86,7 @@ export default {
   }
 };
 </script>
+
 <style scoped>
 .v-content {
   background-color: #424242;
