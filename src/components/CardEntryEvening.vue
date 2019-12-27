@@ -111,7 +111,7 @@ export default {
   computed: {
     stimulantCheckbox: function() {
       let values = this.value.replace(/ /g, "");
-      values = values.slice(1, -1).split(",");
+      values = values.split(",");
       let stimulants = this.stimulants;
       for (let i = 0; i < values.length; i++) {
         let boolValue = values[i] == "true";
@@ -121,7 +121,8 @@ export default {
     },
     daySleepCheckbox: function() {
       let values = this.value.replace(/ /g, "");
-      values = values.slice(1, -1).split(",");
+      //values = values.slice(1, -1).split(",");
+      values = values.split(",");
       let daySleep = this.daySleep;
       for (let i = 0; i < values.length; i++) {
         let boolValue = values[i] == "true";

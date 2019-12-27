@@ -106,7 +106,7 @@ export default {
   computed: {
     medicationCheckbox: function() {
       let values = this.value.replace(/ /g, "");
-      values = values.slice(1, -1).split(",");
+      values = values.split(",");
       let medication = this.medication;
       for (let i = 0; i < values.length; i++) {
         let boolValue = values[i] == "true";
