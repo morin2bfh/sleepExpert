@@ -29,7 +29,6 @@ export default {
   },
   methods: {
     onCheckboxClicked(number) {
-      this.checkboxValue = !this.checkboxValue;
       let changedValue = {
         value: this.checkboxValue,
         id: this.id,
