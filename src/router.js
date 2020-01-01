@@ -4,15 +4,14 @@ import Dashboard from './views/Dashboard.vue'
 import EntryMorning from './views/EntryMorning.vue'
 import EntryEvening from './views/EntryEvening.vue'
 import History from './views/History.vue'
+import HistoryEntry from './views/HistoryEntry.vue'
 import Stats from './views/Stats.vue'
 import Info from './views/Info.vue'
 import Login from './views/Login.vue'
 import Signup from './views/Signup.vue'
 import Examples from './views/Examples.vue'
 import HistoryEveningEntry from './views/HistoryEveningEntry.vue'
-import Tipps from './views/Tipps.vue'
-import Wissen from './views/Wissen.vue'
-import Uebungen from './views/Uebungen.vue'
+import HistoryMorningEntry from './views/HistoryMorningEntry.vue'
 import { auth } from './fb'
 
 Vue.use(Router)
@@ -55,6 +54,24 @@ export default new Router({
             beforeEnter: checkUser
         },
         {
+            path: '/history/historyEveningEntry/:id',
+            name: 'AbendeintragHistory',
+            component: HistoryEveningEntry,
+            beforeEnter: checkUser
+        },
+        {
+            path: '/history/historyMorningEntry/:id',
+            name: 'MorgeneintragHistory',
+            component: HistoryMorningEntry,
+            beforeEnter: checkUser
+        },
+        {
+            path: '/history/:id',
+            name: 'VerlaufEintrag',
+            component: HistoryEntry,
+            beforeEnter: checkUser
+        },
+        {
             path: '/stats',
             name: 'Statistik',
             component: Stats,
@@ -81,26 +98,6 @@ export default new Router({
             path: '/signup',
             name: 'signup',
             component: Signup
-        },
-        {   
-            path: '/historyEveningEntry',
-            name: 'Abendeintrag History',
-            component: HistoryEveningEntry
-        },
-        {   
-            path: '/tipps',
-            name: 'Tipps',
-            component: Tipps,
-        },
-        {
-            path: '/wissen',
-            name: 'Wissen',
-            component: Wissen,
-        },
-        {
-            path: '/Uebungen',
-            name: 'Progressive Muskelrelaxion ',
-            component: Uebungen,
         },
     ]
 })

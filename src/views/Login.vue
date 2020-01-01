@@ -4,13 +4,14 @@
       <img id="logo-login" src="../assets/sun.png" alt="Sleepexpert Logo" />
     </v-avatar>
     <v-card dark>
-      <v-card-title class="d-flex flex-column">
+      <v-card-title class="headline">Login</v-card-title>
+      <v-card-subtitle class="d-flex flex-column">
         <v-form dark class>
           <v-text-field
             :error="emailError"
             :error-messages="emailErrMsg"
             v-model="userMail"
-            label="E-Mail"
+            placeholder="E-Mail"
             required
           ></v-text-field>
           <v-text-field
@@ -19,15 +20,15 @@
             dark
             v-model="password"
             type="password"
-            label="Passwort"
+            placeholder="Passwort"
             required
           ></v-text-field>
         </v-form>
         <v-container d-flex flex-row justify-end id="button-container">
           <v-btn color="yellow darken-2" @click="submit()">Anmelden</v-btn>
         </v-container>
-      </v-card-title>
-      <v-banner id="link-banner" single-line dark color="yellow darken-2">
+      </v-card-subtitle>
+      <v-banner id="link-banner" dark color="yellow darken-2">
         Noch kein Konto?
         <v-btn color="yellow darken-2" text @click="goTo('signup')">Zur Registrierung</v-btn>
       </v-banner>
