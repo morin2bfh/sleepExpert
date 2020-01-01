@@ -63,12 +63,14 @@ export default new Router({
         {
             path: '/history/historyEveningEntry/:id',
             name: 'AbendeintragHistory',
-            component: HistoryEveningEntry
+            component: HistoryEveningEntry,
+            beforeEnter: checkUser
         },
         {
             path: '/history/historyMorningEntry/:id',
             name: 'MorgeneintragHistory',
-            component: HistoryMorningEntry
+            component: HistoryMorningEntry,
+            beforeEnter: checkUser
         },
         {
             path: '/history/:id',

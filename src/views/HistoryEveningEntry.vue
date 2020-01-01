@@ -33,24 +33,14 @@ export default {
         value:
           item.option != "checkboxOption"
             ? String(data[item.id])
-            : "[" + data[item.id].join() + "]"
+            : data[item.id].join()
       };
     });
   },
   data() {
     return {
       valid: true,
-      mappedCards: [],
-      eveningEntry: {
-        dayTiredness: null,
-        concentration: null,
-        mood: null,
-        relaxation: null,
-        daySleep: [false, false, false],
-        stimulants: [false, false, false, false],
-        timestamp: new Date(),
-        uid: null
-      }
+      mappedCards: []
     };
   }
 };
