@@ -49,6 +49,7 @@
 <script>
 import db from "../fb";
 import { auth } from "../fb";
+import moment from 'moment';
 import CardClock from "../components/CardClock.vue";
 
 export default {
@@ -85,27 +86,61 @@ export default {
         var window = db
             .collection("SleepingWindow")
             .where("uid", "==", auth.currentUser.uid)
-            .get()
+            .get();
 
         let me = this;
         window.then(values => {
             if(values.size > 0) {
-                this.data = true;      
-                let efficiency = this.computeSleepEfficiency();
-                console.log(efficiency);
+                this.data = true;
                 values.forEach(function(doc) {
                     me.from = doc.data().from;
                     me.to = doc.data().to;
+                    me.chronotype = doc.data().chronotype;
                 })
+                this.computeSleepEfficiency();
             } else {
                 this.data = false;
             }
-        })        
+
+        })
   },
+  /*
+   var test = db.collection("SleepingWindow");
+    test.doc(doc.id).set({
+        from: "23:30",
+        to: "09:00"
+    })
+  */
   methods: {
     computeSleepEfficiency() {
-        let efficiency = 0;
-        return efficiency;
+        var efficiency = 0.5;
+        if(efficiency < 0.85) {
+            if(this.chronotype == "eule") {
+                let date = new Date();
+                date.setHours(this.from.split(":")[0]);
+                date.setMinutes(this.from.split(":")[1]);
+
+                let newDate = new Date(moment(date).add(30, 'minutes'));
+                console.log(newDate);
+                let hours = ("0" + newDate.getHours()).slice(-2);
+                let minutes = (newDate.getMinutes() + "0").slice(0, 2);
+                let newFrom = hours + ":" + minutes;
+                this.from = newFrom;
+                console.log(this.from);
+            } else if(this.chronotype == "lerche") {
+                let date = new Date();
+                date.setHours(this.to.split(":")[0]);
+                date.setMinutes(this.to.split(":")[1]);
+
+                let newDate = new Date(moment(date).subtract(30, 'minutes'));
+                let hours = ("0" + newDate.getHours()).slice(-2);
+                let minutes = (newDate.getMinutes() + "0").slice(0, 2);
+                let newTo = hours + ":" + minutes;
+                this.to = newTo;
+            }
+        } else {
+            console.log("tets");
+        }
     },
     submit() {
         this.sleepingWindow.uid = auth.currentUser.uid;
