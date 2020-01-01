@@ -90,57 +90,65 @@ export default {
 
         let me = this;
         window.then(values => {
+            let docID;
             if(values.size > 0) {
                 this.data = true;
                 values.forEach(function(doc) {
                     me.from = doc.data().from;
                     me.to = doc.data().to;
                     me.chronotype = doc.data().chronotype;
+                    docID = doc.id;
                 })
-                this.computeSleepEfficiency();
+                if(this.computeSleepEfficiency()) {
+                    this.changeDBValues(docID);
+                }
             } else {
                 this.data = false;
             }
 
         })
   },
-  /*
-   var test = db.collection("SleepingWindow");
-    test.doc(doc.id).set({
-        from: "23:30",
-        to: "09:00"
-    })
-  */
   methods: {
     computeSleepEfficiency() {
-        var efficiency = 0.5;
+        let efficiency = 0.5;
+        let changeDB = false;
         if(efficiency < 0.85) {
-            if(this.chronotype == "eule") {
-                let date = new Date();
-                date.setHours(this.from.split(":")[0]);
-                date.setMinutes(this.from.split(":")[1]);
-
-                let newDate = new Date(moment(date).add(30, 'minutes'));
-                console.log(newDate);
-                let hours = ("0" + newDate.getHours()).slice(-2);
-                let minutes = (newDate.getMinutes() + "0").slice(0, 2);
-                let newFrom = hours + ":" + minutes;
-                this.from = newFrom;
-                console.log(this.from);
-            } else if(this.chronotype == "lerche") {
-                let date = new Date();
-                date.setHours(this.to.split(":")[0]);
-                date.setMinutes(this.to.split(":")[1]);
-
-                let newDate = new Date(moment(date).subtract(30, 'minutes'));
-                let hours = ("0" + newDate.getHours()).slice(-2);
-                let minutes = (newDate.getMinutes() + "0").slice(0, 2);
-                let newTo = hours + ":" + minutes;
-                this.to = newTo;
-            }
-        } else {
-            console.log("tets");
+            this.computeNewTime();
+            changeDB = true;
         }
+        return changeDB;
+    },
+    computeNewTime() {
+        if(this.chronotype == "eule") {
+            let date = new Date();
+            date.setHours(this.from.split(":")[0]);
+            date.setMinutes(this.from.split(":")[1]);
+
+            let newDate = new Date(moment(date).add(30, 'minutes'));
+            let hours = ("0" + newDate.getHours()).slice(-2);
+            let minutes = (newDate.getMinutes() + "0").slice(0, 2);
+            let newFrom = hours + ":" + minutes;
+            this.from = newFrom;
+        } else if(this.chronotype == "lerche") {
+            let date = new Date();
+            date.setHours(this.to.split(":")[0]);
+            date.setMinutes(this.to.split(":")[1]);
+
+            let newDate = new Date(moment(date).subtract(30, 'minutes'));
+            let hours = ("0" + newDate.getHours()).slice(-2);
+            let minutes = (newDate.getMinutes() + "0").slice(0, 2);
+            let newTo = hours + ":" + minutes;
+            this.to = newTo;
+        }
+    },
+    changeDBValues(id) {
+        db.collection("SleepingWindow").doc(id).set({
+            from: this.from,
+            to: this.to,
+            uid: auth.currentUser.uid,
+            chronotype: this.chronotype,
+            timestamp: this.sleepingWindow.timestamp
+        })
     },
     submit() {
         this.sleepingWindow.uid = auth.currentUser.uid;
