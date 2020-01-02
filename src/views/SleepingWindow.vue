@@ -136,13 +136,12 @@ export default {
             values.forEach(function(doc) {
                 entries.push(doc);
             })
-            let e = this.efficiency;
             this.computeEfficiency(entries);
-        
             if(this.efficiency < 0.85) {
-                this.computeNewTime();
+                this.computeShorterWindow();
                 changeDB = true;
-            } else if(e != this.efficiency) {
+            } else {
+                this.computeLongerWindow();
                 changeDB = true;
             }
             return changeDB;
@@ -178,7 +177,7 @@ export default {
             this.efficiency = e;
         }
     },
-    computeNewTime() {
+    computeShorterWindow() {
         let dateEule = moment(this.from.split(":")[0] + ":" + this.from.split(":")[1], "HH:mm");
         let dateLerche = moment(this.to.split(":")[0] + ":" + this.to.split(":")[1], "HH:mm");
         if(this.chronotype == "eule") {
@@ -203,6 +202,34 @@ export default {
             if(parseInt(duration.asHours()) >= 5) {
                 let newTo = newDate.format("HH:mm");
                 this.to = newTo;
+            }
+        }
+    },
+    computeLongerWindow() {
+        let dateEule = moment(this.from.split(":")[0] + ":" + this.from.split(":")[1], "HH:mm");
+        let dateLerche = moment(this.to.split(":")[0] + ":" + this.to.split(":")[1], "HH:mm");
+        if(this.chronotype == "eule") {
+            let add30Minutes = new Date(moment(dateLerche).add(30, 'minutes'));
+            let newDate = moment(add30Minutes.getHours() + ":" + add30Minutes.getMinutes(), "HH:mm");
+            if(new Date(moment(dateEule)).getHours() > 12 || new Date(moment(dateEule)).getHours() == 0) {
+                dateEule = new Date(moment(dateEule).subtract(1, "day"));
+            }
+            let duration = moment.duration(newDate.diff(dateEule));
+            if(parseInt(duration.asHours()) >= 5) {
+                let newTo = newDate.format("HH:mm");
+                this.to = newTo;
+            }
+        } else if(this.chronotype == "lerche") {
+            let newDate = new Date(moment(dateEule).subtract(30, 'minutes'));
+            if(newDate.getHours() > 12 || newDate.getHours() == 0) {
+                newDate = new Date(moment(newDate).subtract(1, "day"));
+            }
+            let duration = moment.duration(dateLerche.diff(newDate));
+            if(parseInt(duration.asHours()) >= 5) {
+                let hours = ("0" + newDate.getHours()).slice(-2);
+                let minutes = (newDate.getMinutes() + "0").slice(0, 2);
+                let newFrom = hours + ":" + minutes;
+                this.from = newFrom;
             }
         }
     },
