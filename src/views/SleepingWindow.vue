@@ -63,10 +63,12 @@ export default {
             data: false,
             from: 0,
             to: 0,
+            efficiency: 1,
             sleepingWindow: {
                 from: null,
                 to: null,
                 chronotype: null,
+                efficiency: null,
                 timestamp: new Date(),
                 uid: null
             },
@@ -97,6 +99,7 @@ export default {
                     me.from = doc.data().from;
                     me.to = doc.data().to;
                     me.chronotype = doc.data().chronotype;
+                    me.efficiency = doc.data().efficiency;
                     docID = doc.id;
                 })
                 if(this.computeSleepEfficiency()) {
@@ -112,8 +115,8 @@ export default {
     computeSleepEfficiency() {
         let changeDB = false;
 
-        let entries = [];
-        let threeDaysAgo = new Date(moment(new Date()).subtract(3, 'days'));
+        var entries = [];
+        var threeDaysAgo = new Date(moment(new Date()).subtract(3, 'days'));
         var p1 = db
             .collection("EntryMorning")
             .where("uid", "==", auth.currentUser.uid)
@@ -123,12 +126,12 @@ export default {
             values.forEach(function(doc) {
                 entries.push(doc);
             })
+            entries.forEach(entry => {
+                console.log(entry.data());
+            })
         })
-        console.log(entries);
-
-        let efficiency = 1;
-
-        if(efficiency < 0.85) {
+        
+        if(this.efficiency < 0.85) {
             this.computeNewTime();
             changeDB = true;
         }
@@ -168,12 +171,14 @@ export default {
             to: this.to,
             uid: auth.currentUser.uid,
             chronotype: this.chronotype,
+            efficiency: this.efficiency,
             timestamp: this.sleepingWindow.timestamp
         })
     },
     submit() {
         this.sleepingWindow.uid = auth.currentUser.uid;
         this.sleepingWindow.chronotype = this.chronotype;
+        this.sleepingWindow.efficiency = this.efficiency;
         if (this.$refs.form.validate()) {
             db.collection("SleepingWindow").add(this.sleepingWindow);
             this.$router.push("/dashboard");
