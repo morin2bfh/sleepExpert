@@ -14,6 +14,7 @@
             <v-form ref="form" v-model="valid" lazy-validation>
                 <v-card dark>
                     <p class="text-center mt-6 headline">Erfasse bitte dein bevorzugtes Schlaffenster:</p>
+                    <p class="text-center">Das Schlaffenster muss mindestens 5h betragen</p>
                     <card-clock
                         :label="'Von'"
                         :id="'from'"
