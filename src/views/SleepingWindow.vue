@@ -102,9 +102,11 @@ export default {
                     me.efficiency = doc.data().efficiency;
                     docID = doc.id;
                 })
-                if(this.computeSleepEfficiency()) {
-                    this.changeDBValues(docID);
-                }
+                this.enoughSleepEfficiency().then(t => {
+                    if(t) {
+                        this.changeDBValues(docID);
+                    }
+                })
             } else {
                 this.data = false;
             }
@@ -112,53 +114,54 @@ export default {
         })
   },
   methods: {
-    computeSleepEfficiency() {
-        let changeDB = false;
-
+    enoughSleepEfficiency() {
+        var changeDB = false;
         var entries = [];
-        var sleepEfficiency = [];
         var threeDaysAgo = new Date(moment(new Date()).subtract(3, 'days'));
         var p1 = db
             .collection("EntryMorning")
             .where("uid", "==", auth.currentUser.uid)
             .where("timestamp", ">=", threeDaysAgo)
             .get();
-        p1.then(values => {
+        return p1.then(values => {
             values.forEach(function(doc) {
                 entries.push(doc);
             })
-            entries.forEach(entry => {
-                let bedTime = moment(entry.data().bedTime, "HH:mm");
-                if(new Date(moment(bedTime)).getHours() > 12 || new Date(moment(bedTime)).getHours() == 0) {
-                    bedTime = new Date(moment(bedTime).subtract(1, "day"));
-                }
-                let standUpTime = moment(entry.data().standUpTime, "HH:mm");
-                let durationInBed = moment.duration(standUpTime.diff(bedTime));
-                let timeInBed = parseInt(durationInBed.asHours()) * 60 + parseInt(durationInBed.asMinutes()%60);
-
-                let lightsOut = moment(entry.data().lightsOut, "HH:mm");
-                if(new Date(moment(lightsOut)).getHours() > 12 || new Date(moment(lightsOut)).getHours() == 0) {
-                    lightsOut = new Date(moment(lightsOut).subtract(1, "day"));
-                }
-                let wakeUpTime = moment(entry.data().wakeUpTime, "HH:mm");
-                let durationAsleep = moment.duration(wakeUpTime.diff(lightsOut));
-                let timeAsleep = parseInt(durationAsleep.asHours()) * 60 + parseInt(durationAsleep.asMinutes()%60);
-                timeAsleep -= entry.data().fallAsleepTime + entry.data().durationAwake;
-                sleepEfficiency.push(timeAsleep/timeInBed);
-            })
-            let e = 0;
-            for(let i = 0; i < sleepEfficiency.length; i++) {
-                e += sleepEfficiency[i];
-            }
-            e /= sleepEfficiency.length;
-            this.efficiency = e;
+            this.computeEfficiency(entries);
             if(this.efficiency < 0.85) {
                 this.computeNewTime();
                 changeDB = true;
             }
+            return changeDB;
         })
-        
-        return changeDB;
+    },
+    computeEfficiency(entries) {
+        var sleepEfficiency = [];
+        entries.forEach(entry => {
+            let bedTime = moment(entry.data().bedTime, "HH:mm");
+            if(new Date(moment(bedTime)).getHours() > 12 || new Date(moment(bedTime)).getHours() == 0) {
+                bedTime = new Date(moment(bedTime).subtract(1, "day"));
+            }
+            let standUpTime = moment(entry.data().standUpTime, "HH:mm");
+            let durationInBed = moment.duration(standUpTime.diff(bedTime));
+            let timeInBed = parseInt(durationInBed.asHours()) * 60 + parseInt(durationInBed.asMinutes()%60);
+
+            let lightsOut = moment(entry.data().lightsOut, "HH:mm");
+            if(new Date(moment(lightsOut)).getHours() > 12 || new Date(moment(lightsOut)).getHours() == 0) {
+                lightsOut = new Date(moment(lightsOut).subtract(1, "day"));
+            }
+            let wakeUpTime = moment(entry.data().wakeUpTime, "HH:mm");
+            let durationAsleep = moment.duration(wakeUpTime.diff(lightsOut));
+            let timeAsleep = parseInt(durationAsleep.asHours()) * 60 + parseInt(durationAsleep.asMinutes()%60);
+            timeAsleep -= entry.data().fallAsleepTime + entry.data().durationAwake;
+            sleepEfficiency.push(timeAsleep/timeInBed);
+        })
+        let e = 0;
+        for(let i = 0; i < sleepEfficiency.length; i++) {
+            e += sleepEfficiency[i];
+        }
+        e /= sleepEfficiency.length;
+        this.efficiency = e;
     },
     computeNewTime() {
         let dateEule = moment(this.from.split(":")[0] + ":" + this.from.split(":")[1], "HH:mm");
