@@ -127,9 +127,13 @@ export default {
             values.forEach(function(doc) {
                 entries.push(doc);
             })
+            let e = this.efficiency;
             this.computeEfficiency(entries);
+        
             if(this.efficiency < 0.85) {
                 this.computeNewTime();
+                changeDB = true;
+            } else if(e != this.efficiency) {
                 changeDB = true;
             }
             return changeDB;
@@ -160,8 +164,10 @@ export default {
         for(let i = 0; i < sleepEfficiency.length; i++) {
             e += sleepEfficiency[i];
         }
-        e /= sleepEfficiency.length;
-        this.efficiency = e;
+        if(sleepEfficiency.length > 0) {
+            e /= sleepEfficiency.length;
+            this.efficiency = e;
+        }
     },
     computeNewTime() {
         let dateEule = moment(this.from.split(":")[0] + ":" + this.from.split(":")[1], "HH:mm");
