@@ -65,6 +65,7 @@ export default {
             from: 0,
             to: 0,
             efficiency: 1,
+            timestamp: 0,
             sleepingWindow: {
                 from: null,
                 to: null,
@@ -101,13 +102,20 @@ export default {
                     me.to = doc.data().to;
                     me.chronotype = doc.data().chronotype;
                     me.efficiency = doc.data().efficiency;
+                    me.timestamp = doc.data().timestamp;
                     docID = doc.id;
                 })
-                this.enoughSleepEfficiency().then(t => {
-                    if(t) {
-                        this.changeDBValues(docID);
-                    }
-                })
+                
+                let today = new Date();
+                let timestampOnDB = new Date();
+                timestampOnDB.setTime(this.timestamp.seconds * 1000);
+                if(timestampOnDB.setHours(0,0,0,0) < today.setHours(0,0,0,0)) {
+                    this.enoughSleepEfficiency().then(value => {
+                        if(value) {
+                            this.changeDBValues(docID);
+                        }
+                    })
+                }
             } else {
                 this.data = false;
             }
