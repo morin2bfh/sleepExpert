@@ -110,8 +110,24 @@ export default {
   },
   methods: {
     computeSleepEfficiency() {
-        let efficiency = 0.5;
         let changeDB = false;
+
+        let entries = [];
+        let threeDaysAgo = new Date(moment(new Date()).subtract(3, 'days'));
+        var p1 = db
+            .collection("EntryMorning")
+            .where("uid", "==", auth.currentUser.uid)
+            .where("timestamp", ">=", threeDaysAgo)
+            .get();
+        p1.then(values => {
+            values.forEach(function(doc) {
+                entries.push(doc);
+            })
+        })
+        console.log(entries);
+
+        let efficiency = 1;
+
         if(efficiency < 0.85) {
             this.computeNewTime();
             changeDB = true;
@@ -119,26 +135,31 @@ export default {
         return changeDB;
     },
     computeNewTime() {
+        let dateEule = moment(this.from.split(":")[0] + ":" + this.from.split(":")[1], "HH:mm");
+        let dateLerche = moment(this.to.split(":")[0] + ":" + this.to.split(":")[1], "HH:mm");
         if(this.chronotype == "eule") {
-            let date = new Date();
-            date.setHours(this.from.split(":")[0]);
-            date.setMinutes(this.from.split(":")[1]);
-
-            let newDate = new Date(moment(date).add(30, 'minutes'));
-            let hours = ("0" + newDate.getHours()).slice(-2);
-            let minutes = (newDate.getMinutes() + "0").slice(0, 2);
-            let newFrom = hours + ":" + minutes;
-            this.from = newFrom;
+            let newDate = new Date(moment(dateEule).add(30, 'minutes'));
+            if(newDate.getHours() > 12 || newDate.getHours() == 0) {
+                newDate = new Date(moment(newDate).subtract(1, "day"));
+            }
+            let duration = moment.duration(dateLerche.diff(newDate));
+            if(parseInt(duration.asHours()) >= 5) {
+                let hours = ("0" + newDate.getHours()).slice(-2);
+                let minutes = (newDate.getMinutes() + "0").slice(0, 2);
+                let newFrom = hours + ":" + minutes;
+                this.from = newFrom;
+            }
         } else if(this.chronotype == "lerche") {
-            let date = new Date();
-            date.setHours(this.to.split(":")[0]);
-            date.setMinutes(this.to.split(":")[1]);
-
-            let newDate = new Date(moment(date).subtract(30, 'minutes'));
-            let hours = ("0" + newDate.getHours()).slice(-2);
-            let minutes = (newDate.getMinutes() + "0").slice(0, 2);
-            let newTo = hours + ":" + minutes;
-            this.to = newTo;
+            let subtract30Minutes = new Date(moment(dateLerche).subtract(30, 'minutes'));
+            let newDate = moment(subtract30Minutes.getHours() + ":" + subtract30Minutes.getMinutes(), "HH:mm");
+            if(new Date(moment(dateEule)).getHours() > 12 || new Date(moment(dateEule)).getHours() == 0) {
+                dateEule = new Date(moment(dateEule).subtract(1, "day"));
+            }
+            let duration = moment.duration(newDate.diff(dateEule));
+            if(parseInt(duration.asHours()) >= 5) {
+                let newTo = newDate.format("HH:mm");
+                this.to = newTo;
+            }
         }
     },
     changeDBValues(id) {
