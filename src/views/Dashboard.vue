@@ -10,13 +10,13 @@
     />
   </v-container>
 </template>
+
 <script>
 import Card from "@/components/Card.vue";
-//import Router from "../router.js";
 
 export default {
   components: {
-    Card,
+    Card
   },
   data: () => ({
     cards: [
@@ -38,12 +38,13 @@ export default {
         title: "Schlaffenster",
         subtitle: "Sieh dir an, welches Schlaffenster für dich vorgesehen ist.",
         imgSrc: require("../assets/Schlaffenster_t.png"),
-        route: "/"
+        route: "/sleepingWindow"
       }
     ]
   })
 };
 </script>
+
 <style scoped>
 #container {
   height: calc(100% - 100px);
