@@ -7,9 +7,9 @@ import SleepingWindow from './views/SleepingWindow.vue'
 import History from './views/History.vue'
 import Stats from './views/Stats.vue'
 import Info from './views/Info.vue'
-import Tipps from './views/Tipps.vue'
-import Wissen from './views/Wissen.vue'
-import Uebungen from './views/Uebungen.vue'
+import Tips from './views/Tips.vue'
+import Knowledge from './views/Knowledge.vue'
+import Exercises from './views/Exercises.vue'
 import Login from './views/Login.vue'
 import Signup from './views/Signup.vue'
 import Examples from './views/Examples.vue'
@@ -103,21 +103,21 @@ export default new Router({
             component: Signup
         },
         {
-            path: '/tipps',
+            path: '/tips',
             name: 'Tipps',
-            component: Tipps,
+            component: Tips,
             beforeEnter: checkUser
         },
         {
-            path: '/wissen',
+            path: '/knowledge',
             name: 'Wissen',
-            component: Wissen,
+            component: Knowledge,
             beforeEnter: checkUser
         },
         {
-            path: '/Uebungen',
+            path: '/exercises',
             name: 'Progressive Muskelrelaxion',
-            component: Uebungen,
+            component: Exercises,
             beforeEnter: checkUser
         },
     ]

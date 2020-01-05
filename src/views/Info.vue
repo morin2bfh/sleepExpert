@@ -16,7 +16,7 @@ import Card from "@/components/Card.vue";
 
 export default {
   components: {
-    Card,
+    Card
   },
   data: () => ({
     cards: [
@@ -24,19 +24,19 @@ export default {
         title: "Übungen",
         subtitle: "Übungen rund um das Thema Schlaf",
         imgSrc: require("../assets/meditation.png"),
-        route: "/Uebungen", 
+        route: "/exercises", 
       },
       {
         title: "Wissen",
         subtitle:"Wissen rund um das Thema Schlaf",
         imgSrc: require("../assets/questionmark.png"),
-        route: "/Wissen"
+        route: "/knowledge"
       },
       {
         title: "Tipps",
         subtitle: "Tipps rund ums Thema Schlaf",
         imgSrc: require("../assets/lamp.png"),
-        route: "/tipps"
+        route: "/tips"
       }
     ]
   })

@@ -1,6 +1,6 @@
 <template>
   <v-container class="flex-column justify-space-around" id="container">
-    <card-uebungen
+    <card-exercises
       v-for="card in cards"
       :key="card.title"
       :title="card.title"
@@ -10,16 +10,16 @@
       <v-btn @click.prevent="card.isPlaying ? pause(card) : play(card)" :key="card.title" >
         {{ card.isPlaying ? 'Pause' : 'Play' }} {{ card.title }}
       </v-btn>
-    </card-uebungen>
+    </card-exercises>
   </v-container>
 </template>
 
 <script>
-import CardUebungen from "@/components/CardUebungen.vue";
+import CardExercises from "@/components/CardExercises.vue";
 
 export default {
   components: {
-    CardUebungen,
+    CardExercises,
   },
   methods:{
     play (audio) {

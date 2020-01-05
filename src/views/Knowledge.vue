@@ -1,22 +1,22 @@
 <template>
   <v-container class="flex-column justify-space-around" id="container">
-    <card-tipps
+    <card-tips
       v-for="card in cards"
       :key="card.title"
       :title="card.title"
       :textExpanded="card.textExpanded"
     >
-      <v-img contain height="30vh" width="300px" :src="card.imgSrc"/>
-    </card-tipps>
+      <v-img contain height="30vh" width="300px" :src="card.imgSrc" />
+    </card-tips>
   </v-container>
 </template>
 
 <script>
-import CardTipps from "@/components/CardTipps.vue";
+import CardTips from "@/components/CardTips.vue";
 
 export default {
   components: {
-    CardTipps,
+    CardTips
   },
   data: () => ({
     show: false,
@@ -26,11 +26,11 @@ export default {
         textExpanded: "Körperlich bedingte Schläfrigkeit, wird umso grösser, je länger man wach ist. Schlaf am Tag führt zu reduziertem Schlafdruck, was in der Nacht zu Ein- oder Durchschlaf-Probleme führt.",
         imgSrc: require("../assets/Individueller_Schlafdruck-1.png")
       },
-       {
+      {
         title: "Individueller Schlafrhythmus",
         textExpanded: "Es gibt unterschiedliche Rhythmustypen. Wer ein Spättyp ist, kann auch gut nach Mitternacht zu Bett gehen und hat dadurch keinen Schaden – im Gegenteil: Es ist gut, nach dem persönlichen Rhythmus zu leben, wenn die Verpflichtungen es zulassen.",
         imgSrc: require("../assets/Chronotypen.png")
-      },
+      }
     ]
   })
 };
