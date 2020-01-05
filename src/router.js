@@ -6,6 +6,9 @@ import EntryEvening from './views/EntryEvening.vue'
 import History from './views/History.vue'
 import Stats from './views/Stats.vue'
 import Info from './views/Info.vue'
+import Tipps from './views/Tipps.vue'
+import Wissen from './views/Wissen.vue'
+import Uebungen from './views/Uebungen.vue'
 import Login from './views/Login.vue'
 import Signup from './views/Signup.vue'
 import Examples from './views/Examples.vue'
@@ -91,6 +94,24 @@ export default new Router({
             path: '/signup',
             name: 'signup',
             component: Signup
+        },
+        {
+            path: '/tipps',
+            name: 'Tipps',
+            component: Tipps,
+            beforeEnter: checkUser
+        },
+        {
+            path: '/wissen',
+            name: 'Wissen',
+            component: Wissen,
+            beforeEnter: checkUser
+        },
+        {
+            path: '/Uebungen',
+            name: 'Progressive Muskelrelaxion',
+            component: Uebungen,
+            beforeEnter: checkUser
         },
     ]
 })
