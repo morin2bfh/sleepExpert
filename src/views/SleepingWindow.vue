@@ -9,6 +9,11 @@
                     </div>
                 </v-card-text>
             </v-card>
+            <card-tips
+                :key="information.title"
+                :title="information.title"
+                :textExpanded="information.textExpanded"
+            />
         </div>
         <div v-else>
             <v-form ref="form" v-model="valid" lazy-validation>
@@ -52,13 +57,24 @@ import db from "../fb";
 import { auth } from "../fb";
 import moment from 'moment';
 import CardClock from "../components/CardClock.vue";
+import CardTips from "@/components/CardTips.vue";
 
 export default {
     components: {
-        CardClock
+        CardClock,
+        CardTips
     },
     data() {
         return {
+            information: {
+                title: "Wie wird mein Schlaffenster berechnet?",
+                textExpanded: "Für das Schlaffenster werden deine Morgeneinträge der letzten drei Tage" +
+                            " genommen und die Schlafeffizienz daraus berechnet. Die Schlafeffizienz" +
+                            " wird berechnet, in dem die Schlafenszeit durch die gesamte Zeit, die" +
+                            " im Bett verbracht wurde, geteilt wird." +
+                            " Ist die Schlafeffizienz über 85%, so wird das Schlaffenster um 30min verlängert" +
+                            " Ist die Schlafeffizienz unter 85%, so wird das Schlaffenster um 30min verkürzt"
+            },
             chronotype: "",
             valid: true,
             data: false,
