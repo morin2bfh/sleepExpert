@@ -7,7 +7,7 @@
       :textExpanded="card.textExpanded"
       :imgSrc="card.imgSrc"
     >
-      <v-layout align-end justify-end>
+      <v-layout class="py-4 align-end justify-end">
         <v-btn
           color="yellow darken-3"
           @click.prevent="card.isPlaying ? pause(card) : play(card)"
