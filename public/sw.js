@@ -1,9 +1,9 @@
 //install event
 self.addEventListener('install', event => {
-    console.log("service worker installed");
+    //actions that could be taken, whenever the service worker is newly installed
 });
 
 //activate event
 self.addEventListener('activate', event => {
-    console.log("has been activated");
+    //this is the place for caching magic!
 });
