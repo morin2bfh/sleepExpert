@@ -12,4 +12,10 @@ new Vue({
   router,
   vuetify,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register("/sw.js")
+    .then(() => console.log("yay!"))
+    .catch(() => console.log("nooo :("));
+}
