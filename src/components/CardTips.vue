@@ -1,17 +1,17 @@
 <template>
   <v-card @click="show = !show" dark class="mx-auto mt-2" id="styleCard">
-    <v-card-title bold>{{title}}</v-card-title>
+    <v-card-title>{{ title }}</v-card-title>
     <v-card-actions>
-      <v-expand-transition>
-        <div v-show="show">
-          <v-card-text id="styleText" bold>{{textExpanded}}</v-card-text>
-          <slot></slot>
-        </div>
-      </v-expand-transition>
       <v-btn icon>
-        <v-icon>{{show ? 'mdi-chevron-up' : 'mdi-chevron-down'}}</v-icon>
+        <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
       </v-btn>
     </v-card-actions>
+    <v-expand-transition>
+      <div v-show="show">
+        <v-card-text id="styleText">{{ textExpanded }}</v-card-text>
+        <slot></slot>
+      </div>
+    </v-expand-transition>
   </v-card>
 </template>
    
@@ -19,13 +19,12 @@
 export default {
   props: {
     title: String,
-    textExpanded: String,
+    textExpanded: String
   },
   data: () => ({
-    show: false,
-    })
-  }
-
+    show: false
+  })
+}
 </script>
  
 <style>
@@ -39,10 +38,10 @@ export default {
   .v-card__actions {
     padding: 0px;
   }
-  #styleText{
+  #styleText {
     font-size: 1.2rem;
   }
-  #styleCard{
+  #styleCard {
     padding: 10px;
   }
 </style>

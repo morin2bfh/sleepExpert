@@ -1,6 +1,6 @@
 <template>
   <v-container class="flex-column justify-space-around" id="container">
-    <card-tipps
+    <card-tips
       v-for="card in cards"
       :key="card.title"
       :title="card.title"
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import CardTipps from "@/components/CardTipps.vue";
+import CardTips from "@/components/CardTips.vue";
 
 export default {
   components: {
-    CardTipps,
+    CardTips,
   },
   data: () => ({
     show: false,
