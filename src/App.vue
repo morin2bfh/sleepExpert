@@ -61,8 +61,9 @@ export default {
   },
   methods: {
     goTo(route) {
-      this.$router.push(route);
-      this.activeTitle = this.$router.currentRoute.name;
+      this.$router.push(route).then(() => {
+        this.activeTitle = this.$router.currentRoute.name;
+      });
     }
   },
   computed: {
