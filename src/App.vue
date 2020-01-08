@@ -1,21 +1,12 @@
 <template>
   <v-app>
     <v-app-bar v-if="auth.currentUser" app dark height="50px" id="appBar">
-      <v-toolbar-title class="headline text-uppercase">
-        {{ activeTitle }} 
-      </v-toolbar-title>
+      <v-toolbar-title class="headline text-uppercase">{{ activeTitle }}</v-toolbar-title>
     </v-app-bar>
     <v-content>
       <router-view></router-view>
     </v-content>
-    <v-bottom-navigation
-      v-if="auth.currentUser"
-      v-model="activeNav"
-      fixed
-      height="50px"
-      grow
-      dark
-    >
+    <v-bottom-navigation v-if="auth.currentUser" v-model="activeNav" fixed height="50px" grow dark>
       <v-btn
         :value="route.name"
         v-for="route in routes"
@@ -43,12 +34,12 @@ export default {
           icon: "$vuetify.icons.dashboard",
           route: "/dashboard"
         },
-        { 
+        {
           name: "Verlauf",
           icon: "$vuetify.icons.history",
           route: "/history"
         },
-        { 
+        {
           name: "Statistik",
           icon: "$vuetify.icons.stats",
           route: "/stats"
@@ -57,11 +48,6 @@ export default {
           name: "Info",
           icon: "$vuetify.icons.info",
           route: "/info"
-        },
-        {
-          name: "Besipiele", 
-          icon: "$vuetify.icon.book",
-          route: "/ex"
         }
       ],
       activeNav: "",
@@ -75,8 +61,9 @@ export default {
   },
   methods: {
     goTo(route) {
-      this.$router.push(route);
-      this.activeTitle = this.$router.currentRoute.name;
+      this.$router.push(route).then(() => {
+        this.activeTitle = this.$router.currentRoute.name;
+      });
     }
   },
   computed: {
@@ -94,7 +81,7 @@ export default {
 header {
   max-height: 50px;
 }
-#appBar{
+#appBar {
   justify-content: center !important;
   display: flex;
 }

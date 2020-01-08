@@ -1,0 +1,25 @@
+{
+    "short_name": "SleepExpert",
+    "name": "SleepExpert: Schlaftagebuch",
+    "icons": [{
+            "src": "icons/sun512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "icons/sun192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "icons/sun144.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        }
+    ],
+    "start_url": "/#",
+    "display": "standalone",
+    "background_color": "#424242",
+    "orientation": "portrait"
+
+}

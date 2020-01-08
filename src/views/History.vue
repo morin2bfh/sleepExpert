@@ -69,4 +69,7 @@ export default {
 };
 </script>
 <style scoped>
+#container {
+  padding-bottom: 55px;
+}
 </style>

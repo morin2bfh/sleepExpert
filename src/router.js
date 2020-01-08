@@ -12,7 +12,6 @@ import Knowledge from './views/Knowledge.vue'
 import Exercises from './views/Exercises.vue'
 import Login from './views/Login.vue'
 import Signup from './views/Signup.vue'
-import Examples from './views/Examples.vue'
 import HistoryEveningEntry from './views/HistoryEveningEntry.vue'
 import HistoryMorningEntry from './views/HistoryMorningEntry.vue'
 import { auth } from './fb'
@@ -20,9 +19,20 @@ import { auth } from './fb'
 Vue.use(Router)
 
 const checkUser = (to, from, next) => {
-    const user = auth.currentUser;
-    if (!user) next('/login')
-    else next()
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            //user is logged in
+            if (to.name == "Login" || to.name == "signup") {
+                next('/dashboard');
+            }
+            else {
+                next();
+            }
+        } else {
+            //user isn't logged in
+            next('/login');
+        }
+    });
 }
 
 export default new Router({
@@ -87,20 +97,16 @@ export default new Router({
             beforeEnter: checkUser
         },
         {
-            path: '/ex',
-            name: 'Beispiele',
-            component: Examples,
-            beforeEnter: checkUser
-        },
-        {
             path: '/login',
             name: 'Login',
-            component: Login
+            component: Login,
+            beforeEnter: checkUser
         },
         {
             path: '/signup',
             name: 'signup',
-            component: Signup
+            component: Signup,
+            beforeEnter: checkUser
         },
         {
             path: '/tips',
@@ -116,7 +122,7 @@ export default new Router({
         },
         {
             path: '/exercises',
-            name: 'Progressive Muskelrelaxion',
+            name: 'Übungen',
             component: Exercises,
             beforeEnter: checkUser
         },
