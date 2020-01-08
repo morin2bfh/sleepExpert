@@ -141,6 +141,7 @@ export default {
   methods: {
     enoughSleepEfficiency() {
         var changeDB = false;
+        var computeEfficiency = false;
         var entries = [];
         var threeDaysAgo = new Date(moment(new Date()).subtract(3, 'days'));
         var p1 = db
@@ -150,15 +151,20 @@ export default {
             .get();
         return p1.then(values => {
             values.forEach(function(doc) {
-                entries.push(doc);
+                if(values.size > 0) {
+                    entries.push(doc);
+                    computeEfficiency = true;
+                }
             })
-            this.computeEfficiency(entries);
-            if(this.efficiency < 0.85) {
-                this.computeShorterWindow();
-                changeDB = true;
-            } else {
-                this.computeLongerWindow();
-                changeDB = true;
+            if(computeEfficiency) {
+                this.computeEfficiency(entries);
+                if(this.efficiency < 0.85) {
+                    this.computeShorterWindow();
+                    changeDB = true;
+                } else {
+                    this.computeLongerWindow();
+                    changeDB = true;
+                }
             }
             return changeDB;
         })
