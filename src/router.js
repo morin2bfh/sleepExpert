@@ -122,7 +122,7 @@ export default new Router({
         },
         {
             path: '/exercises',
-            name: 'Progressive Muskelrelaxion',
+            name: 'Übungen',
             component: Exercises,
             beforeEnter: checkUser
         },
