@@ -13,7 +13,7 @@
     <v-expand-transition>
       <div v-show="show">
         <v-divider></v-divider>
-        <v-card-text>Diese Funktion ist noch in Entwicklung. Hier wirst du aber bald deine Schlafstatistik finden. In der Statistik kannst du nachsehen, wie gut du durchschnittlich schnläfts oder wie sich deine Schlafqualität entwickelt hat.</v-card-text>
+        <v-card-text>Diese Funktion ist noch in Entwicklung. Hier wirst du aber bald deine Schlafstatistik finden. In der Statistik kannst du nachsehen, wie gut du durchschnittlich schläfst oder wie sich deine Schlafqualität entwickelt hat.</v-card-text>
       </div>
     </v-expand-transition>
   </v-card>
