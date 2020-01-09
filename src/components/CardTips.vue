@@ -1,6 +1,7 @@
 <template>
   <v-card @click="show = !show" dark class="mx-auto mt-2" id="styleCard">
     <v-card-title>{{ title }}</v-card-title>
+    <v-card-subtitle class="my-auto">{{ subtitle }}</v-card-subtitle>
     <v-card-actions>
       <v-btn icon>
         <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
@@ -19,6 +20,7 @@
 export default {
   props: {
     title: String,
+    subtitle: String,
     textExpanded: String
   },
   data: () => ({
