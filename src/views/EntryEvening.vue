@@ -28,6 +28,7 @@ import CardEntryEvening from "@/components/CardEntryEvening.vue";
 import cards from "@/config/eveningEntryConfig.js";
 import db from "../fb";
 import { auth } from "../fb";
+import { bus } from "../main";
 
 export default {
   components: {
@@ -60,7 +61,7 @@ export default {
       }
     },
     cancel() {
-      this.$router.push("/dashboard");
+      bus.$emit("changedRoute", "/dashboard");
     },
     onChangedValue(changedValue) {
       let value = changedValue.value;
