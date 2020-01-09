@@ -1,5 +1,5 @@
 <template>
-    <v-container>
+    <v-container id="container">
         <div v-if="data">
             <v-card dark>
                 <v-card-text class="headline mb-1">
@@ -290,5 +290,8 @@ export default {
 <style scoped>
 #layoutButtons {
   padding: 10px;
+}
+#container {
+  padding-bottom: 80px;
 }
 </style>
