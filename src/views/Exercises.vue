@@ -1,5 +1,6 @@
 <template>
   <v-container class="flex-column justify-space-around" id="container">
+    <h2 class="white--text text-center">Progressive Muskelrelaxion</h2>
     <card-exercises
       v-for="card in cards"
       :key="card.title"
