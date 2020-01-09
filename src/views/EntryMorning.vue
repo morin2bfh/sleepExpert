@@ -31,6 +31,7 @@ import CardEntryMorning from "@/components/CardEntryMorning.vue";
 import cards from "@/config/morningEntryConfig.js";
 import db from "../fb";
 import { auth } from "../fb";
+import { bus } from "../main";
 
 export default {
   components: {
@@ -68,7 +69,7 @@ export default {
       }
     },
     cancel() {
-      this.$router.push("/dashboard");
+      bus.$emit("changedRoute", "/dashboard");
     },
     onChangedValue(changedValue) {
       let value = changedValue.value;
