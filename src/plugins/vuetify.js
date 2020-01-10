@@ -17,6 +17,7 @@ export default new Vuetify({
       clock: 'mdi-clock-outline',
       date: 'mdi-calendar',
       book: 'mdi-book',
+      logout: 'mdi-logout',
     },
   },
 });
