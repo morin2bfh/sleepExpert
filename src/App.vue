@@ -1,11 +1,10 @@
 <template>
   <v-app>
-    <v-app-bar v-if="auth.currentUser" app dark height="50px" widht ="100%" id="appBar">
+    <v-app-bar v-if="auth.currentUser" app dark height="50px" widht="100%" id="appBar">
       <v-toolbar-title class="headline text-uppercase">{{ activeTitle }}</v-toolbar-title>
-      <v-btn icon
-      v-if="this.activeTitle=='Dashboard'" @click="logout()">
-      <v-icon>$vuetify.icons.logout</v-icon>
-    </v-btn>
+      <v-btn icon v-if="this.activeTitle=='Dashboard'" @click="logout()">
+        <v-icon>$vuetify.icons.logout</v-icon>
+      </v-btn>
     </v-app-bar>
     <v-content>
       <router-view></router-view>
@@ -70,7 +69,9 @@ export default {
       });
     },
     logout() {
-    
+      auth.signOut().then(() => {
+        this.$router.push("/login");
+      });
     }
   },
   computed: {
