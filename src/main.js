@@ -1,7 +1,7 @@
 /*
-In diesem File wird die Applikation initialisiert. die genutzten plugins wie vuetify
+In diesem File wird die Applikation initialisiert. Die genutzten plugins wie vuetify
 und der vue-interne router werden registriert
-Zudem wir ein Serviceworker registriert, welcher ausgeführt wird, wenn ein Nutzer die 
+Zudem wird ein Serviceworker registriert, welcher ausgeführt wird, wenn ein Nutzer die 
 Anwendung zum Startbildschirm seines Smartphones hinzufügt.
 
 © Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri

@@ -1,3 +1,10 @@
+<!--
+In diesem File wird der Morgeneintrag initialisiert.
+Die Formularfelder sind in Komponenten realisiert, aber in diesem File werden die eingegebenen
+Daten in die Datenbank gespeichert.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
 <template>
   <v-container id="containerMorningEntry">
     <v-form ref="form" v-model="valid" lazy-validation>
@@ -41,6 +48,7 @@ export default {
     return {
       valid: true,
       cards,
+      // das Objekt, welches in die Datenbank gespeichert wird
       morningEntry: {
         standUpTime: null,
         wakeUpTime: null,
@@ -59,6 +67,8 @@ export default {
     };
   },
   methods: {
+    // wird der Morgeneintrag gespeichert, so werden die Daten in die Datenbank gespeichert
+    // dazu wird zuerst die UserID in das Objekt morningEntry gespeichert
     submit() {
       this.morningEntry.uid = auth.currentUser.uid;
       if (this.$refs.form.validate()) {
@@ -68,13 +78,19 @@ export default {
         this.$vuetify.goTo(0);
       }
     },
+    // wird auf Abbrechen geklickt, so wird der User auf das Dashboard geleitet
     cancel() {
       bus.$emit("changedRoute", "/dashboard");
     },
+    // die Änderungen der Formular-Felder werden hierhin weitergeleitet
+    // diese werden in das Objekt morningEntry gespeichert
     onChangedValue(changedValue) {
       let value = changedValue.value;
       this.morningEntry[changedValue.id] = value;
     },
+    // die Änderungen der Uhr-Felder haben ein anderes Format
+    // diese werden in ein Datum gespeichert, welches entweder heute oder gestern ist
+    // danach wird das Datum in das Objekt morningEntry gespeichert
     onChangedClock(changedClock) {
       let value = changedClock.value;
       let date = new Date();

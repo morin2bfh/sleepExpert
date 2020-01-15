@@ -1,6 +1,6 @@
 /*
 In diesem File werden sämtliche Pfade registriert, um die Navigation zu ermöglichen.
-Zusätzlich wird beim Aufrufen jedes Pfades überprüft ob der Nutzer eingelogt ist. Falls dies
+Zusätzlich wird beim Aufrufen jedes Pfades überprüft, ob der Nutzer eingeloggt ist. Falls dies
 nicht der Fall ist, wird es auf die Login-Seite weitergeleitet.
 
 © Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri

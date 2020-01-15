@@ -1,3 +1,8 @@
+<!--
+In diesem File wird die Komponente für den das Formular-Feld Uhr definiert.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
 <template>
   <v-col cols="12" sm="4">
     <v-dialog ref="dialog" v-model="clockTime" :return-value.sync="time" persistent width="290px">
@@ -40,21 +45,27 @@ export default {
   },
   data() {
     return {
+      // Variabel, um den Wert des Textfelds zu speichern
       time: null,
       clockTime: false,
       clock: false,
+      // Regel, dass die Uhr immer ein Pflichtfeld ist
       ruleClockTime: [v => !!v || "Dies ist ein Pflichtfeld"]
     };
   },
   created() {
+    // wurde eine value mitgegeben, so wird diese in das Textfeld geschrieben
+    // dies wird für den Verlauf gebraucht
     if (this.value) {
       this.time = this.value;
     }
   },
   methods: {
+    // wird auf Übernehmen geklickt, wird die ausgewählte Zeit gespeichert
     save(time) {
       this.$refs.dialog.save(time);
     },
+    // ändert sich die Uhr, so wird die Änderung an die Ober-Komponente weitergegeben
     onClockChanged() {
       const changedClock = {
         value: this.time,
@@ -65,6 +76,3 @@ export default {
   }
 };
 </script>
-
-<style>
-</style>

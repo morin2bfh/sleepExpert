@@ -1,8 +1,14 @@
+<!--
+In diesem File wird die Komponente für den Abendeintrag definiert. Je nach Option der Formular-
+Felder, werden unterschiedliche Unter-Komponenten ausgeführt.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
 <template>
   <v-card class="mx-auto mt-2" dark>
     <v-card-title>{{ title }}</v-card-title>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
+    <!-- Füge einen Slider ein, wenn die Option card(card.option) 'slider' ist -->
     <div v-if="option == 'sliderOption'">
       <card-slider
         :value="value"
@@ -13,7 +19,7 @@
       ></card-slider>
     </div>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'checkbox Genuss' -->
+    <!-- Füge eine Checkbox für den Genuss ein, wenn die Option card(card.option) 'checkbox Genuss' ist -->
     <div v-else-if="option == 'checkboxOptionGenuss'">
       <v-container fluid>
         <card-checkbox
@@ -29,7 +35,7 @@
       </v-container>
     </div>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'checkbox Schlaf' -->
+    <!-- Füge eine Checkbox für den Schlaf ein, wenn die Option card(card.option) 'checkbox Schlaf' ist -->
     <div v-else-if="option == 'checkboxOptionSchlaf'">
       <v-container fluid>
         <card-checkbox
@@ -67,6 +73,7 @@ export default {
   },
   data() {
     return {
+      // die Daten für die Checkbox "Genussmittel"
       stimulants: [
         {
           label: "Kaffee",
@@ -89,6 +96,7 @@ export default {
           number: 3
         }
       ],
+      // die Daten für die Checkbox "Tagesschlaf"
       daySleep: [
         {
           label: "Mittagsschlaf",
@@ -109,6 +117,8 @@ export default {
     };
   },
   computed: {
+    // die Daten, wie die Checkbox ausgefüllt ist, werden in das benötigte Format gebracht
+    // dies wird für den Verlauf verwendet
     stimulantCheckbox: function() {
       let values = this.value.replace(/ /g, "");
       values = values.split(",");
@@ -119,6 +129,8 @@ export default {
       }
       return stimulants;
     },
+    // die Daten, wie die Checkbox ausgefüllt ist, werden in das benötigte Format gebracht
+    // dies wird für den Verlauf verwendet
     daySleepCheckbox: function() {
       let values = this.value.replace(/ /g, "");
       //values = values.slice(1, -1).split(",");
@@ -132,9 +144,12 @@ export default {
     }
   },
   methods: {
+    // wurde ein Slider geändert, wird der neue Wert an den Abendeintrag weitergegeben
     onChangedSlider(changedValue) {
       this.$emit("changedValue", changedValue);
     },
+    // wurde eine Checkbox geändert, wird der neue Wert an den Abendeintrag weitergegeben
+    // dazu wird das Array der Checkbox zuerst ins benötigte Format gebracht
     onChangedCheckbox(value) {
       let checkbox = null;
       if (value.id == "stimulants") {

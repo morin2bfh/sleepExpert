@@ -1,3 +1,8 @@
+<!--
+In diesem File wird die Komponente für den das Formular-Feld Checkbox definiert.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
 <template>
   <v-container fluid>
     <v-checkbox
@@ -21,13 +26,17 @@ export default {
   },
   data() {
     return {
+      // Variabel, um den Wert der Checkbox zu speichern
       checkboxValue: false
     };
   },
   created() {
+    // wurde eine value mitgegeben, so wird die Checkbox angepasst
+    // dies wird für den Verlauf gebraucht
     this.checkboxValue = this.value;
   },
   methods: {
+    // ändert sich die Checkbox, so wird die Änderung an die Ober-Komponente weitergegeben
     onCheckboxClicked(number) {
       let changedValue = {
         value: this.checkboxValue,

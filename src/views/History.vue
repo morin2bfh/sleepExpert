@@ -34,7 +34,7 @@ export default {
     };
   },
   created() {
-    //sobald die Seite initialisiert ist, werden die DAten aus der DB gelsen
+    //sobald die Seite initialisiert ist, werden die Daten aus der DB gelsen
     var entries = [];
 
     //die Daten liegen in zwei Collections: EntryMorning für die Morgeneinträge
@@ -50,7 +50,7 @@ export default {
       .get();
 
     //Die DB Abfrage ist asynchron, es muss also auf die vollendung des Query
-    //gewartet werden, bevor mit den Daten witergearbeitet wird.
+    //gewartet werden, bevor mit den Daten weitergearbeitet wird.
     Promise.all([p1, p2]).then(values => {
       //values beinhaltet die return-values der im promise ausgeführten funktionen.
       //in diesem Fall ein Array der Einträge.

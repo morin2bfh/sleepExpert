@@ -1,6 +1,6 @@
 /*
-Diesed File ist eine Sammlung der Fragen für den Abend-Fragebogen.
-Jedes Element weist eine option auf, welche dem Typ des Eingabefeldes entspricht
+Dieses File ist eine Sammlung der Fragen für den Abend-Fragebogen.
+Jedes Element weist eine Option auf, welche dem Typ des Eingabefeldes entspricht
 
 © Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
 */

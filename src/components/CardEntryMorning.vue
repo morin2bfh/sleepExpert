@@ -1,8 +1,14 @@
+<!--
+In diesem File wird die Komponente für den Morgeneintrag definiert. Je nach Option der Formular-
+Felder, werden unterschiedliche Unter-Komponenten ausgeführt.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
 <template>
   <v-card class="mx-auto mt-2" dark>
     <v-card-title>{{ title }}</v-card-title>
 
-    <!-- Insert a slider if the option of the card(card.option) says 'slider' -->
+    <!-- Füge einen Slider ein, wenn die Option card(card.option) 'slider' ist -->
     <div v-if="option == 'sliderOption'">
       <card-slider
         :value="value"
@@ -13,7 +19,7 @@
       ></card-slider>
     </div>
 
-    <!-- Insert a checkbox if the option of the card(card.option) says 'checkbox' -->
+    <!-- Füge eine Checkbox ein, wenn die Option card(card.option) 'checkbox' ist -->
     <div v-else-if="option == 'checkboxOption'">
       <card-checkbox
         v-for="checkbox in medicationCheckbox"
@@ -27,7 +33,7 @@
       ></card-checkbox>
     </div>
 
-    <!-- Insert a number textfield if the option of the card(card.option) says 'numbers' -->
+    <!-- Füge ein Textfeld für Zahlen ein, wenn die Option card(card.option) numbers' ist -->
     <div v-else-if="option == 'numbersOption'">
       <card-number
         :value="value"
@@ -38,8 +44,8 @@
       ></card-number>
     </div>
 
-    <!-- Insert a time textfield if the option of the card(card.option) says 'hhmm'.
-    These are the inputs for a format like hh:mm-->
+    <!-- Füge ein Zeit-Textfeld ein, wenn die Option card(card.option) 'hhmm' ist
+      Das sind Eingaben im Format hh:mm-->
     <div v-else-if="option == 'hhmmOption'">
       <card-time
         :value="value"
@@ -50,7 +56,7 @@
       ></card-time>
     </div>
 
-    <!-- Insert a clock if the option of the card(card.option) says 'clock' -->
+    <!-- Füge ein Uhr ein, wenn die Option card(card.option) 'clock' ist -->
     <div v-else-if="option == 'clockOption'">
       <card-clock
         :value="value"
@@ -89,6 +95,7 @@ export default {
   },
   data() {
     return {
+      // die Daten für die Checkbox "Schlafmittel"
       medication: [
         {
           label: "Vor dem zu Bett gehen",
@@ -104,6 +111,8 @@ export default {
     };
   },
   computed: {
+    // die Daten, wie die Checkbox ausgefüllt ist, werden in das benötigte Format gebracht
+    // dies wird für den Verlauf verwendet
     medicationCheckbox: function() {
       let values = this.value.replace(/ /g, "");
       values = values.split(",");
@@ -116,9 +125,13 @@ export default {
     }
   },
   methods: {
+    // wurde ein Slider, ein Nummern-Textfeld oder eine Uhr geändert,
+    // wird der neue Wert an den Morgeneintrag weitergegeben
     onChangedNumber(changedNumber) {
       this.$emit("changedValue", changedNumber);
     },
+    // wurde eine Checkbox geändert, wird der neue Wert an den Morgeneintrag weitergegeben
+    // dazu wird das Array der Checkbox zuerst ins benötigte Format gebracht
     onChangedCheckbox(value) {
       this.medication[value.number].value = value.value;
       let output = [];
@@ -131,6 +144,8 @@ export default {
       };
       this.$emit("changedValue", changedValue);
     },
+    // wurde ein Zeit-Textfeld geändert, wird der neue Wert an den Morgeneintrag weitergegeben
+    // dazu wird zuerst die Zeit in Minuten ausgerechnet
     onChangedTime(changedTime) {
       let value = changedTime.value;
       let minutes = value.split(":")[0] * 60 + value.split(":")[1] * 1;

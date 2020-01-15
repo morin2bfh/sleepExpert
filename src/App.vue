@@ -1,7 +1,7 @@
 <!--
 Dieses File ist ein Rahmen für die eigentliche Anwendung. 
 Hier werden Navigationsleiste und Header der Applikation initialisiert. Beide werden nur dann angezeigt,
-wenn der User eingelogt ist. 
+wenn der User eingeloggt ist. 
 
 © Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
 -->
