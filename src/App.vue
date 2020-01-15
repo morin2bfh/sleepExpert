@@ -1,3 +1,10 @@
+<!--
+Dieses File ist ein Rahmen für die eigentliche Anwendung. 
+Hier werden Navigationsleiste und Header der Applikation initialisiert. Beide werden nur dann angezeigt,
+wenn der User eingelogt ist. 
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
 <template>
   <v-app>
     <v-app-bar v-if="auth.currentUser" app dark height="50px" widht="100%" id="appBar">
@@ -58,17 +65,20 @@ export default {
     };
   },
   created() {
+    //wird benötigt, damit der Header aktuell gehalten werden kann.
     bus.$on("changedRoute", data => {
       this.goTo(data);
     });
   },
   methods: {
     goTo(route) {
+      //Navigationsfunktion
       this.$router.push(route).then(() => {
         this.activeTitle = this.$router.currentRoute.name;
       });
     },
     logout() {
+      //Logoutfunktion
       auth.signOut().then(() => {
         this.$router.push("/login");
       });

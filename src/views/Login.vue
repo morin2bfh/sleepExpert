@@ -1,3 +1,9 @@
+<!--
+Login-Page für bereits registrierte User
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
+
 <template>
   <v-container class="d-flex flex-column align-center">
     <v-avatar min-width="200px" min-height="200px" class="mb-8">
