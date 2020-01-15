@@ -1,3 +1,11 @@
+/*
+In diesem File werden sämtliche Pfade registriert, um die Navigation zu ermöglichen.
+Zusätzlich wird beim Aufrufen jedes Pfades überprüft ob der Nutzer eingelogt ist. Falls dies
+nicht der Fall ist, wird es auf die Login-Seite weitergeleitet.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+*/
+
 import Vue from 'vue'
 import Router from 'vue-router'
 import Dashboard from './views/Dashboard.vue'
@@ -23,6 +31,7 @@ const checkUser = (to, from, next) => {
         if (user) {
             //user is logged in
             if (to.name == "Login" || to.name == "signup") {
+                //logged in user does not need to navigate to login or signup, redirect to dashboard
                 next('/dashboard');
             }
             else {
@@ -99,14 +108,12 @@ export default new Router({
         {
             path: '/login',
             name: 'Login',
-            component: Login,
-            //beforeEnter: checkUser
+            component: Login
         },
         {
             path: '/signup',
             name: 'signup',
-            component: Signup,
-            //beforeEnter: checkUser
+            component: Signup
         },
         {
             path: '/tips',

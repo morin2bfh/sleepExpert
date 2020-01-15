@@ -1,3 +1,10 @@
+/*
+Diesed File ist eine Sammlung der Fragen für den Morgen-Fragebogen.
+Jedes Element weist eine option auf, welche dem Typ des Eingabefeldes entspricht
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+*/
+
 export default [
     {
         option: "clockOption",

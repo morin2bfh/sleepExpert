@@ -1,7 +1,15 @@
+/*
+In diesem File werden Einstellungen für die Datenbankanbindung gemacht.
+Die Objekte db und auth werden exportiert, damit später in allen Komponenten die Funktionen
+dieser Objekte leichter gneutzt werden können.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+*/
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 
+//informationen zur DB
 var config = {
     apiKey: "AIzaSyD4GsmiUorIBAGiGMGvgfloOZm7W236aYI",
     authDomain: "sleepexpertbfh.firebaseapp.com",
