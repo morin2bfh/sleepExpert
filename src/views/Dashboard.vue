@@ -1,3 +1,9 @@
+<!--
+In diesem File wird das Dashboard initialisiert.
+Die Daten, welche benötigt werden, werden aus dem Array cards der data() Funktion eingelesen.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
 <template>
   <v-container class="d-flex flex-column justify-space-around" id="container">
     <card
