@@ -1,3 +1,9 @@
+ <!--
+In diesem File wird die Komponente für die Seite Tipps definiert.
+Alle Kacheln weisen Titel, Untertitel und TextExpanded auf.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
 <template>
   <v-card @click="show = !show" dark class="mx-auto mt-2" id="styleCard">
     <v-card-title>{{ title }}</v-card-title>

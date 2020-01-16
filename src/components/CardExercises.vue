@@ -1,3 +1,9 @@
+<!--
+In diesem File wird die Komponente für die Seite Übungen definiert. Alle Kacheln
+weisen Titel, TextExpanded, Bild, Datei sowie die Frage ob die Audio-Datei bereits abgespielt ist auf.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
 <template>
 <v-card>
   <v-card  dark class="mx-auto mt-2" id="styleCard">

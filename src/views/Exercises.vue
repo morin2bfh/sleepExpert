@@ -1,3 +1,9 @@
+<!--
+In diesem File wird die Ansicht zu der Seite Übungen initialisiert.
+Die Daten, welche benötigt werden, werden aus dem Array cards der data() Funktion eingelesen.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
 <template>
   <v-container class="flex-column justify-space-around" id="container">
     <h2 class="white--text text-center">Progressive Muskelrelaxion</h2>
@@ -21,19 +27,25 @@
 </template>
 
 <script>
+// Komponent CardExercises wird importiert
 import CardExercises from "@/components/CardExercises.vue";
 
 export default {
   components: {
+    // CardExercises wird initialisiert
     CardExercises,
   },
   methods: {
+    // Diese Methode startet die Audio-Datei
     play(audio) {
       audio.isPlaying = true;
+      // Startet die Audio-Datei
       audio.file.play();
     },
+    // Diese Methode pausiert die abspielende Audio-Datei
     pause(audio) {
       audio.isPlaying = false;
+      // Pausiert die Audio-Datei
       audio.file.pause();
     }
   },
@@ -41,6 +53,7 @@ export default {
     return {
       audio: "",
       isPlaying: false,
+      // Definiert die Daten die in die jeweiligen Cards eingefügt werden
       cards: [
         {
           title: "Allgemeine Informationen",

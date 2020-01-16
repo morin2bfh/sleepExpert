@@ -1,3 +1,9 @@
+<!--
+In diesem File wird die Ansicht zu der Seite Wissen initialisiert.
+Die Daten, welche benötigt werden, werden aus dem Array cards der data() Funktion eingelesen.
+
+© Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
+-->
 <template>
   <v-container class="flex-column justify-space-around" id="container">
     <card-tips
@@ -12,14 +18,17 @@
 </template>
 
 <script>
+// Komponent CardTips wird importiert
 import CardTips from "@/components/CardTips.vue";
 
 export default {
   components: {
+    // CardTips wird initialisiert
     CardTips
   },
   data: () => ({
     show: false,
+    // Definiert die Daten die in die jeweiligen Cards eingefügt werden
     cards: [
       {
         title: "Schlafdruck",

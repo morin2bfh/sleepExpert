@@ -18,13 +18,16 @@ Die Daten, welche benötigt werden, werden aus dem Array cards der data() Funkti
 </template>
 
 <script>
+// Komponent Card wird importiert
 import Card from "@/components/Card.vue";
 
 export default {
   components: {
+    // Card wird initialisiert
     Card
   },
   data: () => ({
+    // Daten der Cards
     cards: [
       {
         title: "Morgeneintrag",
