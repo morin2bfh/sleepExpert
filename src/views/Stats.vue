@@ -5,16 +5,18 @@ Die Daten, welche benötigt werden, werden aus der data() Funktion eingelesen.
 © Biel 2020, Jeannine Bürki, Lisa Lüscher, Nora Möri
 -->
 <template>
-  <v-card class="mx-auto pt-5" max-width="400" dark>
-    <v-img :src="imgScr" height="250px" contain></v-img>
-    <card-tips
-      :key="title"
-      :title="title"
-      :subtitle="subtitle"
-      :textExpanded="textExpanded"
-    >
-    </card-tips>
-  </v-card>
+  <v-container class="mb-12">
+    <v-card class="mx-auto pt-5" max-width="400" dark>
+      <v-img :src="imgScr" height="250px" contain></v-img>
+      <card-tips
+        :key="title"
+        :title="title"
+        :subtitle="subtitle"
+        :textExpanded="textExpanded"
+      >
+      </card-tips>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
